@@ -7,9 +7,14 @@
 body,
 html {
 	margin: 0 auto;
-	height: 100% !important;
+  height: 100% !important;
 }
-
+// body{
+//   background-size:repeat;
+//   width:auto;
+//      background-image:url('./assets/bkg2.jpg');
+//      background-position:50% 50%;
+// }
 button:focus {
   outline: 0 !important;
   border: 0 !important;

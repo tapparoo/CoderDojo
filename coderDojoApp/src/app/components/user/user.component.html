@@ -106,31 +106,48 @@
 
               <div class="row">
                 <div class="col-md-2">
-                  <p>Email</p>
-                  <p>Phone</p>
-                  <p>DOB</p>
-                  <p>Gender</p>
-                  <p>Location</p>
-
+                  <p><mat-icon color="accent"  class="material-icons">
+                      email
+                      </mat-icon></p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-9">
                     <p>{{ child.email }}</p>
-                    <p>{{ child.phoneNumber }}</p>
-                    <p>{{ child.dob }}</p>
-                    <p>{{ child.gender }}</p>
-                    <p>{{ child.location.name }}</p>
                 </div>
+                <div class="col-md-2">
+                    <p><mat-icon color="accent"  class="material-icons">
+                        phone
+                        </mat-icon></p>
+                  </div>
+                  <div class="col-md-9">
+                      <p>{{ child.phoneNumber }}</p>
+                  </div>
+                  <div class="col-md-2">
+                      <p><mat-icon color="accent"  class="material-icons">
+                          cake
+                          </mat-icon></p>
+                    </div>
+                    <div class="col-md-9">
+                        <p>{{ child.dob }}</p>
+                    </div>
+                      <div class="col-md-2">
+                          <p><mat-icon color="accent"  class="material-icons">
+                              location_on
+                              </mat-icon></p>
+                        </div>
+                        <div class="col-md-9">
+                            <p>{{ child.location.name }}</p>
+                        </div>
               </div>
               <div *ngIf="child.achievments && child.achievments.length >0">
-              <h5>Achivements: </h5>
+              <h5><mat-icon color="warn"  class="material-icons">
+                  verified_user
+                  </mat-icon> Achivements: </h5>
               <div class="row achivmentsSection">
 
                   <div class="col-sm-3">
                     <div>Total </div>
-
-
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-9">
                       <div> {{child.achievments.length}} </div>
 
                   </div>
