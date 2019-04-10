@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `goal` ;
 
 CREATE TABLE IF NOT EXISTS `goal` (
   `id` INT NOT NULL,
-  ` name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
   `completed` TINYINT NULL,
   `achievement_id` INT NULL,
@@ -362,16 +362,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (1, 'turn computer on', 'Turining the computer on is serious business', 1, 1);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 1, 2);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 0, 3);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (4, 'get good at bootstra', 'bootstrap - the fastest way to make your website look good.', 0, 4);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (5, '...profit?', 'get a job i guess', 0, 5);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1, 1);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 1, 2);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly.', 1, 3);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you ar eready for the complicated stuff', 0, 4);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time', 0, 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (1, 'turn computer on', 'Turining the computer on is serious business', 1, 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 1, 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 0, 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (4, 'get good at bootstra', 'bootstrap - the fastest way to make your website look good.', 0, 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (5, '...profit?', 'get a job i guess', 0, 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1, 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 1, 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly.', 1, 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you ar eready for the complicated stuff', 0, 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time', 0, 5);
 
 COMMIT;
 
