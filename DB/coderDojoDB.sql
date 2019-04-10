@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(50) NULL,
   `password` VARCHAR(50) NULL,
   `date_created` DATETIME NULL,
-  `usercol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -113,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `achievement` (
   `name` VARCHAR(45) NULL,
   `achieved` TINYINT NULL,
   `sutdent_id` INT NULL,
+  `image_url` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   INDEX `achievement_is_owned_by_student_idx` (`sutdent_id` ASC),
   CONSTRAINT `achievement_is_owned_by_student`
@@ -286,6 +286,7 @@ DROP USER IF EXISTS codedojouser;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'codedojouser' IDENTIFIED BY 'codedojouser';
 
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'codedojouser';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -321,10 +322,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `usercol`) VALUES (1, 'admin', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `usercol`) VALUES (2, 'student', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `usercol`) VALUES (3, 'parent', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `usercol`) VALUES (4, 'mentor', 'password', '2015-11-15 22:14:54', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (1, 'admin', 'password', '2015-11-15 22:14:54');
+INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (2, 'student', 'password', '2015-11-15 22:14:54');
+INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (3, 'parent', 'password', '2015-11-15 22:14:54');
+INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (4, 'mentor', 'password', '2015-11-15 22:14:54');
 
 COMMIT;
 
@@ -347,11 +348,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`) VALUES (1, 'White Belt', 1, 2);
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`) VALUES (2, 'Yellow Belt', 1, 2);
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`) VALUES (3, 'Blue Belt', 0, 2);
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`) VALUES (4, 'Red Belt', 0, 2);
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`) VALUES (5, 'Black Belt', 0, 2);
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (1, 'White Belt', 1, 2, 'https://i.imgur.com/JyUXQRv.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (2, 'Yellow Belt', 1, 2, 'https://i.imgur.com/NyXNxGY.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (3, 'Blue Belt', 0, 2, 'https://i.imgur.com/zQpEuuj.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (4, 'Red Belt', 0, 2, 'https://i.imgur.com/9wvgRSm.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (5, 'Black Belt', 0, 2, 'https://i.imgur.com/q1lSBge.jpg');
 
 COMMIT;
 
