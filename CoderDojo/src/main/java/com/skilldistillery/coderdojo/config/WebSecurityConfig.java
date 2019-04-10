@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/questionTypes/admin", "/users/adminList", "/users/addAdminForm").hasRole("ADMIN")
 				.and()
-				.authorizeRequests().antMatchers("/wallPage", "/questions/add", "/questionTypes", "/profile/*", "/answers/**").hasAnyRole("ADMIN", "USER")
+				.authorizeRequests().antMatchers("/wallPage", "/questions/add", "/questionTypes", "/profile/*", "/answers/**").hasAnyRole("ADMIN", "USER", "MENTOR", "PARENT", "STUDENT")
 				.and()
 				.authorizeRequests().antMatchers("/login", "/resource/**").permitAll()
 				.and()
