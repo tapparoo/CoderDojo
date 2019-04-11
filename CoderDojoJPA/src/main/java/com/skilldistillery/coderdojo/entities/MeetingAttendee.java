@@ -1,7 +1,5 @@
 package com.skilldistillery.coderdojo.entities;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,16 +9,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Meeting {
+public class MeetingAttendee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="name")
-	private String name;
-	@Column(name="scheduled_time")
-	private Date scheduledTime; 
+	@Column(name="attended")
+	private boolean attended;
 	
 	@ManyToOne
-	@JoinColumn(name = "location_id")
-	private Location location;
+	@JoinColumn(name="user_id")
+	private UserDetail userDetail;
+	
+	@ManyToOne
+	@JoinColumn(name="metting_id")
+	private Meeting meeting;
+//	TODO: im not sure if this should be an entity or part of something else. 
+	
 }
+asdf asdf 
