@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Achievement {
@@ -22,9 +24,20 @@ public class Achievement {
 	
 	@Column(name="image_url")
 	private String imageUrl;
+	
+	@OneToMany(mappedBy="achievement")
+	private Set<Goal> goals;
 
 	
 	
+	public Set<Goal> getGoals() {
+		return goals;
+	}
+
+	public void setGoals(Set<Goal> goals) {
+		this.goals = goals;
+	}
+
 	public int getId() {
 		return id;
 	}

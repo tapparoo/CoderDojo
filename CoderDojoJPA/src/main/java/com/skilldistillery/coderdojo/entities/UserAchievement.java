@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 	
 
@@ -33,6 +35,24 @@ public class UserAchievement {
 	@JoinColumn(name = "achievement_id")
 	private Achievement achievement;
 	
+	
+	@OneToMany(mappedBy = "userAchievement")
+	private Set<UserGoal> userGoals;
+	
+	
+	
+	public Achievement getAchievement() {
+		return achievement;
+	}
+	public void setAchievement(Achievement achievement) {
+		this.achievement = achievement;
+	}
+	public Set<UserGoal> getUserGoals() {
+		return userGoals;
+	}
+	public void setUserGoals(Set<UserGoal> userGoals) {
+		this.userGoals = userGoals;
+	}
 	public int getId() {
 		return id;
 	}
