@@ -14,7 +14,7 @@ import com.skilldistillery.coderdojo.services.UserService;
 import com.skilldistillery.coderdojo.validator.UserValidator;
 
 @Controller
-public class UserController {
+public class AuthController {
     @Autowired
     private UserService userService;
 
