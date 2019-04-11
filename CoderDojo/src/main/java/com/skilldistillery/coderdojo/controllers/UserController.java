@@ -1,64 +1,34 @@
 package com.skilldistillery.coderdojo.controllers;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.User;
-import com.skilldistillery.coderdojo.services.SecurityService;
 import com.skilldistillery.coderdojo.services.UserService;
-import com.skilldistillery.coderdojo.validator.UserValidator;
 
-@Controller
+@RestController
+@RequestMapping("api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
+   @Autowired
+   UserService serv;
+   
+   @GetMapping
+   public List<User> getAllUsers(HttpServletResponse res, HttpServletRequest req){
+	   List<User> users = serv.index();
 
-    @Autowired
-    private SecurityService securityService;
+		if (users == null || !(users.size() > 0)) {
+			res.setStatus(204);
+		} else {
+			res.setStatus(200);
+		}
 
-    @Autowired
-    private UserValidator userValidator;
-
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "registration";
-    }
-
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userForm);
-
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
-
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
-
-        return "login";
-    }
-
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
-    }
+		return users;
+   }
 }
