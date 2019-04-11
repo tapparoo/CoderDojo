@@ -19,6 +19,7 @@ export class MeetingComponent implements OnInit {
   reload() {
     this.meetingService.index().subscribe(
       data => {
+        console.log(data);
         this.meetings = data;
         console.log();
       },

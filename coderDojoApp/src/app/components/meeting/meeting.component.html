@@ -1,3 +1,11 @@
-<p>
-  {{meetings}}
-</p>
+<table class="table table-striped" *ngIf="!selected">
+  <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Scheduled</th>
+    </thead>
+    <tr *ngFor="let todo of meetings "  >
+<td>{{todo.name}}</td>
+<td>  </td>
+<td>{{todo.scheduledTime}}</td>
+</tr>
+</table>
