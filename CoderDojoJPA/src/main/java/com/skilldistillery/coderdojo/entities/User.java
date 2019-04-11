@@ -21,9 +21,10 @@ public class User {
 
     private String password;
     
-    private String enabled;
+    private boolean enabled;
 
-    @Transient
+
+	@Transient
     private String passwordConfirm;
 
     @ManyToMany
@@ -69,11 +70,11 @@ public class User {
         this.roles = roles;
     }
 
-	public String getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(String enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 }
