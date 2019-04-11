@@ -2,13 +2,7 @@ import { MeetingService } from './services/meeting.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-=======
 import { FormsModule } from '@angular/forms';
->>>>>>> security3
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
