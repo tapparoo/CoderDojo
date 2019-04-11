@@ -125,13 +125,13 @@ CREATE TABLE IF NOT EXISTS `user_achievement` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `achieved` TINYINT NULL,
   `achieved_date` DATE NULL,
-  `student_id` INT NULL,
+  `user_detail_id` INT NULL,
   `achievement_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `achievement_is_owned_by_student_idx` (`student_id` ASC),
+  INDEX `achievement_is_owned_by_student_idx` (`user_detail_id` ASC),
   INDEX `user_achievement_references_an_achievement_idx` (`achievement_id` ASC),
   CONSTRAINT `user_achievement_is_owned_by_student`
-    FOREIGN KEY (`student_id`)
+    FOREIGN KEY (`user_detail_id`)
     REFERENCES `user_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -274,11 +274,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_roles`
+-- Table `user_role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_roles` ;
+DROP TABLE IF EXISTS `user_role` ;
 
-CREATE TABLE IF NOT EXISTS `user_roles` (
+CREATE TABLE IF NOT EXISTS `user_role` (
   `user_id` INT NULL,
   `role_id` INT NULL,
   INDEX `user_to_user_role_idx` (`user_id` ASC),
@@ -337,11 +337,11 @@ COMMIT;
 START TRANSACTION;
 USE `codedojodb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'ADMIN', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'STUDENT', 'password', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'PARENT', 'password', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'MENTOR', 'password', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'TODD', 'password', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'John', 'password', 0);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'STUDENT', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'PARENT', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'MENTOR', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'TODD', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'JOHN', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 0);
 
 COMMIT;
 
@@ -378,11 +378,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (1, 1, '2019-04-7', 2, 1);
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (2, 1, '2019-04-11', 2, 2);
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (3, 0, NULL, 2, 3);
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (4, 0, NULL, 2, 4);
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (5, 0, NULL, 2, 5);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (1, 1, '2019-04-7', 2, 1);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (2, 1, '2019-04-11', 2, 2);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (3, 0, NULL, 2, 3);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (4, 0, NULL, 2, 4);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (5, 0, NULL, 2, 5);
 
 COMMIT;
 
@@ -469,22 +469,22 @@ USE `codedojodb`;
 INSERT INTO `role` (`id`, `name`) VALUES (1, 'ADMIN');
 INSERT INTO `role` (`id`, `name`) VALUES (2, 'MENTOR');
 INSERT INTO `role` (`id`, `name`) VALUES (3, 'PARENT');
-INSERT INTO `role` (`id`, `name`) VALUES (4, 'STUENT');
+INSERT INTO `role` (`id`, `name`) VALUES (4, 'STUDENT');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user_roles`
+-- Data for table `user_role`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (1, 1);
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (2, 4);
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (3, 3);
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (2, 4);
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (5, 4);
-INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (6, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 3);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 4);
 
 COMMIT;
 
