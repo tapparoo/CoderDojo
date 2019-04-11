@@ -62,8 +62,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NULL,
   `password` VARCHAR(255) NULL,
-  `enabled` TINYINT NULL,
-  `role_id` INT NULL DEFAULT 1,
+  `enabled` TINYINT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -109,16 +108,36 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `achievement` ;
 
 CREATE TABLE IF NOT EXISTS `achievement` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
+  `description` VARCHAR(500) NULL,
+  `image_url` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_achievement`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_achievement` ;
+
+CREATE TABLE IF NOT EXISTS `user_achievement` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `achieved` TINYINT NULL,
+  `achieved_date` DATE NULL,
   `student_id` INT NULL,
-  `image_url` VARCHAR(100) NULL,
+  `achievement_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `achievement_is_owned_by_student_idx` (`student_id` ASC),
-  CONSTRAINT `achievement_is_owned_by_student`
+  INDEX `user_achievement_references_an_achievement_idx` (`achievement_id` ASC),
+  CONSTRAINT `user_achievement_is_owned_by_student`
     FOREIGN KEY (`student_id`)
     REFERENCES `user_detail` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_achievement_references_an_achievement`
+    FOREIGN KEY (`achievement_id`)
+    REFERENCES `achievement` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -130,16 +149,42 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `goal` ;
 
 CREATE TABLE IF NOT EXISTS `goal` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
-  `completed` TINYINT NULL,
-  `achievement_id` INT NULL,
+  `standard_achievement_id` INT NULL,
   PRIMARY KEY (`id`),
-  INDEX `goals_belong_to_a_belt_idx` (`achievement_id` ASC),
-  CONSTRAINT `goals_belong_to_a_belt`
-    FOREIGN KEY (`achievement_id`)
+  INDEX `goals_belong_to_achievement_idx` (`standard_achievement_id` ASC),
+  CONSTRAINT `goals_belong_to_achievement`
+    FOREIGN KEY (`standard_achievement_id`)
     REFERENCES `achievement` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_goal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_goal` ;
+
+CREATE TABLE IF NOT EXISTS `user_goal` (
+  `id` INT NOT NULL,
+  `completed` TINYINT NULL,
+  `completed_date` DATE NULL,
+  `user_achievement_id` INT NULL,
+  `goal_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `goals_belong_to_a_belt_idx` (`user_achievement_id` ASC),
+  INDEX `user_goals_to_parent_goal_idx` (`goal_id` ASC),
+  CONSTRAINT `user_goals_belong_to_a_user_achievement`
+    FOREIGN KEY (`user_achievement_id`)
+    REFERENCES `user_achievement` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_goals_to_parent_goal`
+    FOREIGN KEY (`goal_id`)
+    REFERENCES `goal` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -217,67 +262,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `standard_achievement`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `standard_achievement` ;
-
-CREATE TABLE IF NOT EXISTS `standard_achievement` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(500) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `standard_goal`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `standard_goal` ;
-
-CREATE TABLE IF NOT EXISTS `standard_goal` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `description` VARCHAR(500) NULL,
-  `standard_achievement_id` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `goals_belong_to_achievement_idx` (`standard_achievement_id` ASC),
-  CONSTRAINT `goals_belong_to_achievement`
-    FOREIGN KEY (`standard_achievement_id`)
-    REFERENCES `standard_achievement` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `authority`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `authority` ;
-
-CREATE TABLE IF NOT EXISTS `authority` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `user_authority`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_authority` ;
-
-CREATE TABLE IF NOT EXISTS `user_authority` (
-  `authority_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  CONSTRAINT `authority_to_user_authority`
-    FOREIGN KEY (`authority_id`)
-    REFERENCES `authority` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `role`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `role` ;
@@ -295,10 +279,8 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_roles` ;
 
 CREATE TABLE IF NOT EXISTS `user_roles` (
-  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NULL,
   `role_id` INT NULL,
-  PRIMARY KEY (`id`),
   INDEX `user_to_user_role_idx` (`user_id` ASC),
   INDEX `role_to_user_role_idx` (`role_id` ASC),
   CONSTRAINT `user_to_user_role`
@@ -354,10 +336,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (1, 'admin', 'password', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (2, 'student', 'password', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (3, 'parent', 'password', 1, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (4, 'mentor', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'ADMIN', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'STUDENT', 'password', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'PARENT', 'password', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'MENTOR', 'password', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'TODD', 'password', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'John', 'password', 0);
 
 COMMIT;
 
@@ -380,11 +364,25 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (1, 'White Belt', 1, 2, 'https://i.imgur.com/JyUXQRv.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (2, 'Yellow Belt', 1, 2, 'https://i.imgur.com/NyXNxGY.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (3, 'Blue Belt', 0, 2, 'https://i.imgur.com/zQpEuuj.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (4, 'Red Belt', 0, 2, 'https://i.imgur.com/9wvgRSm.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (5, 'Black Belt', 0, 2, 'https://i.imgur.com/q1lSBge.jpg');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', NULL);
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', NULL);
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', NULL);
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', NULL);
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_achievement`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `codedojodb`;
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (1, 1, '2019-04-7', 2, 1);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (2, 1, '2019-04-11', 2, 2);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (3, 0, NULL, 2, 3);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (4, 0, NULL, 2, 4);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `student_id`, `achievement_id`) VALUES (5, 0, NULL, 2, 5);
 
 COMMIT;
 
@@ -394,16 +392,35 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (1, 'turn computer on', 'Turining the computer on is serious business', 1, 1);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 1, 2);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 0, 3);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (4, 'get good at bootstra', 'bootstrap - the fastest way to make your website look good.', 0, 4);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (5, '...profit?', 'get a job i guess', 0, 5);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1, 1);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 1, 2);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly.', 1, 3);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you ar eready for the complicated stuff', 0, 4);
-INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time', 0, 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (1, 'turn computer on....', 'Turning the computer on is serious bisiness', 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (4, 'get good at bootstrap', 'bootsrap - the fastest way to make your website look good. ', 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (5, '... profit?', 'get a job i guess', 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly. ', 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you are ready for the complicated stuff', 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time. ', 5);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_goal`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `codedojodb`;
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (1, 1, '2019-04-01', 1, 1);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (2, 1, '2019-04-10', 2, 2);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (3, 1, NULL, 3, 3);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (4, 0, NULL, 4, 4);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (5, 0, NULL, 5, 5);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (6, 1, '2019-04-01', 1, 6);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (7, 1, '2019-04-10', 2, 7);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (8, 0, NULL, 3, 8);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (9, 0, NULL, 4, 9);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (10, 0, NULL, 5, 10);
 
 COMMIT;
 
@@ -445,60 +462,29 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `standard_achievement`
+-- Data for table `role`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `standard_achievement` (`id`, `name`, `description`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!');
-INSERT INTO `standard_achievement` (`id`, `name`, `description`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt');
-INSERT INTO `standard_achievement` (`id`, `name`, `description`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!');
-INSERT INTO `standard_achievement` (`id`, `name`, `description`) VALUES (4, 'Red Belt', 'You see design everywhere you go.');
-INSERT INTO `standard_achievement` (`id`, `name`, `description`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.');
+INSERT INTO `role` (`id`, `name`) VALUES (1, 'ADMIN');
+INSERT INTO `role` (`id`, `name`) VALUES (2, 'MENTOR');
+INSERT INTO `role` (`id`, `name`) VALUES (3, 'PARENT');
+INSERT INTO `role` (`id`, `name`) VALUES (4, 'STUENT');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `standard_goal`
+-- Data for table `user_roles`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (1, 'turn computer on....', 'Turning the computer on is serious bisiness', 1);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 2);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 3);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (4, 'get good at bootstrap', 'bootsrap - the fastest way to make your website look good. ', 4);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (5, '... profit?', 'get a job i guess', 5);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 2);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly. ', 3);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you are ready for the complicated stuff', 4);
-INSERT INTO `standard_goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time. ', 5);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `authority`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `codedojodb`;
-INSERT INTO `authority` (`id`, `name`) VALUES (1, 'ROLE_ADMIN');
-INSERT INTO `authority` (`id`, `name`) VALUES (2, 'ROLE_STUDENT');
-INSERT INTO `authority` (`id`, `name`) VALUES (3, 'ROLE_PARENT');
-INSERT INTO `authority` (`id`, `name`) VALUES (4, 'ROLE_MENTOR');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `user_authority`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `codedojodb`;
-INSERT INTO `user_authority` (`authority_id`, `user_id`) VALUES (1, 1);
-INSERT INTO `user_authority` (`authority_id`, `user_id`) VALUES (2, 2);
-INSERT INTO `user_authority` (`authority_id`, `user_id`) VALUES (3, 3);
-INSERT INTO `user_authority` (`authority_id`, `user_id`) VALUES (4, 4);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (1, 1);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (2, 4);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (3, 3);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (2, 4);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (5, 4);
+INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES (6, 4);
 
 COMMIT;
 
