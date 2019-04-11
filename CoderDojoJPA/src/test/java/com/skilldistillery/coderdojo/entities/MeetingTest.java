@@ -2,6 +2,8 @@ package com.skilldistillery.coderdojo.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.sql.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -34,6 +36,8 @@ class MeetingTest {
 	public void test_meeting_table() {
 		assertEquals(1, meet.getId());
 		assertEquals("Meetup at Turing", meet.getName());
+		assertEquals(1, meet.getLocation().getId());
+		assertEquals("2019-01-01", meet.getScheduledTime().toString());
 	}
 
 }

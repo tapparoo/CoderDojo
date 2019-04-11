@@ -16,9 +16,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="user_detail")
 public class UserDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,15 +46,30 @@ public class UserDetail {
 	
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="parent_child_relationship",
-		joinColumns={@JoinColumn(name="id")},
-		inverseJoinColumns={@JoinColumn(name="child_id")})
+		joinColumns={@JoinColumn(name="child_id")},
+		inverseJoinColumns={@JoinColumn(name="parent_id")})
 	private Set<UserDetail> parents = new HashSet<UserDetail>();
 
 	@ManyToMany(mappedBy="parents")
 	private Set<UserDetail> children = new HashSet<UserDetail>();
 	
-	@OneToMany(mappedBy="userDetail")
 	
+	@ManyToMany
+	@JoinTable(name = "meeting_attendance", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+	
+	private Set<Meeting> meetingsAttended;
+	
+	
+	
+
+	
+	public Set<Meeting> getMeetingsAttended() {
+		return meetingsAttended;
+	}
+
+	public void setMeetingsAttended(Set<Meeting> meetingsAttended) {
+		this.meetingsAttended = meetingsAttended;
+	}
 
 	public int getId() {
 		return id;
@@ -131,12 +148,11 @@ public class UserDetail {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((children == null) ? 0 : children.hashCode());
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((meetingsAttended == null) ? 0 : meetingsAttended.hashCode());
 		result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
-		result = prime * result + ((parents == null) ? 0 : parents.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -156,11 +172,6 @@ public class UserDetail {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (children == null) {
-			if (other.children != null)
-				return false;
-		} else if (!children.equals(other.children))
-			return false;
 		if (dob == null) {
 			if (other.dob != null)
 				return false;
@@ -173,15 +184,15 @@ public class UserDetail {
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
+		if (meetingsAttended == null) {
+			if (other.meetingsAttended != null)
+				return false;
+		} else if (!meetingsAttended.equals(other.meetingsAttended))
+			return false;
 		if (nickname == null) {
 			if (other.nickname != null)
 				return false;
 		} else if (!nickname.equals(other.nickname))
-			return false;
-		if (parents == null) {
-			if (other.parents != null)
-				return false;
-		} else if (!parents.equals(other.parents))
 			return false;
 		if (phoneNumber == null) {
 			if (other.phoneNumber != null)
@@ -199,8 +210,7 @@ public class UserDetail {
 	@Override
 	public String toString() {
 		return "UserDetail [id=" + id + ", dob=" + dob + ", nickname=" + nickname + ", phoneNumber=" + phoneNumber
-				+ ", user=" + user + ", location=" + location + ", address=" + address + ", parents=" + parents
-				+ ", children=" + children + "]";
+				+ ", user=" + user + ", location=" + location + ", address=" + address;
 	}
 
 	public UserDetail(int id, Date dob, String nickname, String phoneNumber, User user, Location location,

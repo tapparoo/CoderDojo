@@ -17,7 +17,7 @@ public class Goal {
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="standardachievement_id")
+	@JoinColumn(name="standard_achievement_id")
 	private Achievement achievement;
 
 	public int getId() {

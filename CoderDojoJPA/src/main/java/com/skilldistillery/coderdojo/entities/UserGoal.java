@@ -2,24 +2,29 @@ package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user_goal")
 public class UserGoal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private boolean completed;
+	
+	@Column(name="completed_date")
 	private Date completedDate;
 	
 	@ManyToOne
-	@JoinColumn(name="user_achieement_id")
+	@JoinColumn(name="user_achievement_id")
 	private UserAchievement userAchievement;
 	
 	@ManyToOne
