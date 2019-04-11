@@ -1,50 +1,45 @@
 package com.skilldistillery.coderdojo.security;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
-
+@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UserDetailsServiceImpl();
-	}
-
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
-		authProvider.setPasswordEncoder(passwordEncoder());
-		return authProvider;
-	}
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(authenticationProvider());
-	}
+// this you get for free when you configure the db connection in application.properties file
+	@Autowired
+	private DataSource dataSource;
+// this bean is created in the application starter class if you're looking for it
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/wallPage").hasAnyRole("ADMIN", "USER").and().authorizeRequests()
-				.antMatchers("/login", "/resource/**").permitAll().and().formLogin().loginPage("/login")
-				.usernameParameter("username").passwordParameter("password").permitAll().loginProcessingUrl("/doLogin")
-				.successForwardUrl("/postLogin").failureUrl("/loginFailed").and().logout().logoutUrl("/doLogout")
-				.logoutSuccessUrl("/logout").permitAll().and().csrf().disable();
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll() // For CORS,
+																											// the
+																											// preflight
+																											// request
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // will hit the OPTIONS on the route
+				.antMatchers("/api/**").authenticated() // Requests for our REST API must be authorized.
+				.anyRequest().permitAll() // All other requests are allowed without authorization.
+				.and().httpBasic(); // Use HTTP Basic Authentication
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		String userQuery = "SELECT username, password, enabled FROM User WHERE username=?";
+		String authQuery = "SELECT username, role FROM User WHERE username=?";
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(userQuery)
+				.authoritiesByUsernameQuery(authQuery).passwordEncoder(encoder);
 	}
 }
