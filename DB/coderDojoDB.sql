@@ -60,10 +60,10 @@ DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL,
-  `username` VARCHAR(50) NULL,
-  `password` VARCHAR(50) NULL,
-  `date_created` DATETIME NULL,
+  `username` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NULL,
   `enabled` TINYINT NULL,
+  `role_id` INT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -269,15 +269,46 @@ DROP TABLE IF EXISTS `user_authority` ;
 CREATE TABLE IF NOT EXISTS `user_authority` (
   `authority_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  INDEX `user_to_user_authority_idx` (`user_id` ASC),
-  CONSTRAINT `user_to_user_authority`
+  CONSTRAINT `authority_to_user_authority`
+    FOREIGN KEY (`authority_id`)
+    REFERENCES `authority` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `role` ;
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_role` ;
+
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `id` INT NOT NULL,
+  `user_id` INT NULL,
+  `role_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_to_user_role_idx` (`user_id` ASC),
+  INDEX `role_to_user_role_idx` (`role_id` ASC),
+  CONSTRAINT `user_to_user_role`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `authority_to_user_authority`
-    FOREIGN KEY (`authority_id`)
-    REFERENCES `authority` (`id`)
+  CONSTRAINT `role_to_user_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `role` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -323,10 +354,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `enabled`) VALUES (1, 'admin', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `enabled`) VALUES (2, 'student', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `enabled`) VALUES (3, 'parent', 'password', '2015-11-15 22:14:54', NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`, `enabled`) VALUES (4, 'mentor', 'password', '2015-11-15 22:14:54', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (1, 'admin', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (2, 'student', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (3, 'parent', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (4, 'mentor', 'password', 1, NULL);
 
 COMMIT;
 
