@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -28,21 +29,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// XXX: This is where form login is enabled to go through Spring Security
 		http.csrf().disable()
 		.authorizeRequests()
+		.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
 		.antMatchers("/resources/**", "/registration", "/login", "/logout").permitAll()
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		.antMatchers("/api/**").hasAuthority("ADMIN")
 		.antMatchers("/api/users/").hasAuthority("STUDENT")
+		.antMatchers("/").permitAll()
+		.antMatchers("/api/meetings").permitAll()
 		.anyRequest().authenticated()
 		.and()
 	    .formLogin()
         .loginPage("/login")
-        .permitAll();
-//			.authorizeRequests().antMatchers("/resources/**", "/registration").permitAll().anyRequest().authenticated()
-//			.and()
-//			.formLogin().loginPage("/login").permitAll()
-//			.and()
-//			.logout().permitAll();
+        .permitAll()
+        .and().httpBasic();
+		
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
+
 
 	@Bean
 	public AuthenticationManager customAuthenticationManager() throws Exception {
