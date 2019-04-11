@@ -2,5 +2,8 @@ package com.skilldistillery.coderdojo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-//public class AchievementRepository extends JpaRepository<Category, Integer> {
-//}
+import com.skilldistillery.coderdojo.entities.Achievement;
+
+public interface AchievementRepository extends JpaRepository<Achievement, Integer> {
+
+}

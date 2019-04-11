@@ -65,7 +65,7 @@ public class AchievementController {
 			StringBuffer url = request.getRequestURL();
 			System.out.println("achievementController" + url.toString());
 			url.append("/");
-			url.append(achievement.getId());
+			//url.append(achievement.getId());
 			response.setHeader("Location", url.toString());
 			response.setStatus(201);
 			return achievement;
