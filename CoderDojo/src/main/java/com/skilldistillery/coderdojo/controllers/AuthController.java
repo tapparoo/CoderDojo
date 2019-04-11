@@ -1,19 +1,23 @@
 package com.skilldistillery.coderdojo.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.services.SecurityService;
 import com.skilldistillery.coderdojo.services.UserService;
 import com.skilldistillery.coderdojo.validator.UserValidator;
 
-@Controller
+@RestController
+@CrossOrigin({ "*", "http://localhost:4202" })
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -61,4 +65,10 @@ public class AuthController {
     public String welcome(Model model) {
         return "welcome";
     }
+    
+	@GetMapping("/authenticate")
+	public Principal authenticate(Principal principal) {
+		System.out.println(principal);
+		return principal;
+	}
 }
