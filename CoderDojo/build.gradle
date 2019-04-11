@@ -22,6 +22,8 @@ repositories {
 dependencies {
 	compile project(':CoderDojoJPA')
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.23'
+	compile group: 'jstl', name: 'jstl', version: '1.2'
+	compile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile 'org.junit.jupiter:junit-jupiter-api:5.0.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

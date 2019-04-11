@@ -21,9 +21,9 @@ USE `codedojodb` ;
 DROP TABLE IF EXISTS `address` ;
 
 CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(45) NULL,
-  `street 2` VARCHAR(45) NULL,
+  `street_2` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(45) NULL,
   `zip` INT NULL,
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `location` ;
 
 CREATE TABLE IF NOT EXISTS `location` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `details` VARCHAR(100) NULL,
   `address_id` INT NULL,
@@ -59,21 +59,22 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL,
-  `username` VARCHAR(50) NULL,
-  `password` VARCHAR(50) NULL,
-  `date_created` DATETIME NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NULL,
+  `enabled` TINYINT NULL,
+  `role_id` INT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_details`
+-- Table `user_detail`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_details` ;
+DROP TABLE IF EXISTS `user_detail` ;
 
-CREATE TABLE IF NOT EXISTS `user_details` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_detail` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `dob` DATE NULL,
   `nickname` VARCHAR(45) NULL,
   `phone_number` VARCHAR(45) NULL,
@@ -108,16 +109,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `achievement` ;
 
 CREATE TABLE IF NOT EXISTS `achievement` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `achieved` TINYINT NULL,
-  `sutdent_id` INT NULL,
+  `student_id` INT NULL,
   `image_url` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
-  INDEX `achievement_is_owned_by_student_idx` (`sutdent_id` ASC),
+  INDEX `achievement_is_owned_by_student_idx` (`student_id` ASC),
   CONSTRAINT `achievement_is_owned_by_student`
-    FOREIGN KEY (`sutdent_id`)
-    REFERENCES `user_details` (`id`)
+    FOREIGN KEY (`student_id`)
+    REFERENCES `user_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -130,7 +131,7 @@ DROP TABLE IF EXISTS `goal` ;
 
 CREATE TABLE IF NOT EXISTS `goal` (
   `id` INT NOT NULL,
-  ` name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
   `completed` TINYINT NULL,
   `achievement_id` INT NULL,
@@ -150,7 +151,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `meeting` ;
 
 CREATE TABLE IF NOT EXISTS `meeting` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `location_id` INT NULL,
   `date_time` DATETIME NULL,
@@ -165,12 +166,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `meeting_student_parent_mentor`
+-- Table `meeting_attendance`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `meeting_student_parent_mentor` ;
+DROP TABLE IF EXISTS `meeting_attendance` ;
 
-CREATE TABLE IF NOT EXISTS `meeting_student_parent_mentor` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `meeting_attendance` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `attended` TINYINT NULL,
   `meeting_id` INT NULL,
   `user_id` INT NULL,
@@ -184,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `meeting_student_parent_mentor` (
     ON UPDATE NO ACTION,
   CONSTRAINT `user_reference`
     FOREIGN KEY (`user_id`)
-    REFERENCES `user_details` (`id`)
+    REFERENCES `user_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -196,7 +197,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `parent_child_relationship` ;
 
 CREATE TABLE IF NOT EXISTS `parent_child_relationship` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `parent_id` INT NULL,
   `child_id` INT NULL,
   PRIMARY KEY (`id`),
@@ -204,12 +205,12 @@ CREATE TABLE IF NOT EXISTS `parent_child_relationship` (
   INDEX `child_of_the_relationship_idx` (`child_id` ASC),
   CONSTRAINT `parent_of_the_relationship`
     FOREIGN KEY (`parent_id`)
-    REFERENCES `user_details` (`id`)
+    REFERENCES `user_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `child_of_the_relationship`
     FOREIGN KEY (`child_id`)
-    REFERENCES `user_details` (`id`)
+    REFERENCES `user_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -234,7 +235,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `standard_goal` ;
 
 CREATE TABLE IF NOT EXISTS `standard_goal` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
   `standard_achievement_id` INT NULL,
@@ -254,7 +255,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `authority` ;
 
 CREATE TABLE IF NOT EXISTS `authority` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -268,15 +269,46 @@ DROP TABLE IF EXISTS `user_authority` ;
 CREATE TABLE IF NOT EXISTS `user_authority` (
   `authority_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  INDEX `user_to_user_authority_idx` (`user_id` ASC),
-  CONSTRAINT `user_to_user_authority`
+  CONSTRAINT `authority_to_user_authority`
+    FOREIGN KEY (`authority_id`)
+    REFERENCES `authority` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `role` ;
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_roles` ;
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL,
+  `role_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_to_user_role_idx` (`user_id` ASC),
+  INDEX `role_to_user_role_idx` (`role_id` ASC),
+  CONSTRAINT `user_to_user_role`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `authority_to_user_authority`
-    FOREIGN KEY (`authority_id`)
-    REFERENCES `authority` (`id`)
+  CONSTRAINT `role_to_user_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `role` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -297,11 +329,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `address` (`id`, `street`, `street 2`, `city`, `state`, `zip`, `country`) VALUES (1, '123 test dr', 'apt 99', 'Boulder', 'CO', 80303, 'USA');
-INSERT INTO `address` (`id`, `street`, `street 2`, `city`, `state`, `zip`, `country`) VALUES (2, '7400 E Orchard Rd ', '7400 E Orchard Rd #1450n,', 'Greenwood Village', 'CO', 80111, 'USA');
-INSERT INTO `address` (`id`, `street`, `street 2`, `city`, `state`, `zip`, `country`) VALUES (3, '1331 17th st', 'Lower level(Basement)', 'Denver', 'CO', 80202, 'USA');
-INSERT INTO `address` (`id`, `street`, `street 2`, `city`, `state`, `zip`, `country`) VALUES (4, '1545 S Yates st', NULL, 'Denver', 'CO', 80219, 'USA');
-INSERT INTO `address` (`id`, `street`, `street 2`, `city`, `state`, `zip`, `country`) VALUES (5, '1485 Delgany St', NULL, 'Denver', 'CO', 80202, 'USA');
+INSERT INTO `address` (`id`, `street`, `street_2`, `city`, `state`, `zip`, `country`) VALUES (1, '123 test dr', 'apt 99', 'Boulder', 'CO', 80303, 'USA');
+INSERT INTO `address` (`id`, `street`, `street_2`, `city`, `state`, `zip`, `country`) VALUES (2, '7400 E Orchard Rd ', '7400 E Orchard Rd #1450n,', 'Greenwood Village', 'CO', 80111, 'USA');
+INSERT INTO `address` (`id`, `street`, `street_2`, `city`, `state`, `zip`, `country`) VALUES (3, '1331 17th st', 'Lower level(Basement)', 'Denver', 'CO', 80202, 'USA');
+INSERT INTO `address` (`id`, `street`, `street_2`, `city`, `state`, `zip`, `country`) VALUES (4, '1545 S Yates st', NULL, 'Denver', 'CO', 80219, 'USA');
+INSERT INTO `address` (`id`, `street`, `street_2`, `city`, `state`, `zip`, `country`) VALUES (5, '1485 Delgany St', NULL, 'Denver', 'CO', 80202, 'USA');
 
 COMMIT;
 
@@ -322,23 +354,23 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (1, 'admin', 'password', '2015-11-15 22:14:54');
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (2, 'student', 'password', '2015-11-15 22:14:54');
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (3, 'parent', 'password', '2015-11-15 22:14:54');
-INSERT INTO `user` (`id`, `username`, `password`, `date_created`) VALUES (4, 'mentor', 'password', '2015-11-15 22:14:54');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (1, 'admin', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (2, 'student', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (3, 'parent', 'password', 1, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role_id`) VALUES (4, 'mentor', 'password', 1, NULL);
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user_details`
+-- Data for table `user_detail`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_details` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'marky-mark', '123-456-7890', 1, 1, 1);
-INSERT INTO `user_details` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'a-tappy', '098-765-4321', 2, 1, 2);
-INSERT INTO `user_details` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (3, '2009-01-01', 'A.J.', '567-567-5678', 3, 2, 3);
-INSERT INTO `user_details` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'SD Steve', '543-543-5432', 4, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'marky-mark', '123-456-7890', 1, 1, 1);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'a-tappy', '098-765-4321', 2, 1, 2);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (3, '2009-01-01', 'A.J.', '567-567-5678', 3, 2, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'SD Steve', '543-543-5432', 4, 2, 4);
 
 COMMIT;
 
@@ -348,11 +380,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (1, 'White Belt', 1, 2, 'https://i.imgur.com/JyUXQRv.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (2, 'Yellow Belt', 1, 2, 'https://i.imgur.com/NyXNxGY.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (3, 'Blue Belt', 0, 2, 'https://i.imgur.com/zQpEuuj.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (4, 'Red Belt', 0, 2, 'https://i.imgur.com/9wvgRSm.jpg');
-INSERT INTO `achievement` (`id`, `name`, `achieved`, `sutdent_id`, `image_url`) VALUES (5, 'Black Belt', 0, 2, 'https://i.imgur.com/q1lSBge.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (1, 'White Belt', 1, 2, 'https://i.imgur.com/JyUXQRv.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (2, 'Yellow Belt', 1, 2, 'https://i.imgur.com/NyXNxGY.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (3, 'Blue Belt', 0, 2, 'https://i.imgur.com/zQpEuuj.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (4, 'Red Belt', 0, 2, 'https://i.imgur.com/9wvgRSm.jpg');
+INSERT INTO `achievement` (`id`, `name`, `achieved`, `student_id`, `image_url`) VALUES (5, 'Black Belt', 0, 2, 'https://i.imgur.com/q1lSBge.jpg');
 
 COMMIT;
 
@@ -362,16 +394,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (1, 'turn computer on', 'Turining the computer on is serious business', 1, 1);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 1, 2);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 0, 3);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (4, 'get good at bootstra', 'bootstrap - the fastest way to make your website look good.', 0, 4);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (5, '...profit?', 'get a job i guess', 0, 5);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1, 1);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 1, 2);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly.', 1, 3);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you ar eready for the complicated stuff', 0, 4);
-INSERT INTO `goal` (`id`, ` name`, `description`, `completed`, `achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time', 0, 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (1, 'turn computer on', 'Turining the computer on is serious business', 1, 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 1, 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 0, 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (4, 'get good at bootstra', 'bootstrap - the fastest way to make your website look good.', 0, 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (5, '...profit?', 'get a job i guess', 0, 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1, 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 1, 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly.', 1, 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you ar eready for the complicated stuff', 0, 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `completed`, `achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time', 0, 5);
 
 COMMIT;
 
@@ -388,15 +420,15 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `meeting_student_parent_mentor`
+-- Data for table `meeting_attendance`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `meeting_student_parent_mentor` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (1, 1, 1, 3);
-INSERT INTO `meeting_student_parent_mentor` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (2, 1, 1, 2);
-INSERT INTO `meeting_student_parent_mentor` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (3, 0, 2, 2);
-INSERT INTO `meeting_student_parent_mentor` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (4, 0, 2, 1);
-INSERT INTO `meeting_student_parent_mentor` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (5, 1, 1, 3);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (1, 1, 1, 3);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (2, 1, 1, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (3, 0, 2, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (4, 0, 2, 1);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (5, 1, 1, 3);
 
 COMMIT;
 
