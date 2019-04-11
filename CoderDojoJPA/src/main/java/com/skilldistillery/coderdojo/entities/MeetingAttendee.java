@@ -21,9 +21,8 @@ public class MeetingAttendee {
 	private UserDetail userDetail;
 	
 	@ManyToOne
-	@JoinColumn(name="metting_id")
+	@JoinColumn(name="meeting_id")
 	private Meeting meeting;
 //	TODO: im not sure if this should be an entity or part of something else. 
 	
 }
-asdf asdf 

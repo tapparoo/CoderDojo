@@ -21,7 +21,7 @@ USE `codedojodb` ;
 DROP TABLE IF EXISTS `address` ;
 
 CREATE TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(45) NULL,
   `street_2` VARCHAR(45) NULL,
   `city` VARCHAR(45) NULL,
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `location` ;
 
 CREATE TABLE IF NOT EXISTS `location` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `details` VARCHAR(100) NULL,
   `address_id` INT NULL,
@@ -59,7 +59,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NULL,
   `password` VARCHAR(255) NULL,
   `enabled` TINYINT NULL,
@@ -74,7 +74,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_detail` ;
 
 CREATE TABLE IF NOT EXISTS `user_detail` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `dob` DATE NULL,
   `nickname` VARCHAR(45) NULL,
   `phone_number` VARCHAR(45) NULL,
@@ -109,7 +109,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `achievement` ;
 
 CREATE TABLE IF NOT EXISTS `achievement` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `achieved` TINYINT NULL,
   `student_id` INT NULL,
@@ -151,7 +151,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `meeting` ;
 
 CREATE TABLE IF NOT EXISTS `meeting` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `location_id` INT NULL,
   `date_time` DATETIME NULL,
@@ -171,7 +171,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `meeting_attendance` ;
 
 CREATE TABLE IF NOT EXISTS `meeting_attendance` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `attended` TINYINT NULL,
   `meeting_id` INT NULL,
   `user_id` INT NULL,
@@ -197,7 +197,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `parent_child_relationship` ;
 
 CREATE TABLE IF NOT EXISTS `parent_child_relationship` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `parent_id` INT NULL,
   `child_id` INT NULL,
   PRIMARY KEY (`id`),
@@ -235,7 +235,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `standard_goal` ;
 
 CREATE TABLE IF NOT EXISTS `standard_goal` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
   `standard_achievement_id` INT NULL,
@@ -255,7 +255,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `authority` ;
 
 CREATE TABLE IF NOT EXISTS `authority` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -283,7 +283,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `role` ;
 
 CREATE TABLE IF NOT EXISTS `role` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -295,7 +295,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_role` ;
 
 CREATE TABLE IF NOT EXISTS `user_role` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NULL,
   `role_id` INT NULL,
   PRIMARY KEY (`id`),
