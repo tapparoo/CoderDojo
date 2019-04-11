@@ -91,7 +91,7 @@ public class User {
 		this.roles = roles;
 	}
 
-	public boolean isEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
