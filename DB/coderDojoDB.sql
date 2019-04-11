@@ -290,11 +290,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_role`
+-- Table `user_roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_role` ;
+DROP TABLE IF EXISTS `user_roles` ;
 
-CREATE TABLE IF NOT EXISTS `user_role` (
+CREATE TABLE IF NOT EXISTS `user_roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NULL,
   `role_id` INT NULL,
