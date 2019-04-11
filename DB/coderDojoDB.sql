@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(255) NULL,
   `password` VARCHAR(255) NULL,
   `enabled` TINYINT NULL,
-  `role_id` INT NULL,
+  `role_id` INT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
