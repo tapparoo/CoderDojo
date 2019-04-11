@@ -8,12 +8,16 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider
     </provider>
 
-		<class>com.skilldistillery.coderdojo.entities.User</class>
-		<class>com.skilldistillery.coderdojo.entities.Role</class>
 		<class>com.skilldistillery.coderdojo.entities.Achievment</class>
+		<class>com.skilldistillery.coderdojo.entities.Address</class>
 		<class>com.skilldistillery.coderdojo.entities.Goal</class>
 		<class>com.skilldistillery.coderdojo.entities.Meeting</class>
+		<class>com.skilldistillery.coderdojo.entities.MeetingAttendee</class>
 		<class>com.skilldistillery.coderdojo.entities.Location</class>
+		<class>com.skilldistillery.coderdojo.entities.Role</class>
+		<class>com.skilldistillery.coderdojo.entities.User</class>
+		<class>com.skilldistillery.coderdojo.entities.UserDetail</class>
+		<class>com.skilldistillery.coderdojo.entities.UserGoal</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/codedojodb?useSSL=false" />

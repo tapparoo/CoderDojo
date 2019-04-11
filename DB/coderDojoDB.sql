@@ -364,11 +364,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', NULL);
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', NULL);
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', NULL);
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', NULL);
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', NULL);
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', 'https://i.imgur.com/eouDBcn.gif');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', 'https://i.imgur.com/SYvA20Z.jpg');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', 'https://i.imgur.com/7NhByZl.jpg');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', 'https://i.imgur.com/9wvgRSm.jpg');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', 'http://www.qmsacademy.com/wp-content/cache/thumbnails/2016/08/six-sigma-master-570x705-c.png');
 
 COMMIT;
 
