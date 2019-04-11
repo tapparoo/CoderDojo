@@ -1,9 +1,16 @@
 package com.skilldistillery.coderdojo.entities;
 
-import javax.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "role")
@@ -14,6 +21,7 @@ public class Role {
 
 	private String name;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users;
 
