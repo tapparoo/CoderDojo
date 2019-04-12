@@ -21,7 +21,7 @@ import { UserComponent } from './components/user/user.component';
     HomeComponent,
     RegisterComponent,
     AdminComponent,
-    UserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
