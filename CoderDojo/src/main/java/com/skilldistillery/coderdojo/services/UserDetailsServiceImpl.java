@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private UserDetailRepository deetsRepo;
 
+	// Spring Security method(s)
+	
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) {
@@ -34,5 +41,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				grantedAuthorities);
+	}
+	
+	// Custom methods
+	
+	public List<UserDetail> index() {
+		return deetsRepo.findAll();
+	}
+	
+	public UserDetail findUserDetailByUsername(String username) {
+		User user = userRepository.findByUsername(username);
+		
+		if (user == null)
+			throw new UsernameNotFoundException(username);
+		
+		return deetsRepo.findByUserId(user.getId());
 	}
 }
