@@ -1,13 +1,15 @@
 <div *ngIf="user && !editUser">
     <form>
-      <label>ID:
-        <input type="text" name="id" disabled [ngModel]="user.id">
-      </label><br>
+      <label>ID: {{user.id}}</label>
+      <br>
       <label>Username
       <input type="text" name="username" disabled [ngModel]="user.username">
       </label><br>
       <label>Password
       <input type="text" name="password" disabled [ngModel]="user.password">
+      </label><br>
+      <label>Enabled?
+      <input type="checkbox" name="enabled" disabled [ngModel]="user.enabled">
       </label><br>
     </form>
   <button (click)="user = null;">Back</button>
@@ -16,9 +18,17 @@
 
 <div *ngIf="editUser">
     <form #EditUserForm="ngForm">
-        <input type="text" name="id" disabled [ngModel]="user.id">
-        <input type="text" name="username" [ngModel]="user.username">
-        <input type="text" name="password" [ngModel]="user.password">
+          <label>ID: {{user.id}}</label>
+          <br>
+          <label>Username
+          <input type="text" name="username" [ngModel]="user.username">
+          </label><br>
+          <label>Password
+          <input type="text" name="password" [ngModel]="user.password">
+          </label><br>
+          <label>Enabled?
+            <input type="checkbox" name="enabled" [ngModel]="user.enabled">
+          </label><br>
       </form>
     <button (click)="editUser = false;">Cancel</button>
     <button (click)="updateUser(EditUserForm)">Save</button>
