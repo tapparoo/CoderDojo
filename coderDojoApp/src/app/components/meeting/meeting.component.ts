@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { MeetingService } from './../../services/meeting.service';
 import { Meeting } from './../../models/meeting';
 import { Component, OnInit } from '@angular/core';
@@ -10,18 +12,26 @@ import { Component, OnInit } from '@angular/core';
 export class MeetingComponent implements OnInit {
 
   meetings: Meeting[] = [];
-  constructor(private meetingService: MeetingService) { }
+  isAuthorized = false;
+  constructor(private meetingService: MeetingService,
+              private auth: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
     this.reload();
   }
+  checkLogin() {
+    if (!this.auth.checkLogin()) {
+        return this.router.navigateByUrl('/home');
+    }
+  }
 
   reload() {
+    console.log(localStorage);
     this.meetingService.index().subscribe(
       data => {
         console.log(data);
         this.meetings = data;
-        console.log();
       },
       err => {
         console.error(err);

@@ -1,11 +1,16 @@
-<table class="table table-striped" *ngIf="!selected">
+<table class="table table-striped" >
   <thead>
       <th scope="col">Name</th>
       <th scope="col">Scheduled</th>
+      <th scope="col">Location</th>
+      <th *ngIf="isAuthorized" scope="col">Edit</th>
+      <th *ngIf="isAuthorized" scope="col">Delete</th>
     </thead>
-    <tr *ngFor="let todo of meetings "  >
-<td>{{todo.name}}</td>
-<td>  </td>
-<td>{{todo.scheduledTime}}</td>
+<tr *ngFor="let meeting of meetings " >
+<td>{{meeting.name}}</td>
+<td>{{meeting.location.name}}  </td>
+<td>{{meeting.scheduledTime}}</td>
+<td *ngIf="isAuthorized"><button>Edit</button>  </td>
+<td *ngIf="isAuthorized"><button>Delete</button>  </td>
 </tr>
 </table>
