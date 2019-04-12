@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.repositories.MeetingRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 
@@ -93,5 +95,19 @@ public class MeetingServiceImpl implements MeetingService {
         }
         return false;
 	}
+	
+//    @Override
+//    public List <UserDetail> showMeetingUsers(Integer mid) {
+//    	UserDetail m = null;
+////    	User u = repoUser.findByUsername(username);
+//        List<UserDetail> opt =  repo.findBymeetingAttendees_userDetail(mid);
+////        if (opt.isPresent()) {
+////            if (u!= null) {
+////                m = opt.get();
+//                System.out.println(m + "&&&&&&&&&&&&&&&&&&&&&&");
+////            }
+////        }
+//        return opt;
+//    }
 
 }

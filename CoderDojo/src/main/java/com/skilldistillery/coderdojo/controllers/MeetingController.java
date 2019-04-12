@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Meeting;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.MeetingService;
 
 @RestController
@@ -32,9 +34,34 @@ public class MeetingController {
 	@GetMapping("meetings")
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
-		System.out.println(principal+ "werwer");
 		return service.findAllMeetings(principal.getName());
 	}
+	
+	//  GET Meetings
+//	@GetMapping("meetings/attendance/{mid}")
+//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
+//			@PathVariable("mid") Integer mid,
+//			Principal principal) {
+//		try {
+//			List<UserDetail> meeting = service.showMeetingUsers(mid);
+//			if (meeting == null) {
+//				res.setStatus(404);
+//			} else {
+//				StringBuffer url = req.getRequestURL();
+//				url.append("/");
+//				url.append(mid);
+//				res.setHeader("Location", url.toString());
+//
+//				res.setStatus(201);
+//			}
+//
+//			return meeting;
+//		} catch (Exception e) {
+//			res.setStatus(500);
+//			return null;
+//		}
+//	}
+	
 	
 	//  GET Meetings
 	@GetMapping("schedule")

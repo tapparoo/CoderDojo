@@ -17,6 +17,8 @@ export class MeetingComponent implements OnInit {
   isAuthorized = false;
   editMeeting = false;
   selected = null;
+  displayAttendees = false;
+
   constructor(private meetingService: MeetingService,
               private auth: AuthService,
               private router: Router) { }
@@ -34,6 +36,7 @@ export class MeetingComponent implements OnInit {
   reload() {
     this.meetingService.showSchedule().subscribe(
       data => {
+        console.log(data);
         this.meetings = data;
         console.log(this.meetings + 'this.meetings');
         this.isAuthorized = false;
@@ -101,6 +104,12 @@ export class MeetingComponent implements OnInit {
       }
     );
 
+  }
+
+  displayAttendeesList(meeting){
+    this.selected = meeting;
+    this.displayAttendees=true;
+    console.log(this.selected);
   }
 
 }

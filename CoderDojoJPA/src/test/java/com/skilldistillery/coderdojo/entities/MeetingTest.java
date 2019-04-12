@@ -38,6 +38,7 @@ class MeetingTest {
 		assertEquals("Meetup at Turing", meet.getName());
 		assertEquals(1, meet.getLocation().getId());
 		assertEquals("2019-01-01", meet.getScheduledTime().toString());
+		assertEquals(1, meet.getMeetingAttendees());
 	}
 
 }

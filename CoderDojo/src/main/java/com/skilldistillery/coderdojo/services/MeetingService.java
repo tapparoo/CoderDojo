@@ -1,8 +1,10 @@
 package com.skilldistillery.coderdojo.services;
 
+import java.util.List;
 import java.util.Set;
 
 import com.skilldistillery.coderdojo.entities.Meeting;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 
 public interface MeetingService {
 
@@ -17,5 +19,7 @@ public interface MeetingService {
 	boolean destroy(String username, int mid);
 	
 	Meeting show(String username, Integer mid);
+
+//	List<UserDetail> showMeetingUsers(Integer mid);
 
 }

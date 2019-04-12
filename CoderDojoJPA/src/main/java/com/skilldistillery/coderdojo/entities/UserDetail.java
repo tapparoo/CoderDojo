@@ -57,7 +57,7 @@ public class UserDetail {
 	@ManyToMany(mappedBy="parents")
 	private Set<UserDetail> children = new HashSet<UserDetail>();
 	
-	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "meeting_attendance", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "meeting_id"))
 	private Set<Meeting> meetingsAttended;
