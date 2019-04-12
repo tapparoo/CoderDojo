@@ -42,11 +42,11 @@ class UserAchievementTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_user_achievement_mapping() {
 		assertEquals(1, ua.getId());
 		assertEquals("2019-04-07", ua.getAchievedDate().toString());
 		assertEquals("White Belt", ua.getAchievement().getName());
-		assertEquals("mark", ua.getUserDetail().getNickname());
+		assertEquals("a-tappy", ua.getUserDetail().getNickname());
 		assertTrue(ua.getUserGoals().size()>0);
 	
 	

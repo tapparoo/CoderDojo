@@ -45,7 +45,7 @@ class UserDetailTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_user_detail_mapping() {
 		assertEquals(2, userDeets.getId());
 		assertEquals("Greenwood Village", userDeets.getAddress().getCity());
 		assertTrue(userDeets.getParents().contains(mom));
