@@ -23,7 +23,6 @@ export class MeetingService {
   // METHODS
   index() {
     const credentials = this.auth.getCredentials();
-    console.log('TodoService.index(), credentials: ' + credentials);
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -39,5 +38,49 @@ export class MeetingService {
                  return throwError('getAll error');
                })
           );
+  }
+
+  create(meeting: Meeting) {
+    const credentials = this.auth.getCredentials();
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.post<any>(this.url, meeting, httpOptions);
+  }
+
+
+  destroy(id: number) {
+    const credentials = this.auth.getCredentials();
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    console.log(id);
+    return this.http.delete<any>(this.url + '/' + id, httpOptions);
+  }
+
+  public update(meeting: Meeting) {
+    const credentials = this.auth.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put<Meeting>(`${this.url}/${meeting.id}`, meeting, httpOptions).pipe(
+      catchError((err: any) => {
+        console.error('TodoService.update(): Error');
+        console.error(err);
+        return throwError('Error in TodoService.update()');
+      })
+    );
   }
 }

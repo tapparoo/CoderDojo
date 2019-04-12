@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,25 +57,25 @@ public class MeetingController {
 //		}
 //	}
 
-//	@PostMapping("todos")
-//	public Todo create(HttpServletRequest req, HttpServletResponse res, 
-//			@RequestBody Todo todo,
-//			Principal principal) {
-//		try {
-//			service.create(principal.getName(),todo);
-//			StringBuffer url = req.getRequestURL();
-//			System.out.println("PostController" + url.toString());
-//			url.append("/");
-//			url.append(todo.getId());
-//			res.setHeader("Location", url.toString());
-//			res.setStatus(201);
-//			return todo;
-//		} catch (Exception e) {
-//			res.setStatus(400);
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
+	@PostMapping("meetings")
+	public Meeting create(HttpServletRequest req, HttpServletResponse res, 
+			@RequestBody Meeting meeting,
+			Principal principal) {
+		try {
+			service.create(principal.getName(),meeting);
+			StringBuffer url = req.getRequestURL();
+			System.out.println("PostController" + url.toString());
+			url.append("/");
+			url.append(meeting.getId());
+			res.setHeader("Location", url.toString());
+			res.setStatus(201);
+			return meeting;
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+			return null;
+		}
+	}
 //
 //	@PutMapping("todos/{tid}") 
 //	public Todo update(
