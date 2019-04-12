@@ -1,3 +1,59 @@
-<p>
-  all-achievements works!
-</p>
+<div>
+  <div *ngIf="mode==='index'">
+
+      
+
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Image URl</th>
+          <th> </th>
+        </tr>
+      </thead>
+        <span *ngFor="let achievement of achievements">
+          <tr>
+            <td>
+              {{achievement.name}}
+            </td>
+            <td>
+              {{achievement.description}}
+            </td>
+            <td>
+              {{achievement.imageUrl}}
+            </td>
+            <td>
+              <button (click)="addGoalForm(achievement)"> Add Goal </button>
+            </td>
+            <tr>
+              <td>
+                <div class="collapse" id="achievementGoals">
+                    <tr **ngFor="let item of list"></tr>
+                  
+                </td>
+              </div>
+            </tr>
+          </tr>
+        </span>
+
+
+    </table> -->
+    <button (click)="addAchievementForm()">Add Achievement</button>
+  </div>
+
+</div>
+
+
+<!-- <table>
+    <tr>
+      <th> Task </th>
+      <th> Mark </th>
+      <th> Completed </th>
+    </tr>
+    <tr *ngFor="let todo of todos | incomplete:showAllTodos" [ngClass]="formatCompletedTodo(todo)" >
+      <td (click)="setSelected(todo)"> {{todo.task}} </td>
+      <td> <input type="checkbox" name="completed" [(ngModel)]="todo.completed" /> </td>
+      <td (click)="setSelected(todo)"> {{todo.completed}} </td>
+    </tr>
+  </table> -->

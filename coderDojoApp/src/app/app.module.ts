@@ -14,6 +14,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
 import { AllGoalsComponent } from './components/all-goals/all-goals.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AllGoalsComponent } from './components/all-goals/all-goals.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot(),
   ],
   providers: [AuthService, MeetingService ],
   bootstrap: [AppComponent]
