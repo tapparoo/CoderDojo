@@ -1,9 +1,10 @@
-<form #RegisterForm="ngForm">
-  <label for="username">Username:
-    <input type="text" name="username" ngModel>
-  </label><br>
-  <label for="password">Password:
-    <input type="text" name="password" ngModel>
-  </label><br>
-  <button (click)="register(RegisterForm)">Submit</button>
-</form>
+<div class="container">
+    <h2 class="form-heading">Register</h2>
+    <form #RegisterForm="ngForm" class="form-signin">
+      <div class="form-group">
+          <input type="text" class="form-control" placeholder="username" name="username" ngModel>
+          <input type="password" class="form-control" placeholder="password" name="password" ngModel>
+        <button class="btn btn-sm btn-primary btn-block" (click)="register(RegisterForm)">Submit</button>
+      </div>
+      </form>
+</div>

@@ -1,6 +1,6 @@
 <div *ngIf="user && !editUser">
     <form>
-      <label>ID: {{user.user.id}}</label>
+      <label>ID: {{user.id}}</label>
       <br>
       <label>Nickname
       <input type="text" name="nickname" disabled [ngModel]="user.nickname">
@@ -27,7 +27,7 @@
 
 <div *ngIf="editUser">
     <form #EditUserForm="ngForm">
-        <label>ID: {{user.user.id}}</label>
+        <label>ID: {{user.id}}</label>
         <br>
         <label>Nickname
         <input type="text" name="nickname" [ngModel]="user.nickname">
