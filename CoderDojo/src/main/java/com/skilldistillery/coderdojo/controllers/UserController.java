@@ -42,9 +42,17 @@ public class UserController {
 		return users;
    }
    
-   @GetMapping("{username}")
-   public UserDetail getUser(@PathVariable("username") String username, HttpServletResponse res, HttpServletRequest req){
-	   UserDetail user = deets.findUserDetailByUsername(username);
+   @GetMapping("{id}")
+   public UserDetail getUserDetailsById(@PathVariable("id") String id, HttpServletResponse res, HttpServletRequest req){
+	   UserDetail user = null;
+	   
+	   // Search by id or username, depending on what was passed in
+	   try {
+		   int actualId = Integer.parseInt(id);
+		   user = deets.findById(actualId);
+	   } catch (Exception e) {
+		   user = deets.findUserDetailByUsername(id);
+	   }
 	   
 	   if (user != null) {
 		   res.setStatus(200);
@@ -55,9 +63,24 @@ public class UserController {
 	   return user;
    }
    
+   // Update USER object (username/password)
    @PutMapping("{id}")
-   public User updateUser(@PathVariable("id") Integer id, @RequestBody User usr, HttpServletResponse res, HttpServletRequest req){
+   public User updateUser(@RequestBody User usr, HttpServletResponse res, HttpServletRequest req){
 	   User user = serv.updateUser(usr);
+	   
+	   if (user != null) {
+		   res.setStatus(200);
+	   } else {
+		   res.setStatus(404);
+	   }
+	   
+	   return user;
+   }
+   
+   // Update USER DETAILS
+   @PutMapping
+   public UserDetail updateUserDetails(@RequestBody UserDetail usr, HttpServletResponse res){
+	   UserDetail user = deets.update(usr);
 	   
 	   if (user != null) {
 		   res.setStatus(200);

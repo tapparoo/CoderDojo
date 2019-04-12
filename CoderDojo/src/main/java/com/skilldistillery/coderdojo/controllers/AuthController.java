@@ -35,6 +35,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public UserDetail registration(@RequestBody User user, HttpServletResponse resp) {
+    	// check if username already exists
+    	if (userService.findByUsername(user.getUsername()) != null) {
+    		resp.setStatus(409);
+    		return null;
+    	}
+    	
         userService.save(user);
         UserDetail newUser = deetsService.findUserDetailByUsername(user.getUsername());
         if (newUser != null) {
