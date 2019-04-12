@@ -15,7 +15,10 @@ export class AdminComponent implements OnInit {
 
   displayUsers(): void {
     this.userService.index().subscribe(
-      data => this.users = data,
+      data => {
+        this.users = data;
+
+      },
       err => {
         console.log(err);
         console.log('Error loading users from admin page');
@@ -36,9 +39,8 @@ export class AdminComponent implements OnInit {
   updateUser(form: NgForm) {
     console.log(form.value);
 
-    this.user.username = form.value.username;
-    this.user.password = form.value.password;
-    this.user.enabled = form.value.enabled;
+    this.user.nickname = form.value.nickname;
+    this.user.dob = form.value.dob;
 
     this.userService.updateUser(this.user).subscribe(
       data => {
@@ -55,13 +57,7 @@ export class AdminComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userService.index().subscribe(
-      data => this.users = data,
-      err => {
-        console.log(err);
-        console.log('Error loading users from admin page');
-      }
-    );
+    this.displayUsers();
   }
 
 }

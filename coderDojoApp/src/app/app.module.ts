@@ -24,9 +24,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HomeComponent,
     RegisterComponent,
     AdminComponent,
-    UserComponent,
-    AllAchievementsComponent,
-    AllGoalsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

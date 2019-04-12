@@ -8,13 +8,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.repositories.RoleRepository;
+import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private UserDetailRepository deetsRepo;
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
@@ -30,6 +34,11 @@ public class UserServiceImpl implements UserService {
 		user.addRole(roleRepository.findByName("STUDENT"));
 		user.setEnabled(true);
 		userRepository.save(user);
+		
+		// Associate new UserDetail object with newly created User
+		UserDetail deets = new UserDetail();
+		deets.setUser(user);
+		deetsRepo.saveAndFlush(deets);
 	}
 
 	@Override

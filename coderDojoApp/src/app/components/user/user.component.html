@@ -1,3 +1,53 @@
-<p>
-  user works!
-</p>
+<div *ngIf="user && !editUser">
+    <form>
+      <label>ID: {{user.id}}</label>
+      <br>
+      <label>Nickname
+      <input type="text" name="nickname" disabled [ngModel]="user.nickname">
+      </label><br>
+      <label>Phone Number
+      <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
+      </label><br>
+      <label>Address
+      <input type="text" name="address" disabled [ngModel]="user.address.street">
+      </label><br>
+      <label>Location
+      <input type="text" name="location" disabled [ngModel]="user.location.name">
+      </label><br>
+      <label>Parents
+      <input type="text" name="parents" disabled [ngModel]="user.parents">
+      </label><br>
+      <label>Children
+      <input type="text" name="children" disabled [ngModel]="user.children">
+      </label><br>
+    </form>
+  <button (click)="user = null;">Back</button>
+  <button (click)="editUser = true;">Edit</button>
+</div>
+
+<div *ngIf="editUser">
+    <form #EditUserForm="ngForm">
+        <label>ID: {{user.id}}</label>
+        <br>
+        <label>Nickname
+        <input type="text" name="nickname" [ngModel]="user.nickname">
+        </label><br>
+        <label>Phone Number
+        <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
+        </label><br>
+        <label>Address
+        <input type="text" name="address" disabled [ngModel]="user.address">
+        </label><br>
+        <label>Location
+        <input type="text" name="location" disabled [ngModel]="user.location">
+        </label><br>
+        <label>Parents
+        <input type="text" name="parents" disabled [ngModel]="user.parents">
+        </label><br>
+        <label>Children
+        <input type="text" name="children" disabled [ngModel]="user.children">
+        </label><br>
+      </form>
+    <button (click)="editUser = false;">Cancel</button>
+    <button (click)="updateUserDetails(EditUserForm)">Save</button>
+</div>

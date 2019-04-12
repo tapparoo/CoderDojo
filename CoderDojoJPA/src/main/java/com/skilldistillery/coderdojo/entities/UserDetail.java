@@ -14,9 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -24,7 +25,7 @@ import javax.persistence.Table;
 public class UserDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	@Column(name="dob")
 	private Date dob;
 	@Column(name="nickname")
@@ -32,6 +33,7 @@ public class UserDetail {
 	@Column(name="phone_number")
 	private String phoneNumber;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -44,24 +46,21 @@ public class UserDetail {
 	@JoinColumn(name="address_id")
 	private Address address;
 	
+	@JsonIgnore
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="parent_child_relationship",
 		joinColumns={@JoinColumn(name="child_id")},
 		inverseJoinColumns={@JoinColumn(name="parent_id")})
 	private Set<UserDetail> parents = new HashSet<UserDetail>();
 
+	@JsonIgnore
 	@ManyToMany(mappedBy="parents")
 	private Set<UserDetail> children = new HashSet<UserDetail>();
 	
 	
 	@ManyToMany
 	@JoinTable(name = "meeting_attendance", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "meeting_id"))
-	
 	private Set<Meeting> meetingsAttended;
-	
-	
-	
-
 	
 	public Set<Meeting> getMeetingsAttended() {
 		return meetingsAttended;
@@ -71,7 +70,7 @@ public class UserDetail {
 		this.meetingsAttended = meetingsAttended;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -147,14 +146,7 @@ public class UserDetail {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((meetingsAttended == null) ? 0 : meetingsAttended.hashCode());
-		result = prime * result + ((nickname == null) ? 0 : nickname.hashCode());
-		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 
@@ -167,42 +159,7 @@ public class UserDetail {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDetail other = (UserDetail) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (dob == null) {
-			if (other.dob != null)
-				return false;
-		} else if (!dob.equals(other.dob))
-			return false;
 		if (id != other.id)
-			return false;
-		if (location == null) {
-			if (other.location != null)
-				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (meetingsAttended == null) {
-			if (other.meetingsAttended != null)
-				return false;
-		} else if (!meetingsAttended.equals(other.meetingsAttended))
-			return false;
-		if (nickname == null) {
-			if (other.nickname != null)
-				return false;
-		} else if (!nickname.equals(other.nickname))
-			return false;
-		if (phoneNumber == null) {
-			if (other.phoneNumber != null)
-				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
@@ -212,26 +169,4 @@ public class UserDetail {
 		return "UserDetail [id=" + id + ", dob=" + dob + ", nickname=" + nickname + ", phoneNumber=" + phoneNumber
 				+ ", user=" + user + ", location=" + location + ", address=" + address;
 	}
-
-	public UserDetail(int id, Date dob, String nickname, String phoneNumber, User user, Location location,
-			Address address, Set<UserDetail> parents, Set<UserDetail> children) {
-		super();
-		this.id = id;
-		this.dob = dob;
-		this.nickname = nickname;
-		this.phoneNumber = phoneNumber;
-		this.user = user;
-		this.location = location;
-		this.address = address;
-		this.parents = parents;
-		this.children = children;
-	}
-
-	public UserDetail() {
-		super();
-	}
-
-
-	
-
 }

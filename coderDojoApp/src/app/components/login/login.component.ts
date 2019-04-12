@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     this.auth.login(user, pw).subscribe(
       next => {
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
-        let auth = [];
+        const auth = [];
+
         for (let a of next.authorities) {
           auth.push(a.authority);
         }
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
         if (auth.indexOf('ADMIN') > -1 ) {
           this.router.navigateByUrl('admin');
         } else {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl(`user/${next.name}`);
         }
       },
       error => {
