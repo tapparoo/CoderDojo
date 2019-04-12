@@ -14,7 +14,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
 import { AllGoalsComponent } from './components/all-goals/all-goals.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
@@ -28,7 +28,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     UserComponent,
     AllAchievementsComponent,
     AllGoalsComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
