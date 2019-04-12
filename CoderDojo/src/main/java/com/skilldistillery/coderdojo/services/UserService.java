@@ -6,8 +6,7 @@ import com.skilldistillery.coderdojo.entities.User;
 
 public interface UserService {
     void save(User user);
-
     User findByUsername(String username);
-
 	List<User> index();
+	User updateUser(User user);
 }

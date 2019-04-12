@@ -1,3 +1,33 @@
-<p>
-  admin works!
-</p>
+<div *ngIf="user && !editUser">
+    <form>
+      <label>ID:
+        <input type="text" name="id" disabled [ngModel]="user.id">
+      </label><br>
+      <label>Username
+      <input type="text" name="username" disabled [ngModel]="user.username">
+      </label><br>
+      <label>Password
+      <input type="text" name="password" disabled [ngModel]="user.password">
+      </label><br>
+    </form>
+  <button (click)="user = null;">Back</button>
+  <button (click)="editUser = true;">Edit</button>
+</div>
+
+<div *ngIf="editUser">
+    <form #EditUserForm="ngForm">
+        <input type="text" name="id" disabled [ngModel]="user.id">
+        <input type="text" name="username" [ngModel]="user.username">
+        <input type="text" name="password" [ngModel]="user.password">
+      </form>
+    <button (click)="editUser = false;">Cancel</button>
+    <button (click)="updateUser(EditUserForm)">Save</button>
+</div>
+
+<div *ngIf="!user && !editUser">
+  <ul *ngFor="let u of users" (click)="user = u;">
+    <li>{{u.id}}</li>
+    <li>{{u.username}}</li>
+    <li>{{u.password}}</li>
+  </ul>
+</div>

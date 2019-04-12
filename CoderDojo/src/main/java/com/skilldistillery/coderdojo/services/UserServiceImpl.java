@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,5 +40,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> index(){
     	return userRepository.findAll();
+    }
+    
+    @Override
+    public User updateUser(User user) {
+    	// by id to handle username updates
+    	Optional<User> optUser = userRepository.findById(user.getId());
+    	User modifiedUser = null;
+    	
+    	if (optUser.isPresent()) {
+    		modifiedUser = optUser.get();
+    		modifiedUser.setId((Long)user.getId());
+    		modifiedUser.setUsername(user.getUsername());
+    		modifiedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+    		modifiedUser.setEnabled(user.getEnabled());
+    		userRepository.save(modifiedUser);
+    	}
+    	return modifiedUser;
     }
 }

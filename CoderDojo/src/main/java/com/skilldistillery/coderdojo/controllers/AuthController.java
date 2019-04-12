@@ -68,7 +68,6 @@ public class AuthController {
     
 	@GetMapping("/authenticate")
 	public Principal authenticate(Principal principal) {
-		System.out.println(principal);
 		return principal;
 	}
 }
