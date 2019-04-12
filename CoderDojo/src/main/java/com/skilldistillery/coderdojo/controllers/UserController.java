@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +40,19 @@ public class UserController {
    @GetMapping("{username}")
    public User getUser(@PathVariable("username") String username, HttpServletResponse res, HttpServletRequest req){
 	   User user = serv.findByUsername(username);
+	   
+	   if (user != null) {
+		   res.setStatus(200);
+	   } else {
+		   res.setStatus(404);
+	   }
+	   
+	   return user;
+   }
+   
+   @PutMapping("{id}")
+   public User updateUser(@PathVariable("id") Integer id, @RequestBody User usr, HttpServletResponse res, HttpServletRequest req){
+	   User user = serv.updateUser(usr);
 	   
 	   if (user != null) {
 		   res.setStatus(200);

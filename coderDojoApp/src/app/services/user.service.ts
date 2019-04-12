@@ -40,4 +40,14 @@ export class UserService {
                })
           );
   }
+
+  updateUser(user: User) {
+    return this.http.put<User>(this.url + `/${user.id}`, user,  this.httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getAll Users error');
+               })
+          );
+  }
 }
