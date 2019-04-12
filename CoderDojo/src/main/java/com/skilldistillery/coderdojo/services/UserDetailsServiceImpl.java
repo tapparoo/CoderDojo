@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.skilldistillery.coderdojo.entities.Address;
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
@@ -76,8 +75,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserDetail newDeets = null;
 		if(old.isPresent()) {
 			newDeets = old.get();
-			newDeets.setAddress(ud.getAddress());
-			newDeets.setLocation(ud.getLocation());
 			newDeets.setChildren(ud.getChildren());
 			newDeets.setParents(ud.getParents());
 			newDeets.setDob(ud.getDob());
