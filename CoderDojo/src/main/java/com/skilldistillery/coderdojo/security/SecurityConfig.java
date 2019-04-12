@@ -29,17 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// XXX: This is where form login is enabled to go through Spring Security
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
-		.antMatchers("/resources/**", "/registration", "/login", "/logout").permitAll()
-		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+		.antMatchers(HttpMethod.OPTIONS, "/api/**", "/**").permitAll()
+		.antMatchers("/resources/**", "/registration", "/authenticate").permitAll()
 		.antMatchers("/").permitAll()
-		.antMatchers("/api/meetings").permitAll()
+		.antMatchers("/api/meetings").hasAuthority("ADMIN")
+		.antMatchers("/api/schedule").permitAll()
 		.antMatchers("/api/**").hasAuthority("ADMIN")
 		.anyRequest().authenticated()
-		.and()
-	    .formLogin()
-        .loginPage("/login")
-        .permitAll()
         .and().httpBasic();
 		
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

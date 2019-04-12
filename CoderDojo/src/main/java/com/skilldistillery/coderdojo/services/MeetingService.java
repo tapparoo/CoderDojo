@@ -15,5 +15,7 @@ public interface MeetingService {
 	Meeting update(String username, int mid, Meeting meeting);
 
 	boolean destroy(String username, int mid);
+	
+	Meeting show(String username, Integer mid);
 
 }

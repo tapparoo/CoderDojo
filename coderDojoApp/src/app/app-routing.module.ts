@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'meetings', component: MeetingComponent },
+  { path: 'schedule', component: MeetingComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
 ];

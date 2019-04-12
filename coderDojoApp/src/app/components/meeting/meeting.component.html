@@ -20,7 +20,7 @@
   <form class='form'>
     <input type="text" name='name' [(ngModel)]="meeting.name" class='form-control'> <br>
     <input type="text" name='scheduledTime' [(ngModel)]="meeting.scheduledTime" class='form-control'> <br>
-    <input type="text" name='completed' [(ngModel)]="meeting.location.name" class='form-check-input'>
+    <input type="text" name='locationId' [(ngModel)]="meeting.location.id" class='form-check-input'>
     <button (click)='editMeeting=null' class='btn btn-danger'>Cancel</button>
     <button (click)='updateMeeting(meeting)' class='btn btn-success'>Save</button>
   </form>
@@ -34,8 +34,9 @@
             name="task" placeholder="name" [(ngModel)]="newMeeting.name"/>
             <input lass="form-control" type="text"
             name="task" placeholder="date" [(ngModel)]="newMeeting.scheduledTime"/>
+            <input type="text" name='locationId' [(ngModel)]="newMeeting.location.id" class='form-check-input'>
           <input class=" ml-2 btn btn-outline-success"
-            type="submit" value="Add Item" (click) = "addMeeting();">
+            type="submit" value="Add Item" (click) = "addMeeting()">
           </div>
         </form>
   </div>

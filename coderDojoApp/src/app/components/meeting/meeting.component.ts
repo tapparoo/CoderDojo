@@ -22,35 +22,40 @@ export class MeetingComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.reload();
+    if (this.router.url === '/schedule') {
+      this.reload();
+    } else if (this.router.url === '/meetings') {
+    this.reloadAdmin();
   }
-  checkAuthority() {
-    const authorities = this.auth.getAuthorities();
-    if (authorities !== null ) {
-      const vals = Object.values(authorities);
-      for (const val of vals) {
-        if (val && val['authority'] === 'ADMIN') {
-          this.isAuthorized = true;
-        }
-      }
-    }
+    console.log(this.newMeeting, 'newMeeting');
+
   }
 
   reload() {
-    this.meetingService.index().subscribe(
+    this.meetingService.showSchedule().subscribe(
       data => {
-        console.log(data);
         this.meetings = data;
+        console.log(this.meetings + 'this.meetings');
+        this.isAuthorized = false;
       },
       err => {
         console.error(err);
       }
     );
-    this.checkAuthority();
-    console.log(this.isAuthorized);
-
   }
 
+
+  reloadAdmin() {
+    this.meetingService.index().subscribe(
+      data => {
+        this.meetings = data;
+        this.isAuthorized = true;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
   setEditMeeting(meeting) {
     this.editMeeting = true;
     this.meeting = meeting;
@@ -58,12 +63,10 @@ export class MeetingComponent implements OnInit {
 
   addMeeting() {
     console.log(this.newMeeting);
-    // this.newMeeting.location.id = 1;
-    console.log(this.newMeeting);
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
         console.log(data);
-        //this.reload();
+        this.reloadAdmin();
       },
       err => {
           console.error(err);
@@ -73,10 +76,30 @@ export class MeetingComponent implements OnInit {
   }
 
   deleteMeeting(meeting) {
-    console.log(meeting);
+    this.meetingService.destroy(meeting.id).subscribe(
+      data => {
+        console.log('updated datd + ' + data);
+        this.reloadAdmin();
+      },
+      err => {
+          console.error(err);
+      }
+    );
   }
 
   updateMeeting(meeting) {
+    this.meetingService.update(meeting).subscribe(
+      data => {
+        this.reloadAdmin();
+        // this.selected = data;
+        console.log(data + "datadatadata");
+        this.editMeeting = false;
+      },
+      err => {
+          console.error(err);
+          console.log('Error in update');
+      }
+    );
 
   }
 

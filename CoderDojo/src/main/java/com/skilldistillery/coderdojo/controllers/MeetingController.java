@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,30 +35,37 @@ public class MeetingController {
 		System.out.println(principal+ "werwer");
 		return service.findAllMeetings(principal.getName());
 	}
+	
+	//  GET Meetings
+	@GetMapping("schedule")
+	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println(req);
+		return service.findAllMeetings();
+	}
 
-//	@GetMapping("todos/{tid}")
-//	public Meeting show(HttpServletRequest req, HttpServletResponse res,
-//			@PathVariable("tid") Integer tid,
-//			Principal principal) {
-//		try {
-//			Todo todo = service.show(principal.getName(),tid);
-//			if (todo == null) {
-//				res.setStatus(404);
-//			} else {
-//				StringBuffer url = req.getRequestURL();
-//				url.append("/");
-//				url.append(tid);
-//				res.setHeader("Location", url.toString());
-//
-//				res.setStatus(201);
-//			}
-//
-//			return todo;
-//		} catch (Exception e) {
-//			res.setStatus(500);
-//			return null;
-//		}
-//	}
+	@GetMapping("meetings/{mid}")
+	public Meeting show(HttpServletRequest req, HttpServletResponse res,
+			@PathVariable("mid") Integer mid,
+			Principal principal) {
+		try {
+			Meeting meeting = service.show(principal.getName(),mid);
+			if (meeting == null) {
+				res.setStatus(404);
+			} else {
+				StringBuffer url = req.getRequestURL();
+				url.append("/");
+				url.append(mid);
+				res.setHeader("Location", url.toString());
+
+				res.setStatus(201);
+			}
+
+			return meeting;
+		} catch (Exception e) {
+			res.setStatus(500);
+			return null;
+		}
+	}
 
 	@PostMapping("meetings")
 	public Meeting create(HttpServletRequest req, HttpServletResponse res, 
@@ -76,43 +86,44 @@ public class MeetingController {
 			return null;
 		}
 	}
-//
-//	@PutMapping("todos/{tid}") 
-//	public Todo update(
-//			HttpServletRequest req, 
-//			HttpServletResponse res,
-//			@PathVariable("tid") Integer tid,
-//			@RequestBody Todo todo,
-//			Principal principal) {
-//		todo = service.update(principal.getName(),tid, todo);
-//	        if (todo == null) {
-//	            res.setStatus(404);
-//	        }
-//	        return todo;
-//		
-//	}
-//
-//	@DeleteMapping("todos/{tid}")
-//	public Boolean destroy(
-//			HttpServletRequest req,
-//			HttpServletResponse res, 
-//			@PathVariable("tid") Integer tid,
-//			Principal principal) {
-//		try {
-//			if (service.show(principal.getName(), tid) == null) {
-//				res.setStatus(404);
-//				return false;
-//			} else {
-//				service.destroy(principal.getName(), tid);
-//				res.setStatus(204);
-//				return true;
-//			}
-//
-//		} catch (Exception e) {
-//			res.setStatus(409);
-//			return false;
-//		}
-//		
-//	}
+
+	@PutMapping("meetings/{mid}") 
+	public Meeting update(
+			HttpServletRequest req, 
+			HttpServletResponse res,
+			@PathVariable("mid") Integer mid,
+			@RequestBody Meeting meeting,
+			Principal principal) {
+			meeting = service.update(principal.getName(),mid, meeting);
+	        if (meeting == null) {
+	            res.setStatus(404);
+	        }
+	        return meeting;
+		
+	}
+
+	@DeleteMapping("meetings/{mid}")
+	public Boolean destroy(
+			HttpServletRequest req,
+			HttpServletResponse res, 
+			@PathVariable("mid") Integer mid,
+			Principal principal) {
+		System.out.println(mid);
+		try {
+			if (service.show(principal.getName(), mid) == null) {
+				res.setStatus(404);
+				return false;
+			} else {
+				service.destroy(principal.getName(), mid);
+				res.setStatus(204);
+				return true;
+			}
+
+		} catch (Exception e) {
+			res.setStatus(409);
+			return false;
+		}
+		
+	}
 
 }

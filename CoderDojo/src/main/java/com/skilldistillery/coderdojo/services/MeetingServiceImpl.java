@@ -23,15 +23,15 @@ public class MeetingServiceImpl implements MeetingService {
     
 	@Override
 	public Set<Meeting> findAllMeetings() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Meeting> meetings= null;
+		meetings = new HashSet<Meeting>(repo.findAll());
+		return meetings;
 	}
 
 	@Override
 	public Set<Meeting> findAllMeetings(String username) {
 		Set<Meeting> meetings= null;
 		User u = repoUser.findByUsername(username);
-		System.out.println(u+ "############33");
 		if(u != null) {
 			System.out.println(u+ "############44");
 			meetings = new HashSet<Meeting>(repo.findAll());
@@ -50,6 +50,20 @@ public class MeetingServiceImpl implements MeetingService {
 
 		return null;
 	}
+	
+    @Override
+    public Meeting show(String username, Integer mid) {
+    	Meeting m = null;
+    	User u = repoUser.findByUsername(username);
+        Optional<Meeting> opt = repo.findById(mid);
+        if (opt.isPresent()) {
+            if (u!= null) {
+                m = opt.get();
+                System.out.println(m + "&&&&&&&&&&&&&&&&&&&&&&");
+            }
+        }
+        return m;
+    }
 
 	@Override
 	public Meeting update(String username, int mid, Meeting meeting) {

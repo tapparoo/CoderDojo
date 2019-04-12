@@ -38,6 +38,7 @@ export class AdminComponent implements OnInit {
 
     this.user.username = form.value.username;
     this.user.password = form.value.password;
+    this.user.enabled = form.value.enabled;
 
     this.userService.updateUser(this.user).subscribe(
       data => {

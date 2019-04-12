@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   private baseUrl = environment.baseUrl;
-  private authorities;
+  // private authorities;
   login(username, password) {
      // Make credentials
      const credentials = this.generateBasicAuthCredentials(username, password);
@@ -30,12 +30,6 @@ export class AuthService {
        .pipe(
          tap((res) => {
            localStorage.setItem('credentials' , credentials);
-           console.log(res);
-           if (res.authorities.length > 0) {
-            this.authorities = res.authorities;
-            localStorage.setItem('authorities', JSON.stringify(res.authorities));
-            console.log(this.authorities);
-           }
            return res;
          }),
          catchError((err: any) => {
@@ -73,12 +67,5 @@ export class AuthService {
 
   getCredentials() {
     return localStorage.getItem('credentials');
-  }
-
-  getAuthorities() {
-    if(localStorage.getItem('authorities')){
-      return JSON.parse(localStorage.getItem('authorities'));
-    }
-    return null;
   }
 }

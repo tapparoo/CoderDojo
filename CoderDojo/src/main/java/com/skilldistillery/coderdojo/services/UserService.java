@@ -9,4 +9,5 @@ public interface UserService {
     User findByUsername(String username);
 	List<User> index();
 	User updateUser(User user);
+	boolean disableUser(String username);
 }
