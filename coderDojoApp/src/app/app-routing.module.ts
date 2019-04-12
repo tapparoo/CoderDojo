@@ -15,8 +15,7 @@ const routes: Routes = [
   { path: 'meeting', component: MeetingComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
-
-
+  { path: 'user/:username', component: UserComponent }
 ];
 
 @NgModule({

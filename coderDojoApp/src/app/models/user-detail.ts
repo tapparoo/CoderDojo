@@ -9,14 +9,14 @@ export class UserDetail {
   children: [{}];
 
   constructor(
-    id: number,
-    nickname: string,
-    phoneNumber: string,
+    nickname: string = '',
+    phoneNumber: string = '',
     dob: Date,
-    location: {},
-    address: {},
-    parents: [{}],
-    children: [{}]
+    location: {} = {},
+    address: {} = {},
+    parents: [{}] = [{}],
+    children: [{}] = [{}],
+    id?: number
   ) {
     this.id = id;
     this.nickname = nickname;

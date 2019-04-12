@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-register',
@@ -19,8 +20,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(user).subscribe(
       data => {
         this.user = data;
-        console.log(data);
-
+        this.router.navigateByUrl(`/user/${this.user.username}`);
       },
       err => {
         console.log(err);
