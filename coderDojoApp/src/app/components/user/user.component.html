@@ -9,10 +9,10 @@
       <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
       </label><br>
       <label>Address
-      <input type="text" name="address" disabled [ngModel]="user.address.street">
+      <input type="text" name="address" disabled [ngModel]="user.address">
       </label><br>
       <label>Location
-      <input type="text" name="location" disabled [ngModel]="user.location.name">
+      <input type="text" name="location" disabled [ngModel]="user.location">
       </label><br>
       <label>Parents
       <input type="text" name="parents" disabled [ngModel]="user.parents">
@@ -21,13 +21,14 @@
       <input type="text" name="children" disabled [ngModel]="user.children">
       </label><br>
     </form>
-  <button (click)="user = null;">Back</button>
   <button (click)="editUser = true;">Edit</button>
 </div>
 
 <div *ngIf="editUser">
     <form #EditUserForm="ngForm">
-        <label>ID: {{user.id}}</label>
+        <label>ID:
+          <input type="text" name="id" disabled [ngModel]="user.id">
+        </label>
         <br>
         <label>Nickname
         <input type="text" name="nickname" [ngModel]="user.nickname">
@@ -36,16 +37,16 @@
         <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
         </label><br>
         <label>Address
-        <input type="text" name="address" disabled [ngModel]="user.address">
+        <input type="text" name="address"  [ngModel]="user.address">
         </label><br>
         <label>Location
-        <input type="text" name="location" disabled [ngModel]="user.location">
+        <input type="text" name="location"  [ngModel]="user.location">
         </label><br>
         <label>Parents
-        <input type="text" name="parents" disabled [ngModel]="user.parents">
+        <input type="text" name="parents"  [ngModel]="user.parents">
         </label><br>
         <label>Children
-        <input type="text" name="children" disabled [ngModel]="user.children">
+        <input type="text" name="children"  [ngModel]="user.children">
         </label><br>
       </form>
     <button (click)="editUser = false;">Cancel</button>

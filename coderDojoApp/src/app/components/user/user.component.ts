@@ -30,6 +30,18 @@ export class UserComponent implements OnInit {
       form.value.phoneNumber,
       form.value.dob
     );
+    deets.id = this.user.id;
+
+    this.userService.updateUserDetail(deets).subscribe(
+      data => {
+        this.user = data;
+        this.editUser = false;
+      },
+      err => {
+        this.router.navigateByUrl('not-found');
+        console.error('Observer got an error: ' + err);
+      }
+    );
   }
 
   reload() {
@@ -53,6 +65,8 @@ export class UserComponent implements OnInit {
       if (this.currentRoute.snapshot.paramMap.get('username')) {
         this.userService.getUserByUsername(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
           data => {
+            console.log(data);
+
             this.user = data;
           },
           err => {
