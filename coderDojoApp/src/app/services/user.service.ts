@@ -5,6 +5,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User } from '../models/user';
+import { UserDetail } from '../models/user-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,17 @@ export class UserService {
          .pipe(
                catchError((err: any) => {
                  console.log(err);
-                 return throwError('getAll Users error');
+                 return throwError('getUser error');
+               })
+          );
+  }
+
+  getUserByUsername(username: string) {
+    return this.http.get<User>(this.url + `/${username}`, this.httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getUser error');
                })
           );
   }
@@ -46,7 +57,17 @@ export class UserService {
          .pipe(
                catchError((err: any) => {
                  console.log(err);
-                 return throwError('getAll Users error');
+                 return throwError('updateUser error');
+               })
+          );
+  }
+
+  updateUserDetail(user: UserDetail) {
+    return this.http.put<UserDetail>(this.url, user,  this.httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('updateUserDetail error');
                })
           );
   }

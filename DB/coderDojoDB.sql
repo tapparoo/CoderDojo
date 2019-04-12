@@ -77,6 +77,11 @@ CREATE TABLE IF NOT EXISTS `user_detail` (
   `dob` DATE NULL,
   `nickname` VARCHAR(45) NULL,
   `phone_number` VARCHAR(45) NULL,
+  `first_name` VARCHAR(100) NULL,
+  `last_name` VARCHAR(100) NULL,
+  `email` VARCHAR(100) NULL,
+  `gender` VARCHAR(20) NULL,
+  `user_image_url` VARCHAR(100) NULL,
   `user_id` INT NULL,
   `location_id` INT NULL,
   `address_id` INT NULL,
@@ -351,10 +356,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'marky-mark', '123-456-7890', 1, 1, 1);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'a-tappy', '098-765-4321', 2, 1, 2);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (3, '2009-01-01', 'A.J.', '567-567-5678', 3, 2, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'SD Steve', '543-543-5432', 4, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'marky-mark', '123-456-7890', 'Mark', 'Mahowald', 'mark_mahowald@test.com', 'm', 'https://i.imgur.com/2QU4PZW.png', 1, 1, 1);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'a-tappy', '098-765-4321', 'Adam', 'Tappy', 'a_tappy@myspace.com', 'm', 'https://i.imgur.com/Vjzj0tz.jpg', 2, 1, 2);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (3, '1995-01-01', 'A.J.', '567-567-5678', 'Anna', 'Jimenez', 'anna_j_@cryptokitties.org', 'f', 'https://pbs.twimg.com/media/DXv-IhcU8AAe74p.jpg:large', 3, 2, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'SD Steve', '543-543-5432', 'Steve', 'Thompson', 'sdsteve@sd.com', 'm', 'https://i.imgur.com/S0qwuJF.png', 4, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (5, '2000-01-01', 'Todd', '123-123-1234', 'Todd', 'Trobridge', 'airtrafficcontrollguy@yahoo.com', 'o', 'https://i.imgur.com/Uyyml8R.jpg', 5, 1, 1);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (6, '1900-03-05', 'Johnny', '456-456-4567', 'John', 'Overberg', 'mightyrabbit@aol.com', 'm', 'https://i.imgur.com/rCV8rzO.jpg', 6, 2, 2);
 
 COMMIT;
 

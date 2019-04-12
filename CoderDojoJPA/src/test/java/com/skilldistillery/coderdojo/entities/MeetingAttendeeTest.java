@@ -41,10 +41,10 @@ class MeetingAttendeeTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_meeting_attendee_mapping() {
 		assertEquals(1, meetingAttendee.getId());
-		assertEquals("A.J.", meetingAttendee.getMeeting().getName());
-		assertEquals(1, meetingAttendee.getUserDetail().getNickname());
+		assertEquals("Meetup at Turing", meetingAttendee.getMeeting().getName());
+		assertEquals("A.J.", meetingAttendee.getUserDetail().getNickname());
 		
 	
 	}

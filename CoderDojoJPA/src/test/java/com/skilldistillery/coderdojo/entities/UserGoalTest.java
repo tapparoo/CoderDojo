@@ -44,7 +44,7 @@ class UserGoalTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_user_goal_mapping() {
 		assertEquals(2, userGoal.getId());
 		assertEquals("2019-04-10", userGoal.getCompletedDate().toString());
 		assertEquals("install all dev tools", userGoal.getGoal().getName());

@@ -9,23 +9,24 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+
   constructor(private http: HttpClient) {}
 
   private baseUrl = environment.baseUrl;
   // private authorities;
   login(username, password) {
-     // Make credentials
-     const credentials = this.generateBasicAuthCredentials(username, password);
+      // Make credentials
+      const credentials = this.generateBasicAuthCredentials(username, password);
 
-     // Send credentials as Authorization header (this is spring security convention for basic auth)
-     const httpOptions = {
-       headers: new HttpHeaders({
-         Authorization: `Basic ${credentials}`,
-         'X-Requested-With': 'XMLHttpRequest'
-       })
-     };
+      // Send credentials as Authorization header (this is spring security convention for basic auth)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Authorization: `Basic ${credentials}`,
+          'X-Requested-With': 'XMLHttpRequest'
+        })
+      };
      // create request to authenticate credentials
-     return this.http
+      return this.http
        .get<any>(this.baseUrl + 'authenticate', httpOptions)
        .pipe(
          tap((res) => {
@@ -40,14 +41,27 @@ export class AuthService {
   }
 
   register(user) {
+    const credentials = this.generateBasicAuthCredentials(user.username, user.password);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
     // create request to register a new account
     return this.http.post(this.baseUrl + 'register', user)
-    .pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError('AuthService.register(): error registering user.');
-        })
-      );
+      .pipe(
+        tap((res) => {
+          localStorage.setItem('credentials' , credentials);
+          return res;
+        }),
+          catchError((err: any) => {
+            console.log(err);
+            return throwError('AuthService.register(): error registering user.');
+          })
+        );
   }
 
   logout() {

@@ -42,7 +42,7 @@ class RoleTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_role_mapping() {
 		assertEquals("ADMIN", role.getName());
 		assertTrue(role.getUsers().size()>0);
 		

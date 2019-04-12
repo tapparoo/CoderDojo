@@ -42,7 +42,7 @@ class LocationTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_location_mapping() {
 		assertEquals(1, location.getId());
 		assertEquals("Downtown Dojo at Turing", location.getName());
 		assertEquals("this is our main classroom in the area. ", location.getDetails());

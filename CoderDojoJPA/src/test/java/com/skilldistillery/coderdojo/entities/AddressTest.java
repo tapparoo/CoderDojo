@@ -41,7 +41,7 @@ class AddressTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_address_mapping() {
 		assertEquals(1, address.getId());
 		assertEquals("Boulder", address.getCity());
 		assertEquals("USA", address.getCountry());

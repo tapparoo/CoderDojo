@@ -12,6 +12,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
+import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
+import { AllGoalsComponent } from './components/all-goals/all-goals.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,13 +24,14 @@ import { UserComponent } from './components/user/user.component';
     HomeComponent,
     RegisterComponent,
     AdminComponent,
-    UserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot(),
   ],
   providers: [AuthService, MeetingService ],
   bootstrap: [AppComponent]

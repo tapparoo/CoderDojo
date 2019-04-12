@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'schedule', component: MeetingComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
+  { path: 'user/:username', component: UserComponent }
 ];
 
 @NgModule({

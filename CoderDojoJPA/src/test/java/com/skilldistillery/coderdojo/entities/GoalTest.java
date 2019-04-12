@@ -41,7 +41,7 @@ class GoalTest {
 	}
 
 	@Test
-	void test_achievement_mapping() {
+	void test_goal_mapping() {
 		assertEquals(1, goal.getId());
 		assertEquals("turn computer on....", goal.getName());
 		assertEquals("Turning the computer on is serious bisiness", goal.getDescription());
