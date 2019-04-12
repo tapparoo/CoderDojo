@@ -17,7 +17,7 @@ export class Achievement {
         this.id=id;
         this.name=name;
         this.description=description;
-        this.imageUrl;
+        this.imageUrl = imageUrl;
         this.goals = goals;
     };
 }

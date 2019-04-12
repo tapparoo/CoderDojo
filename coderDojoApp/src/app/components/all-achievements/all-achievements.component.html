@@ -1,7 +1,57 @@
 <div>
-  <div *ngIf="mode==='index'">
+  <div *ngIf="mode==='index'" class="container">
+    <div class="row mb-3">
+      <div class="col">
+        <h2>Name</h2>
+      </div>
+      <div class="col">
+        <h2>Description</h2>
+      </div>
+      <div class="col">
+        <h2>Image URL</h2>
+      </div>
+      <div class="col">
+        <h2>        </h2>
+      </div>
+    </div>
 
+    <div *ngFor="let achievement of achievements"> 
       
+      <div class="row mb-3"  (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="achievement.name">
+      
+      <div class="col">
+        {{achievement.name}}
+      </div>
+      <div class="col">
+        {{achievement.description}}
+      </div>
+      <div class="col">
+          {{achievement.imageUrl}}
+      </div>
+      <div class="col">
+        <button (click)="addGoalForm(achievement)"> Add Goal</button>
+      </div>
+    </div>
+      <div id="achievement.name" [ngbCollapse]="!isCollapsed" class="row">
+        <div class="card">
+          <div class="card-body">
+            <div *ngFor="let goal of achievement.goals">
+              <div class="col">
+                {{goal.name}}
+              </div>
+              <div class="col">
+                {{goal.description}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
     <!-- <table>
       <thead>
@@ -39,8 +89,8 @@
 
 
     </table> -->
-    <button (click)="addAchievementForm()">Add Achievement</button>
   </div>
+  <button (click)="addAchievementForm()">Add Achievement</button>
 
 </div>
 

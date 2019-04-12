@@ -10,9 +10,9 @@ public interface AchievementService {
 
 	Achievement findAchievementById(Integer id);
 
-	void create(Achievement achievement);
+	Achievement create(Achievement achievement);
 
-	void delete(Integer id);
+	boolean delete(Integer id);
 
 	Achievement update(Integer id, Achievement achievement);
 }
