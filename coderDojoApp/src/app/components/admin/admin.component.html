@@ -1,3 +1,17 @@
-<p>
-  admin works!
-</p>
+<div *ngIf="user">
+    <ul>
+        <li>{{user.id}}</li>
+        <li>{{user.username}}</li>
+        <li>{{user.password}}</li>
+      </ul>
+  <button (click)="user = null;">Back</button>
+</div>
+
+
+<div *ngIf="!user">
+  <ul *ngFor="let u of users" (click)="user = u;">
+    <li>{{u.id}}</li>
+    <li>{{u.username}}</li>
+    <li>{{u.password}}</li>
+  </ul>
+</div>
