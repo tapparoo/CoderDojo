@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   private baseUrl = environment.baseUrl;
-
+  // private authorities;
   login(username, password) {
       // Make credentials
       const credentials = this.generateBasicAuthCredentials(username, password);

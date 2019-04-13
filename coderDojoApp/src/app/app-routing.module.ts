@@ -1,4 +1,5 @@
 import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
+import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
 import { HomeComponent } from './components/home/home.component';
@@ -13,8 +14,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'meeting', component: MeetingComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'meetings', component: MeetingComponent },
+  { path: 'schedule', component: MeetingComponent },
+  { path: 'admin', component: AdminDasboardComponent },
+  // { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/:username', component: UserComponent },
   { path: 'all-achievements', component: AllAchievementsComponent  }

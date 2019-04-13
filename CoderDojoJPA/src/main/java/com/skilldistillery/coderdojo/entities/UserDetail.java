@@ -40,7 +40,11 @@ public class UserDetail {
 	private String gender;
 	@Column(name="user_image_url")
 	private String userImageUrl;
-	
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")

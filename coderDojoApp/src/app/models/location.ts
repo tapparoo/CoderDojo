@@ -11,7 +11,8 @@ export class Location {
   details: string = '',
   address?: {
     id?: number
-  }){
+  })
+  {
     this.id = id;
     this.name = name;
     this.details = details;
