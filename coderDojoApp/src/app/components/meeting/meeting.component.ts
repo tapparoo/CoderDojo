@@ -1,9 +1,10 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetingService } from './../../services/meeting.service';
 import { Meeting } from './../../models/meeting';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 @Component({
   selector: 'app-meeting',
   templateUrl: './meeting.component.html',
@@ -27,7 +28,7 @@ export class MeetingComponent implements OnInit {
   listData: MatTableDataSource<any>;
   displayedColumns = [  ];
 @ViewChild(MatSort) sort: MatSort;
-
+@ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     if (this.router.url === '/schedule') {
@@ -51,6 +52,7 @@ export class MeetingComponent implements OnInit {
         ];
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
+         this.listData.paginator = this.paginator;
         console.log(this.meetings + 'this.meetings');
         this.isAuthorized = false;
       },
@@ -67,6 +69,8 @@ export class MeetingComponent implements OnInit {
         console.log(data);
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+
         this.displayedColumns = [
           'name',
           'location.name',
