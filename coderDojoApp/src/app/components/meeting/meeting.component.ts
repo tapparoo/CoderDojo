@@ -106,9 +106,9 @@ export class MeetingComponent implements OnInit {
 
   }
 
-  displayAttendeesList(meeting){
+  displayAttendeesList(meeting) {
     this.selected = meeting;
-    this.displayAttendees=true;
+    this.displayAttendees = true;
     console.log(this.selected);
   }
 
