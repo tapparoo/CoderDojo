@@ -1,0 +1,20 @@
+
+.scroll {
+  min-height: 500px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.card{
+  transition:0.5s;
+  cursor:pointer;
+}
+
+.card-title{
+  font-size:15px;
+  transition:1s;
+  cursor:pointer;
+}
+
+.card-text{
+  height:80px;
+}

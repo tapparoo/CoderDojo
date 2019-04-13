@@ -16,6 +16,7 @@ import { AllAchievementsComponent } from './components/all-achievements/all-achi
 import { AllGoalsComponent } from './components/all-goals/all-goals.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     AdminComponent,
     UserComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminDasboardComponent
   ],
   imports: [
     BrowserModule,

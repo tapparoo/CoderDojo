@@ -23,7 +23,6 @@ export class MeetingService {
   // METHODS
   index() {
     const credentials = this.auth.getCredentials();
-    console.log('TodoService.index(), credentials: ' + credentials);
 
     const httpOptions = {
       headers: new HttpHeaders({
