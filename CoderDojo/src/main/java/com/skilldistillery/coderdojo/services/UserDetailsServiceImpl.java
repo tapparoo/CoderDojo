@@ -85,11 +85,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			ud.setAddress(new Address());
 		}
 		
-		old.setLocation(ud.getLocation());
-		old.setAddress(ud.getAddress());
-		old.setChildren(ud.getChildren());
-		old.setParents(ud.getParents());
-		
-		return deetsRepo.save(old);
+		return deetsRepo.save(ud);
 	}
 }
