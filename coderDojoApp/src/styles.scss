@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/_theming.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/scss/bootstrap.scss";
+body,
+html {
+	margin: 0 auto;
+	height: 100% !important;
+}
+button:focus {
+  outline: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;}
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+.app-theme1-theme {
+	$my-app-primary: mat-palette($mat-green, 100);
+	$my-app-accent: mat-palette($mat-yellow, 500);
+	  $my-app-warn: mat-palette($mat-red, 900);
+	  // Create the theme object (a Sass map containing all of the palettes).
+	$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+	  // Include theme styles for core and each component used in your app.
+	  // Alternatively, you can import and @include the theme mixins for each component
+	  // that you are using.
+	  @include angular-material-theme($my-app-theme);
+  }
+
+  .app-theme2-theme {
+	$alternate-primary: mat-palette($mat-indigo, 100);
+	$alternate-accent: mat-palette($mat-indigo, 500);
+	$alternate-warn: mat-palette($mat-indigo, 900);
+	$alternate-theme: mat-light-theme($alternate-primary, $alternate-accent, $alternate-warn);
+	@include angular-material-theme($alternate-theme);
+  }

@@ -1,3 +1,4 @@
+import { MaterialModule } from './material/material.module';
 import { MeetingService } from './services/meeting.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,6 @@ import { AllGoalsComponent } from './components/all-goals/all-goals.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,7 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    MaterialModule
   ],
   providers: [AuthService, MeetingService ],
   bootstrap: [AppComponent]
