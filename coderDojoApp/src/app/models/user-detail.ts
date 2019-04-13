@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Address } from './address';
 
 export class UserDetail {
   id: number;
@@ -11,23 +12,23 @@ export class UserDetail {
   gender: string;
   userImageUrl: string;
   user: User;
-  location: {};
-  address: {};
+  location: Location;
+  address: Address;
   parents: [{}];
   children: [{}];
 
   constructor(
-    nickname: string = '',
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string = '',
-    dob: Date = new Date(),
-    gender: string,
-    userImageUrl: string,
-    user: User,
-    location: {} = {},
-    address: {} = {},
+    nickname?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string,
+    dob?: Date,
+    gender?: string,
+    userImageUrl?: string,
+    user?: User,
+    location?: Location,
+    address?: Address,
     parents: [{}] = [{}],
     children: [{}] = [{}],
     id?: number

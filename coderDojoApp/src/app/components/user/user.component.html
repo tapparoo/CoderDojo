@@ -26,24 +26,26 @@
             <label>Phone Number
             <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
             </label><br>
-            <label>Street
-                <input type="text" name="street"  disabled [ngModel]="user.address.street">
-                </label><br>
-                <label>Street2
-                <input type="text" name="street2"   disabled [ngModel]="user.address.street2">
-                </label><br>
-                <label>City
-                <input type="text" name="city"   disabled [ngModel]="user.address.city">
-                </label><br>
-                <label>State
-                <input type="text" name="state"   disabled [ngModel]="user.address.state">
-                </label><br>
-                <label>Zipcode
-                <input type="text" name="zip"   disabled [ngModel]="user.address.zip">
-                </label><br>
-                <label>Country
-                <input type="text" name="country"   disabled [ngModel]="user.address.country">
-                </label><br>
+            <div *ngIf="user.address">
+              <label>Street
+              <input type="text" name="street"  disabled [ngModel]="user.address.street">
+              </label><br>
+              <label>Street2
+              <input type="text" name="street2"   disabled [ngModel]="user.address.street2">
+              </label><br>
+              <label>City
+              <input type="text" name="city"   disabled [ngModel]="user.address.city">
+              </label><br>
+              <label>State
+              <input type="text" name="state"   disabled [ngModel]="user.address.state">
+              </label><br>
+              <label>Zipcode
+              <input type="text" name="zip"   disabled [ngModel]="user.address.zip">
+              </label><br>
+              <label>Country
+              <input type="text" name="country"   disabled [ngModel]="user.address.country">
+              </label><br>
+            </div>
             <label>Location
             <input type="text" name="location" disabled [ngModel]="user.location">
             </label><br>
@@ -115,7 +117,7 @@
           <button (click)="updateUserDetails(EditUserForm)">Save</button>
       </div>
     </div>
-        <div *ngIf="!editUserPass" class="col">
+        <div *ngIf="!editUserPass && currentAuth" class="col">
             <form>
               <label>Username
               <input type="text" name="username" disabled [ngModel]="currentAuth.username">

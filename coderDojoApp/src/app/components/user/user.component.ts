@@ -13,7 +13,7 @@ import { Address } from 'src/app/models/address';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  user = null;
+  user = new UserDetail();
   currentAuth = null;
   editUser = false;
   editUserPass = false;
