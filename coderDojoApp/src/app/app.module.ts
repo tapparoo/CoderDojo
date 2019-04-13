@@ -28,7 +28,8 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
     AdminComponent,
     UserComponent,
     NavbarComponent,
-    AdminDasboardComponent
+    AdminDasboardComponent,
+    AllAchievementsComponent
   ],
   imports: [
     BrowserModule,

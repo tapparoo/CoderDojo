@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
+import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-user',
@@ -27,10 +28,26 @@ export class UserComponent implements OnInit {
   updateUserDetails(form: NgForm) {
     const deets = new UserDetail(
       form.value.nickname,
+      form.value.firstName,
+      form.value.lastName,
+      form.value.email,
       form.value.phoneNumber,
-      form.value.dob
+      form.value.dob,
+      form.value.gender,
+      form.value.userImageUrl
     );
+    const addr = new Address();
+    addr.street = form.value.street;
+    addr.street2 = form.value.street2;
+    addr.city = form.value.city;
+    addr.state = form.value.state;
+    addr.zip = form.value.zip;
+    addr.country = form.value.country;
+    addr.id = this.user.address.id;
+
     deets.id = this.user.id;
+    deets.address = addr;
+    console.log(deets);
 
     this.userService.updateUserDetail(deets).subscribe(
       data => {
