@@ -25,7 +25,7 @@ export class AchievementService {
 
     return this.http.get<Achievement[]>(this.url, httpOptions).pipe(
       catchError((err: any) => {
-        console.error('TodoService.index(): Error');
+        console.error('Achievement.index(): Error');
         console.error(err);
         return throwError('Error in AchievementService.index()');
       })

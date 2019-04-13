@@ -11,15 +11,15 @@
         <h2>Image URL</h2>
       </div>
       <div class="col">
-        <h2>        </h2>
+        <h2> </h2>
       </div>
     </div>
 
-    <div *ngFor="let achievement of achievements"> 
-      
-      <div class="row mb-3"  (click)="isCollapsed[achievement.id] = !isCollapsed[achievement.id]"
-      [attr.aria-expanded]="!isCollapsed[achievement.id]" [attr.aria-controls]="achievement.id">
-      
+    <div *ngFor="let achievement of achievements">
+
+      <div class="row mb-3" (click)="isCollapsed[achievement.id] = !isCollapsed[achievement.id]"
+        [attr.aria-expanded]="!isCollapsed[achievement.id]" [attr.aria-controls]="achievement.id">
+
         <div class="col">
           {{achievement.name}}
         </div>
@@ -42,12 +42,12 @@
               </div>
               <div class="col">
                 {{goal.description}}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
 
@@ -91,19 +91,51 @@
     </table> -->
   </div>
   <button (click)="addAchievementForm()">Add Achievement</button>
+  <div *ngIf="mode==='addGoalForm'" class="container">
+    <!-- these buttons will expand and contract the new Goal, or add existing Goal menues -->
+    <button type="button" class="btn btn-outline-primary" (click)="isNewGoal = !isNewGoal"
+      [attr.aria-expanded]="!isNewGoal" aria-controls="newGoalForm">
+      New Goal
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="isExistingGoal = !isExistingGoal"
+      [attr.aria-expanded]="!isExistingGoal" aria-controls="existingGoalForm">
+      Existing Goal
+    </button>
 
+
+    <div id="newGoalForm" [ngbCollapse]="isNewGoal">
+      <div class="card">
+        <div class="card-body">
+          <form action="">
+            <h4>Goal Name:</h4>
+            <input  type="text" name="goalName" [(ngModel)]="newGoal.name">
+            <h4>Goal Description:</h4>
+            <input type="text" name="goalDescription" [(ngModel)]="newGoal.description">
+          </form>
+          <button (click)="addGoalToAchievement()"></button>
+          
+          
+          
+          
+          <!-- <form>
+              <input type="text" name="task" [(ngModel)]="edit.task">
+              <input type="text" name="description" [(ngModel)]="edit.description">
+              <input type="number" name="id" [(ngModel)]="edit.id">
+              <input type="checkbox" name="completed" [(ngModel)]="edit.completed">
+              <button (click)="saveEdit();"> Save </button>
+            </form>
+            <button (click)="edit = null; selected = null;"> Back </button> -->
+
+        </div>
+      </div>
+    </div>
+
+    <div id="existingGoalForm" [ngbCollapse]="isExistingGoal">
+      <div class="card">
+        <div class="card-body">
+          You can collapse this card by clicking Toggle
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-<!-- <table>
-    <tr>
-      <th> Task </th>
-      <th> Mark </th>
-      <th> Completed </th>
-    </tr>
-    <tr *ngFor="let todo of todos | incomplete:showAllTodos" [ngClass]="formatCompletedTodo(todo)" >
-      <td (click)="setSelected(todo)"> {{todo.task}} </td>
-      <td> <input type="checkbox" name="completed" [(ngModel)]="todo.completed" /> </td>
-      <td (click)="setSelected(todo)"> {{todo.completed}} </td>
-    </tr>
-  </table> -->
