@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export class UserDetail {
   id: number;
   firstName: string;
@@ -8,6 +10,7 @@ export class UserDetail {
   dob: Date;
   gender: string;
   userImageUrl: string;
+  user: User;
   location: {};
   address: {};
   parents: [{}];
@@ -22,6 +25,7 @@ export class UserDetail {
     dob: Date = new Date(),
     gender: string,
     userImageUrl: string,
+    user: User,
     location: {} = {},
     address: {} = {},
     parents: [{}] = [{}],
@@ -37,6 +41,7 @@ export class UserDetail {
     this.dob = dob;
     this.gender = gender;
     this.userImageUrl = userImageUrl;
+    this.user = user;
     this.location = location;
     this.address = address;
     this.parents = parents;

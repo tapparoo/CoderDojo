@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "user")
@@ -23,11 +25,12 @@ public class User {
 	private Long id;
 
 	private String username;
-
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	private boolean enabled;
 
+	@JsonIgnore
 	@Transient
 	private String passwordConfirm;
 

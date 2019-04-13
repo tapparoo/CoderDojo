@@ -43,7 +43,7 @@ export class UserService {
   }
 
   getUserByUsername(username: string) {
-    return this.http.get<User>(this.url + `/${username}`, this.httpOptions)
+    return this.http.get<UserDetail>(this.url + `/${username}`, this.httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);

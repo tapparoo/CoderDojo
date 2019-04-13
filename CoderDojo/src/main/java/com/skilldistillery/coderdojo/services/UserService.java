@@ -10,4 +10,5 @@ public interface UserService {
 	List<User> index();
 	User updateUser(User user);
 	boolean disableUser(String username);
+	User findById(long id);
 }
