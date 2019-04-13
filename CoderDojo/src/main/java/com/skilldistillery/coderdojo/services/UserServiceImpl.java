@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.coderdojo.entities.Address;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.repositories.AddressRepository;
 import com.skilldistillery.coderdojo.repositories.RoleRepository;
 import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
 	private RoleRepository roleRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private AddressRepository addrRepo;
 
 	// New Users:
 	// default role 'STUDENT'
@@ -38,6 +42,10 @@ public class UserServiceImpl implements UserService {
 		// Associate new UserDetail object with newly created User
 		UserDetail deets = new UserDetail();
 		deets.setUser(user);
+
+		// Every new user gets a new address
+		deets.setAddress(addrRepo.saveAndFlush(new Address()));
+		
 		deetsRepo.saveAndFlush(deets);
 	}
 

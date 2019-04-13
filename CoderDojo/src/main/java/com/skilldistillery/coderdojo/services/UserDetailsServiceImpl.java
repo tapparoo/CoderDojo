@@ -71,17 +71,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 	
 	public UserDetail update(UserDetail ud) {
-		Optional<UserDetail> old = deetsRepo.findById(ud.getId());
-		UserDetail newDeets = null;
-		if(old.isPresent()) {
-			newDeets = old.get();
-			newDeets.setChildren(ud.getChildren());
-			newDeets.setParents(ud.getParents());
-			newDeets.setDob(ud.getDob());
-			newDeets.setNickname(ud.getNickname());
-			newDeets.setPhoneNumber(ud.getPhoneNumber());
-			deetsRepo.save(newDeets);
+		// Temporary
+		if (ud.getLocation() == null || ud.getLocation().getId() <= 0) {
+			ud.setLocation(null);
 		}
-		return newDeets;
+		return deetsRepo.save(ud);
 	}
 }
