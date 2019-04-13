@@ -4,7 +4,7 @@ export class Address {
   street2: string;
   city: string;
   state: string;
-  zip: number;
+  zip: string;
   country: string;
  constructor(
   id?: number ,
@@ -12,7 +12,7 @@ export class Address {
   street2: string = '',
   city: string = '',
   state: string = '',
-  zip?: number,
+  zip: string = '',
   country: string = '',
   ) {
     this.id = id;
