@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
 
 		// Every new user gets a new address
 		deets.setAddress(addrRepo.saveAndFlush(new Address()));
-		
 		deetsRepo.saveAndFlush(deets);
 	}
 
