@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.services.AddressService;
 import com.skilldistillery.coderdojo.services.SecurityService;
 import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
 import com.skilldistillery.coderdojo.services.UserService;
@@ -30,6 +31,8 @@ public class UserController {
 	private UserDetailsServiceImpl deets;
 	@Autowired
 	private SecurityService securityService;
+	@Autowired
+	private AddressService addrServ;
 
 	// admin
 	@GetMapping
@@ -50,8 +53,6 @@ public class UserController {
 			HttpServletRequest req) {
 		UserDetail user = null;
 
-		System.out.println(securityService.findLoggedInUsername());
-		
 		// Search by id or username, depending on what was passed in
 		try {
 			int actualId = Integer.parseInt(id);
@@ -86,8 +87,8 @@ public class UserController {
 	// Update USER DETAILS
 	@PutMapping
 	public UserDetail updateUserDetails(@RequestBody UserDetail usr, HttpServletResponse res) {
+		addrServ.update(usr.getAddress());
 		UserDetail user = deets.update(usr);
-
 		if (user != null) {
 			res.setStatus(200);
 		} else {

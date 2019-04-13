@@ -26,7 +26,7 @@ export class MeetingComponent implements OnInit {
   ngOnInit() {
     if (this.router.url === '/schedule') {
       this.reload();
-    } else if (this.router.url === '/meetings') {
+    } else if (this.router.url === '/admin') {
     this.reloadAdmin();
   }
     console.log(this.newMeeting, 'newMeeting');
