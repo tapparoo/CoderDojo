@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div *ngIf="!editUser">
+      <div *ngIf="!editUser && user">
           <form>
             <label>ID: {{user.id}}</label>
             <br>
@@ -59,7 +59,7 @@
         <button (click)="editUser = true;">Edit</button>
       </div>
 
-      <div *ngIf="editUser">
+      <div *ngIf="editUser && user">
           <form #EditUserForm="ngForm">
               <label>ID:
                 <input type="text" name="id" disabled [ngModel]="user.id">

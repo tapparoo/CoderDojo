@@ -1,4 +1,3 @@
-import { UserDetail } from './../../models/user-detail';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -15,6 +14,8 @@ export class LoginComponent implements OnInit {
   registering = false;
   buttonText = 'Login';
   newUser = null;
+  loggedIn = this.auth.checkLogin();
+  routerPath = '';
 
   login(form: NgForm) {
     const user = form.value.username;
@@ -22,6 +23,9 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(user, pw).subscribe(
       next => {
+        this.loggedIn = true;
+        this.buttonText = next.name;
+        this.routerPath = `/user/${next.name}`;
         document.getElementById('loginDropdown').classList.remove('show');
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
         const auth = [];
@@ -50,6 +54,9 @@ export class LoginComponent implements OnInit {
     );
     this.auth.register(user).subscribe(
       data => {
+        this.loggedIn = true;
+        this.buttonText = data.name;
+        this.routerPath = `/user/${data.name}`;
         document.getElementById('loginDropdown').classList.remove('show');
         this.newUser = data;
         this.newUser.email = form.value.email;
@@ -70,6 +77,17 @@ export class LoginComponent implements OnInit {
         console.log('Error loading users from admin page');
       }
     );
+  }
+
+  logout() {
+    this.auth.logout();
+    this.buttonText = 'Login';
+    this.registering = false;
+    this.newUser = null;
+    this.routerPath = null;
+    this.loggedIn = false;
+    document.getElementById('profileDropdown').classList.remove('show');
+    this.router.navigateByUrl('/home');
   }
 
   constructor(private auth: AuthService, private userService: UserService, private router: Router) { }

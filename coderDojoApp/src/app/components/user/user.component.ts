@@ -12,7 +12,7 @@ import { Address } from 'src/app/models/address';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  user = new UserDetail();
+  user = null;
   currentAuth = null;
   editUser = false;
   editUserPass = false;
@@ -108,7 +108,6 @@ export class UserComponent implements OnInit {
           data => {
             this.user = data;
             this.currentAuth = this.user.user;
-
           },
           err => {
             this.router.navigateByUrl('not-found');

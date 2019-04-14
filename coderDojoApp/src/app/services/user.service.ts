@@ -32,8 +32,8 @@ export class UserService {
           );
   }
 
-  getUser(username: string) {
-    return this.http.get<UserDetail>(this.url + `/${username}`, this.httpOptions)
+  getUser(username) {
+    return this.http.get<any>(this.url + `/${username}`, this.httpOptions)
          .pipe(
                catchError((err: any) => {
                  if (err.status === 401) {
