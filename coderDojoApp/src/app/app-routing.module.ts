@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './components/user/user.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -11,9 +12,8 @@ const routes: Routes = [
   { path: 'meetings', component: MeetingComponent },
   { path: 'schedule', component: MeetingComponent },
   { path: 'admin', component: AdminDasboardComponent },
-  // { path: 'admin', component: AdminComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'user/:username', component: UserComponent }
+  { path: 'user/:username', component: UserComponent },
+  { path: 'user/:username/profile', component: ProfileComponent }
 ];
 
 @NgModule({

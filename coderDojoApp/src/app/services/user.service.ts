@@ -12,18 +12,17 @@ import { UserDetail } from '../models/user-detail';
 })
 export class UserService {
   private url = environment.baseUrl + 'api/users';
-  credentials = this.auth.getCredentials();
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': `Basic ${this.credentials}`,
-      'X-Requested-With': 'XMLHttpRequest'
-    })
-  };
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   index() {
-    return this.http.get<User[]>(this.url, this.httpOptions)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<User[]>(this.url, httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);
@@ -33,7 +32,13 @@ export class UserService {
   }
 
   getUser(username) {
-    return this.http.get<any>(this.url + `/${username}`, this.httpOptions)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<any>(this.url + `/${username}`, httpOptions)
          .pipe(
                catchError((err: any) => {
                  if (err.status === 401) {
@@ -46,7 +51,13 @@ export class UserService {
   }
 
   updateUser(user: User) {
-    return this.http.put<User>(this.url + `/${user.id}`, user,  this.httpOptions)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put<User>(this.url + `/${user.id}`, user,  httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);
@@ -56,7 +67,13 @@ export class UserService {
   }
 
   updateUserDetail(user: UserDetail) {
-    return this.http.put<UserDetail>(this.url, user,  this.httpOptions)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.put<UserDetail>(this.url, user,  httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);

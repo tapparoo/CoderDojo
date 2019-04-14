@@ -14,7 +14,7 @@
                 <label for="dropdownFormPassword">Password</label>
                 <input type="password" class="form-control" id="dropdownFormPassword" name="password" ngModel>
               </div>
-              <button type="submit" class="btn btn-primary" (click)="login(LoginForm)">Sign in</button>
+              <button class="btn btn-primary" (click)="login(LoginForm)">Sign in</button>
               <div class="dropdown-divider"></div>
               <button ngbDropdownItem (click)="registering = true; buttonText = 'Register'">New around here? Sign up</button>
               <!-- <button ngbDropdownItem>Forgot password?</button> -->
@@ -38,7 +38,7 @@
                     <input type="text" class="form-control" id="dropdownFormPhone" name="phoneNumber" ngModel>
                   </div>
                   <div class="dropdown-divider"></div>
-                  <button  class="btn btn-primary btn-sm" (click)="register(LoginForm);  buttonText = 'Register';">Save/Register</button>
+                  <button  class="btn btn-primary btn-sm" (click)="register(LoginForm);">Save/Register</button>
                   <button  class="btn btn-secondary btn-sm" (click)="registering = false; buttonText = 'Login'">Cancel</button>
             </div>
           </form>
@@ -48,7 +48,7 @@
             <div ngbDropdown class="d-inline-block" autoClose="outside">
                 <button class="btn btn-outline-primary" id="profileButton" ngbDropdownToggle>{{buttonText}}</button>
                 <div id="profileDropdown" ngbDropdownMenu aria-labelledby="profileButton">
-                      <a ngbDropdownItem [routerLink]="routerPath" routerLinkActive="router-link-active" >Update Profile</a>
+                      <a ngbDropdownItem href="routerPath" [routerLink]="routerPath" routerLinkActive="router-link-active" >Update Profile</a>
                       <button ngbDropdownItem (click)="logout()">Logout</button>
                       <!-- <button ngbDropdownItem>Forgot password?</button> -->
                 </div>

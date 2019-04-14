@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       next => {
         this.loggedIn = true;
         this.buttonText = next.name;
-        this.routerPath = `/user/${next.name}`;
+        this.routerPath = `/user/${next.name}/profile`;
         document.getElementById('loginDropdown').classList.remove('show');
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
         const auth = [];
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         if (auth.indexOf('ADMIN') > -1 ) {
           this.router.navigateByUrl('admin');
         } else {
-          this.router.navigateByUrl(`user/${next.name}`);
+          this.router.navigateByUrl(`user/${next.name}/profile`);
         }
       },
       error => {
@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
       data => {
         this.loggedIn = true;
         this.buttonText = data.name;
-        this.routerPath = `/user/${data.name}`;
         document.getElementById('loginDropdown').classList.remove('show');
         this.newUser = data;
         this.newUser.email = form.value.email;
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
         this.userService.updateUserDetail(this.newUser).subscribe(
           userDetailData => {
             this.registering = false;
-            this.router.navigateByUrl(`/user/${user.username}`);
+            this.router.navigateByUrl(`/user/${user.username}/profile`);
           },
           err => {
             console.log(err);
