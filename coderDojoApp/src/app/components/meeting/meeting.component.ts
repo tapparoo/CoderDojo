@@ -134,10 +134,12 @@ export class MeetingComponent implements OnInit {
 
   }
 
-  deleteMeeting(meeting) {
-    this.meetingService.destroy(meeting.id).subscribe(
+
+  deleteMeeting(id: number) {
+    console.log(id);
+    this.meetingService.destroy(id).subscribe(
       data => {
-        console.log('updated datd + ' + data);
+        console.log("delete data + " + data);
         this.reloadAdmin();
       },
       err => {
@@ -145,7 +147,6 @@ export class MeetingComponent implements OnInit {
       }
     );
   }
-
   updateMeeting(meeting) {
     this.meetingService.update(meeting).subscribe(
       data => {

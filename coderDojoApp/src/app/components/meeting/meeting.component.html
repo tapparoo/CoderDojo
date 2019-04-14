@@ -93,15 +93,20 @@
     ></mat-cell>
   </ng-container>
   <ng-container matColumnDef="Actions">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button class="editIcon" mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button class="deletIcon">
-        <mat-icon>delete_outline</mat-icon>
-      </button>
-    </mat-cell>
+
+
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteMeeting(element.id)"
+            >
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+
   </ng-container>
 
   <ng-container matColumnDef="loading">
