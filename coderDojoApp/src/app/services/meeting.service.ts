@@ -103,4 +103,23 @@ export class MeetingService {
       })
     );
   }
+
+
+  public updateMeetingAttendeeStatus(meetId, meetingAttendent, status) {
+    const credentials = this.auth.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    meetingAttendent.attended = status;
+    return this.http.put<Meeting>(`${this.url}/${meetId}/attendee/${meetingAttendent.id}`, meetingAttendent, httpOptions).pipe(
+      catchError((err: any) => {
+        console.error('MeetingService.update(): Error');
+        console.error(err);
+        return throwError('Error in MeetingService.update()');
+      })
+    );
+  }
 }

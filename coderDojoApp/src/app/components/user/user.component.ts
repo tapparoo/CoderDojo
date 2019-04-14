@@ -103,19 +103,19 @@ export class UserComponent implements OnInit {
       //   - Default will be to list all achievements completed/inprogress
 
 
-      if (this.currentRoute.snapshot.paramMap.get('username')) {
-        this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
-          data => {
-            this.user = data;
-            this.currentAuth = this.user.user;
+      // if (this.currentRoute.snapshot.paramMap.get('username')) {
+      //   this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
+      //     data => {
+      //       this.user = data;
+      //       this.currentAuth = this.user.user;
 
-          },
-          err => {
-            this.router.navigateByUrl('not-found');
-            console.error('Observer got an error: ' + err);
-          }
-        );
-      }
+      //     },
+      //     err => {
+      //       this.router.navigateByUrl('not-found');
+      //       console.error('Observer got an error: ' + err);
+      //     }
+      //   );
+      // }
     }
   }
 
