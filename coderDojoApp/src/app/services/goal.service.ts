@@ -54,7 +54,14 @@ export class GoalService {
   }
 
   public destroy(id: number) {
-    return this.http.delete(`${this.url}/${id}`).pipe(
+    const credentials = this.auth.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.delete(`${this.url}/${id}`, httpOptions).pipe(
       catchError((err: any) => {
         console.error('GoalService.destroy(): Error');
         console.error(err);
