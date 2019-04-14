@@ -1,8 +1,30 @@
-<table class="table table-striped" >
+
+  <!-- create -->
+  <div  *ngIf="isAuthorized && !displayAttendees && createMeeting">
+      <form>
+          <div class="form-group">
+          <input lass="form-control" type="text"
+            name="task" placeholder="name" [(ngModel)]="newMeeting.name"/>
+            <input lass="form-control" type="text"
+            name="task" placeholder="date" [(ngModel)]="newMeeting.scheduledTime"/>
+            <input type="text" name='locationId' [(ngModel)]="newMeeting.location.id" class='form-check-input'>
+         <br> <input class=" ml-2 btn btn-outline-success"
+            type="submit" value="Add Meeting" (click) = "addMeeting()">
+            <br> <input class=" ml-2 btn btn-outline-success"
+            type="submit" value="Close" (click) = "cancelCreate()">
+          </div>
+        </form>
+  </div>
+<div *ngIf="!displayAttendees ">
+  <div *ngIf="isAuthorized" class="row"> <input class=" ml-2 btn btn-top btn-outline-success"
+    type="submit" value="add" (click) = "openCreate()">
+    </div>
+<table  class="table table-striped" >
   <thead>
       <th scope="col">Name</th>
       <th scope="col">Location</th>
-      <th scope="col">Scheduled</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
       <th *ngIf="isAuthorized" scope="col">Attendess</th>
       <th *ngIf="isAuthorized" scope="col">Edit</th>
       <th *ngIf="isAuthorized" scope="col">Delete</th>
@@ -11,56 +33,56 @@
 <td>{{meeting.name}}</td>
 <td>{{meeting.location.name}}  </td>
 <td>{{meeting.scheduledTime}}</td>
+<td>{{meeting.scheduledTime | date:'h:mm a'}}</td>
 <td *ngIf="isAuthorized"><a (click)="displayAttendeesList(meeting)">List Attendees</a>  </td>
 <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
 <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td>
 </tr>
 </table>
-
+</div>
 <!-- edit section -->
-<div  *ngIf='editMeeting'>
+<div  *ngIf='editMeeting && !displayAttendees'>
   <form class='form'>
     <input type="text" name='name' [(ngModel)]="meeting.name" class='form-control'> <br>
     <input type="text" name='scheduledTime' [(ngModel)]="meeting.scheduledTime" class='form-control'> <br>
     <input type="text" name='locationId' [(ngModel)]="meeting.location.id" class='form-check-input'>
-    <button (click)='editMeeting=null' class='btn btn-danger'>Cancel</button>
-    <button (click)='updateMeeting(meeting)' class='btn btn-success'>Save</button>
+    <br>
+    <div class="row">
+        <button (click)='editMeeting=null' class='btn btn-danger'>Cancel</button>
+        <button (click)='updateMeeting(meeting)' class='btn btn-success'>Save</button>
+    </div>
+
   </form>
 </div>
 
-  <!-- create -->
-  <div  *ngIf="isAuthorized">
-      <form>
-          <div class="form-group">
-          <input lass="form-control" type="text"
-            name="task" placeholder="name" [(ngModel)]="newMeeting.name"/>
-            <input lass="form-control" type="text"
-            name="task" placeholder="date" [(ngModel)]="newMeeting.scheduledTime"/>
-            <input type="text" name='locationId' [(ngModel)]="newMeeting.location.id" class='form-check-input'>
-          <input class=" ml-2 btn btn-outline-success"
-            type="submit" value="Add Item" (click) = "addMeeting()">
-          </div>
-        </form>
-  </div>
+
 <div *ngIf="displayAttendees">
+    <div class="row"> <input class=" ml-10 btn btn-outline-success"
+      type="submit" value="Back" (click) = "closeDisplayAttend()">
+      </div>
   <table class="table table-striped" >
       <thead>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
-          <th scope="col">Location</th>
-          <th scope="col">Scheduled</th>
-          <th *ngIf="isAuthorized" scope="col">Edit</th>
-          <th *ngIf="isAuthorized" scope="col">Delete</th>
+          <th scope="col">Nickname</th>
+          <th scope="col">phone#</th>
+          <th scope="col">Attend</th>
+          <th scope="col">attend</th>
+          <!-- <th *ngIf="isAuthorized" scope="col">Edit</th>
+          <th *ngIf="isAuthorized" scope="col">Delete</th> -->
         </thead>
     <tr *ngFor="let attend of selected.meetingAttendees " >
-    <td>{{attend.attended}}</td>
-
-        <td>{{attend.userDetail.nickname}}  </td>
-        <td>{{attend.userDetail.phoneNumber}}</td>
 
 
-    <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
-    <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td>
+    <td>{{attend.userDetail.firstName}}</td>
+    <td>{{attend.userDetail.lastName}}</td>
+      <td>{{attend.userDetail.nickname}}  </td>
+      <td>{{attend.userDetail.phoneNumber}}</td>
+      <input type="checkbox" [checked]="attend.attended" (change)="changeStatus(selected.id,attend,$event)">
+      <td>{{attend.attended}}</td>
+    <!-- <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
+    <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td> -->
     </tr>
     </table>
+    <td *ngIf="isAuthorized"><button (click)="addAttendee(selected)">Add</button>  </td>
   </div>

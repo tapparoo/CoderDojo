@@ -13,7 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
 import { AllGoalsComponent } from './components/all-goals/all-goals.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -26,6 +26,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     HomeComponent,
     AdminComponent,
     UserComponent,
+    AllAchievementsComponent,
+    AllGoalsComponent,
     NavbarComponent,
     AdminDasboardComponent,
     AllAchievementsComponent,

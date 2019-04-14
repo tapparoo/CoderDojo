@@ -1,9 +1,9 @@
 import { Achievement } from './achievement';
 export class Goal {
-    private id: number;
-    private name: string;
-    private description: string;
-    private achievement: Achievement;
+     id: number;
+     name: string;
+     description: string;
+     achievement: Achievement;
 
 
     constructor(

@@ -1,7 +1,6 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Meeting;
-import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.entities.MeetingAttendee;
+import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.services.MeetingAttendeeService;
 import com.skilldistillery.coderdojo.services.MeetingService;
+import com.skilldistillery.coderdojo.services.UserService;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost:4202" })
@@ -29,6 +31,13 @@ public class MeetingController {
 	
 	@Autowired
 	private MeetingService service;
+	
+	@Autowired
+	private MeetingAttendeeService maservice;
+	
+	
+	@Autowired
+	private UserService uservice;
 
 	//  GET Meetings
 	@GetMapping("meetings")
@@ -36,33 +45,7 @@ public class MeetingController {
 			Principal principal) {
 		return service.findAllMeetings(principal.getName());
 	}
-	
-	//  GET Meetings
-//	@GetMapping("meetings/attendance/{mid}")
-//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
-//			@PathVariable("mid") Integer mid,
-//			Principal principal) {
-//		try {
-//			List<UserDetail> meeting = service.showMeetingUsers(mid);
-//			if (meeting == null) {
-//				res.setStatus(404);
-//			} else {
-//				StringBuffer url = req.getRequestURL();
-//				url.append("/");
-//				url.append(mid);
-//				res.setHeader("Location", url.toString());
-//
-//				res.setStatus(201);
-//			}
-//
-//			return meeting;
-//		} catch (Exception e) {
-//			res.setStatus(500);
-//			return null;
-//		}
-//	}
-	
-	
+		
 	//  GET Meetings
 	@GetMapping("schedule")
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res) {
@@ -152,5 +135,29 @@ public class MeetingController {
 		}
 		
 	}
+	
+	
+	@PutMapping("meetings/{mid}/attendee/{aid}") 
+	public MeetingAttendee updateAttendee(
+			HttpServletRequest req, 
+			HttpServletResponse res,
+			@PathVariable("mid") Integer mid,
+			@PathVariable("aid") Integer aid,
+			@RequestBody MeetingAttendee ma,
+			Principal principal) {
+			MeetingAttendee meetingAttendee = maservice.showMAById(principal.getName(),aid);
+			User user = uservice.findByUsername(principal.getName());
+			Meeting meeting = service.show(principal.getName(), mid);
+			if(meeting != null && user !=null) {
+				meetingAttendee = maservice.update(principal.getName(), meeting, ma);
+			}
+			
+	        if (meeting == null) {
+	            res.setStatus(404);
+	        }
+	        return meetingAttendee;
+		
+	}
+	
 
 }

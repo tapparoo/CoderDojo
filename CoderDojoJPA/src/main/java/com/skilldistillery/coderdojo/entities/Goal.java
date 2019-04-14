@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Goal {
@@ -16,6 +18,7 @@ public class Goal {
 	private String name;
 	private String description;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="standard_achievement_id")
 	private Achievement achievement;

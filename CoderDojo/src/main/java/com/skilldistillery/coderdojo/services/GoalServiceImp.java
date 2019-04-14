@@ -1,41 +1,66 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.Goal;
+import com.skilldistillery.coderdojo.repositories.GoalRepository;
 @Service
 public class GoalServiceImp implements GoalService {
+	
+	@Autowired
+	private GoalRepository repo;
 
 	@Override
 	public List<Goal> findAllGoal() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Goal> results = repo.findAll();
+		return results;
 	}
 
 	@Override
 	public Goal findGoalById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Goal result = null;
+		Optional<Goal> a = repo.findById(id);
+		if (a.isPresent()) {
+			result = a.get();
+		}
+		return result;
 	}
 
 	@Override
-	public void create(Goal goal) {
-		// TODO Auto-generated method stub
-		
+	public Goal create(Goal goal) {
+//		System.out.println(goal.getAchievement());
+		repo.saveAndFlush(goal);
+		return goal;
+
 	}
 
 	@Override
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
+	public boolean delete(Integer id) {
+		boolean deleted = false;
+		if(repo.existsById(id)) {
+			repo.deleteById(id);
+			deleted=true;	
+		}
+		return deleted;
 	}
 
 	@Override
 	public Goal update(Integer id, Goal goal) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Goal> opt = repo.findById(id);
+		if(opt.isPresent()) {
+			Goal managed = opt.get();
+			managed.setDescription(goal.getDescription());
+			managed.setName(goal.getName());
+			
+			repo.saveAndFlush(managed);
+		}
+		return goal;
 	}
+
 
 }
