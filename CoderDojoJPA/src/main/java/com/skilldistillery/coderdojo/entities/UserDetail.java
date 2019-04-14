@@ -1,7 +1,8 @@
 package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -53,19 +54,47 @@ public class UserDetail {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "parent_child_relationship", joinColumns = {
-			@JoinColumn(name = "child_id") }, inverseJoinColumns = { @JoinColumn(name = "parent_id") })
-	private Set<UserDetail> parents = new HashSet<UserDetail>();
+	@JoinTable(name = "user_achievement",
+			joinColumns = {@JoinColumn(name = "user_detail_id")},
+			inverseJoinColumns = {@JoinColumn(name = "achievement_id")})
+	private List<Achievement> achievements;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "parent_child_relationship", 
+		joinColumns = {@JoinColumn(name = "child_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "parent_id") })
+	private Set<UserDetail> parents;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "parents")
-	private Set<UserDetail> children = new HashSet<UserDetail>();
+	private Set<UserDetail> children;
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "meeting_attendance", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+	@JoinTable(name = "meeting_attendance", 
+		joinColumns = @JoinColumn(name = "user_id"), 
+		inverseJoinColumns = @JoinColumn(name = "meeting_id"))
 	private Set<Meeting> meetingsAttended;
+	
+	public void addAchievement(Achievement achievement) {
+		if (achievement == null)
+			return;
+		if (achievements == null)
+			achievements = new ArrayList<>();
 
+		achievements.add(achievement);
+		achievement.getUsers().add(this);
+	}
+
+	public void removeAchievement(Achievement achievement) {
+		if (achievement == null)
+			return;
+
+		achievements.remove(achievement);
+		achievement.getUsers().remove(this);
+	}
+	
 	public Set<Meeting> getMeetingsAttended() {
 		return meetingsAttended;
 	}
@@ -184,6 +213,14 @@ public class UserDetail {
 
 	public void setUserImageUrl(String userImageUrl) {
 		this.userImageUrl = userImageUrl;
+	}
+
+	public List<Achievement> getAchievements() {
+		return achievements;
+	}
+
+	public void setAchievements(List<Achievement> achievements) {
+		this.achievements = achievements;
 	}
 
 	@Override
