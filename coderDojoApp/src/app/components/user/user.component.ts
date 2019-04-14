@@ -4,7 +4,6 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { User } from 'src/app/models/user';
 import { Address } from 'src/app/models/address';
 
 @Component({
@@ -105,7 +104,7 @@ export class UserComponent implements OnInit {
 
 
       if (this.currentRoute.snapshot.paramMap.get('username')) {
-        this.userService.getUserByUsername(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
+        this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
           data => {
             this.user = data;
             this.currentAuth = this.user.user;

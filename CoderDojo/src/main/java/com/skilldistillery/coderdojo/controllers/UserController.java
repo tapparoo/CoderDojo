@@ -1,7 +1,7 @@
 package com.skilldistillery.coderdojo.controllers;
 
+import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +39,7 @@ public class UserController {
 	@GetMapping
 	public List<UserDetail> getAllUsers(HttpServletResponse res, HttpServletRequest req) {
 		List<UserDetail> users = deets.index();
-		
+
 		if (users == null || !(users.size() > 0)) {
 			res.setStatus(204);
 		} else {
@@ -50,24 +50,24 @@ public class UserController {
 	}
 
 	@GetMapping("{id}")
-	public UserDetail getUserDetailsById(@PathVariable("id") String id, HttpServletResponse res,
-			HttpServletRequest req) {
-		UserDetail user = null;
-
-		// Search by id or username, depending on what was passed in
-		try {
-			int actualId = Integer.parseInt(id);
-			user = deets.findById(actualId);
-		} catch (Exception e) {
-			user = deets.findUserDetailByUsername(id);
-		}
-
-		if (user != null) {
-			res.setStatus(200);
+	public UserDetail getUserDetailsById(@PathVariable("id") String id, HttpServletResponse res, HttpServletRequest req,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(id);
+		User requestingUser = serv.findByUsername(principal.getName());
+		
+		if (requestedUser != null) {
+			// Only the owning user or an admin can see a user's profile
+			if(requestingUser.isAdmin() 
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+				return null;
+			}
 		} else {
 			res.setStatus(404);
 		}
-		return user;
+		return requestedUser;
 	}
 
 	// Update USER object (username/password)

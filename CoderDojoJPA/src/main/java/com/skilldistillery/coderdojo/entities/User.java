@@ -41,6 +41,18 @@ public class User {
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
+	
+	public boolean isAdmin() {
+		boolean admin = false;
+		for (Role role : roles) {
+			if (role.getName().equalsIgnoreCase("admin")) {
+				admin = true;
+				break;
+			}
+		}
+		return admin;
+	}
+	
 	public void addRole(Role role) {
 		if (role == null)
 			return;

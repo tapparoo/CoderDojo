@@ -32,22 +32,15 @@ export class UserService {
           );
   }
 
-  getUser(id: number) {
-    return this.http.get<User>(this.url + `/${id}`, this.httpOptions)
-         .pipe(
-               catchError((err: any) => {
-                 console.log(err);
-                 return throwError('getUser error');
-               })
-          );
-  }
-
-  getUserByUsername(username: string) {
+  getUser(username: string) {
     return this.http.get<UserDetail>(this.url + `/${username}`, this.httpOptions)
          .pipe(
                catchError((err: any) => {
-                 console.log(err);
-                 return throwError('getUser error');
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s profile');
+
+                 }
+                 return 'getUser error';
                })
           );
   }
