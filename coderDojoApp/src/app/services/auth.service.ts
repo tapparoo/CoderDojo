@@ -51,7 +51,7 @@ export class AuthService {
     };
 
     // create request to register a new account
-    return this.http.post(this.baseUrl + 'register', user)
+    return this.http.post<any>(this.baseUrl + 'register', user)
       .pipe(
         tap((res) => {
           localStorage.setItem('credentials' , credentials);

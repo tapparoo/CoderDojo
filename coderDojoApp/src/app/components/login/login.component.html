@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <div ngbDropdown class="d-inline-block" autoClose="outside">
+      <div *ngIf="!loggedIn" ngbDropdown class="d-inline-block" autoClose="outside">
         <button class="btn btn-outline-primary" id="loginForm" ngbDropdownToggle>{{buttonText}}</button>
         <div id="loginDropdown" ngbDropdownMenu aria-labelledby="loginForm">
           <form #LoginForm="ngForm" class="px-4 py-3">
@@ -43,6 +43,15 @@
             </div>
           </form>
         </div>
+        </div>
+        <div *ngIf="loggedIn">
+            <div ngbDropdown class="d-inline-block" autoClose="outside">
+                <button class="btn btn-outline-primary" id="profileButton" ngbDropdownToggle>{{buttonText}}</button>
+                <div id="profileDropdown" ngbDropdownMenu aria-labelledby="profileButton">
+                      <a ngbDropdownItem [routerLink]="routerPath" routerLinkActive="router-link-active" >Update Profile</a>
+                      <button ngbDropdownItem (click)="logout()">Logout</button>
+                      <!-- <button ngbDropdownItem>Forgot password?</button> -->
+                </div>
         </div>
       </div>
     </div>
