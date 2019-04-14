@@ -82,4 +82,8 @@ export class AuthService {
   getCredentials() {
     return localStorage.getItem('credentials');
   }
+
+  getLoggedInUsername() {
+    return atob(this.getCredentials()).split(':')[0];
+  }
 }

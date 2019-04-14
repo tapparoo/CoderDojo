@@ -4,7 +4,6 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Address } from 'src/app/models/address';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +11,18 @@ import { Address } from 'src/app/models/address';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  users = null;
+  selected = null;
+
+  showAll() {
+    this.userService.index().subscribe(
+      data => this.users = data,
+      err => {
+        console.log(err);
+        console.log('Error getting list of users from UserComponent as admin');
+      }
+    );
+  }
 
   reload() {
 
@@ -19,12 +30,12 @@ export class UserComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private currentRoute: ActivatedRoute,
     private router: Router,
     private userService: UserService
     ) { }
 
   ngOnInit() {
+    this.showAll();
   }
 
 }

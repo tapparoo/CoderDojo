@@ -1,0 +1,18 @@
+<div *ngIf="!selected">
+  <table  class="table table-striped" >
+    <thead>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Username</th>
+    </thead>
+    <tr *ngFor="let user of users" (click)="selected = user;">
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}  </td>
+      <td>{{user.user.username}}</td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="selected">
+  <app-profile></app-profile>
+</div>
