@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.addRole(roleRepository.findByName("STUDENT"));
 		user.setEnabled(true);
-		userRepository.save(user);
+		userRepository.saveAndFlush(user);
 		
 		// Associate new UserDetail object with newly created User
 		UserDetail deets = new UserDetail();

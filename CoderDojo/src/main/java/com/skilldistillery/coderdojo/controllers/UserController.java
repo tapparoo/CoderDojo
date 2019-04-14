@@ -88,9 +88,7 @@ public class UserController {
 	@PutMapping
 	public UserDetail updateUserDetails(@RequestBody UserDetail usr, HttpServletResponse res) {
 		addrServ.update(usr.getAddress());
-		System.out.println(usr);
 		UserDetail user = deets.update(usr);
-		System.out.println(user);
 		if (user != null) {
 			res.setStatus(200);
 		} else {

@@ -54,12 +54,13 @@
 
 <div *ngIf="!user && !editUser">
   <ul *ngFor="let u of users" (click)="user = u;">
-    <li>{{u.id}}</li>
-    <li>{{u.nickname}}</li>
-    <li>{{u.phoneNumber}}</li>
-    <li>{{u.address.street}}</li>
+    <li>User id: {{u.id}}</li>
+    <li>Nickname: {{u.nickname}}</li>
+    <li>Username: {{u.user.username}}</li>
+    <li>Phone Number: {{u.phoneNumber}}</li>
+    <!-- <li>{{u.address.street}}</li>
     <li>{{u.location.name}}</li>
     <li>{{u.parents}}</li>
-    <li>{{u.children}}</li>
+    <li>{{u.children}}</li> -->
   </ul>
 </div>
