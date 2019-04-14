@@ -18,6 +18,7 @@ export class MeetingComponent implements OnInit {
   editMeeting = false;
   selected = null;
   displayAttendees = false;
+  createMeeting = false;
 
   constructor(private meetingService: MeetingService,
               private auth: AuthService,
@@ -51,6 +52,7 @@ export class MeetingComponent implements OnInit {
   reloadAdmin() {
     this.meetingService.index().subscribe(
       data => {
+        console.log(data);
         this.meetings = data;
         this.isAuthorized = true;
       },
@@ -63,12 +65,22 @@ export class MeetingComponent implements OnInit {
     this.editMeeting = true;
     this.meeting = meeting;
   }
+  cancelCreate(){
+    this.createMeeting = false;
+  }
+  openCreate(){
+    this.createMeeting = !this.createMeeting;
+  }
 
+  closeDisplayAttend(){
+    this.displayAttendees = false;
+  }
   addMeeting() {
     console.log(this.newMeeting);
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
         console.log(data);
+        this.createMeeting = true;
         this.reloadAdmin();
       },
       err => {
@@ -110,6 +122,28 @@ export class MeetingComponent implements OnInit {
     this.selected = meeting;
     this.displayAttendees = true;
     console.log(this.selected);
+  }
+
+  changeStatus(meetId:number, meetingAttendent, e){
+      console.log(meetId);
+      console.log(meetingAttendent);
+      console.log(e.target.checked);
+      this.meetingService.updateMeetingAttendeeStatus(meetId, meetingAttendent, e.target.checked ).subscribe(
+        data => {
+          this.reloadAdmin();
+          console.log(data + "confirm");
+          this.editMeeting = false;
+        },
+        err => {
+            console.error(err);
+            console.log('Error in update');
+        }
+      );
+
+  }
+
+  addAttendee(userdetails){
+    console.log(userdetails);
   }
 
 }
