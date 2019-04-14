@@ -34,7 +34,12 @@ export class AchievementService {
 
   public create(achievement: Achievement) {
     const credentials = this.auth.getCredentials();
-    const httpOptions = { headers: { 'Content-type': 'application/json', 'Authorization': credentials } };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
     return this.http.post<Achievement>(this.url, achievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('TodoService.create(): Error');
@@ -45,7 +50,14 @@ export class AchievementService {
   }
 
   public destroy(id: number) {
-    return this.http.delete(`${this.url}/${id}`).pipe(
+    const credentials = this.auth.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.delete(`${this.url}/${id}`, httpOptions).pipe(
       catchError((err: any) => {
         console.error('AchievementService.destroy(): Error');
         console.error(err);

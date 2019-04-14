@@ -31,7 +31,7 @@
         </div>
         <div class="col">
           <button (click)="achievementEditForm(achievement)"> Edit </button>
-          
+
 
         </div>
       </div>
@@ -50,51 +50,84 @@
         </div>
       </div>
     </div>
-    
+
     <button (click)="addAchievementForm()">Add Achievement</button>
   </div>
   <div *ngIf="mode==='achievementEditForm'" class="container">
-      <h1>{{selectedAchievement.name}}</h1>
-      <h3>Goals:</h3>
-        <ul>
-          <li *ngFor="let goal of selectedAchievementGoals">
-            {{goal.name}}: {{goal.description}} <button (click)="editGoalForm(goal)"> Edit </button> <button (click)="deleteGoal(goal)">Delete</button>
-          </li>
-        </ul>
-      
+    <h1>{{selectedAchievement.name}}</h1>
+    <h3>Goals:</h3>
+    <ul>
+      <li *ngFor="let goal of selectedAchievementGoals">
+        {{goal.name}}: {{goal.description}} <button (click)="editGoalForm(goal)"> Edit </button> <button
+          (click)="deleteGoal(goal)">Delete</button>
+      </li>
+    </ul>
+
     <!-- these buttons will expand and contract the new Goal, or add existing Goal menues -->
     <button type="button" class="btn btn-outline-primary" (click)="isNewGoal = !isNewGoal"
       [attr.aria-expanded]="!isNewGoal" aria-controls="newGoalForm">
       New Goal
     </button>
 
+    <button type="button" class="btn btn-outline-primary" (click)="isDeleteAchievement = !isDeleteAchievement"
+      [attr.aria-expanded]="!isDeleteAchievement" aria-controls="deleteAchievementForm">
+      Delete this Achievement
+    </button>
 
+
+
+    <div id="deleteAchievementForm" [ngbCollapse]="!isDeleteAchievement">
+      <div class="card">
+        <div class="card-body">
+          <form action="">
+            <h4>Delete this Goal: Are you sure?</h4>
+            <button (click)="deleteAchievement(selectedAchievement)"> Yes - Delete this whole Achievement</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
 
     <div id="newGoalForm" [ngbCollapse]="isNewGoal">
       <div class="card">
         <div class="card-body">
           <form action="">
             <h4>Goal Name:</h4>
-            <input  type="text" name="goalName" [(ngModel)]="newGoal.name">
+            <input type="text" name="goalName" [(ngModel)]="newGoal.name">
             <h4>Goal Description:</h4>
             <input type="text" name="goalDescription" [(ngModel)]="newGoal.description">
           </form>
           <button (click)="addGoalToAchievement()">Add Goal to this Achievement</button>
-          
+
 
         </div>
       </div>
     </div>
 
- 
+
   </div>
   <div *ngIf="mode==='editGoalForm'">
     <form action="">
-        <h4>Goal Name:</h4>
-        <input  type="text" name="goalName" [(ngModel)]="selectedGoal.name">
-        <h4>Goal Description:</h4>
-        <input  type="text" name="goalDescription" [(ngModel)]="selectedGoal.description">
-  
+      <h4>Goal Name:</h4>
+      <input type="text" name="goalName" [(ngModel)]="selectedGoal.name">
+      <h4>Goal Description:</h4>
+      <input type="text" name="goalDescription" [(ngModel)]="selectedGoal.description">
     </form>
+  </div>
+  <button (click)="goBack()"> Go Back </button>
+
+
+  <div *ngIf="mode==='addAchievementForm'">
+    <form action="">
+      <h4>Achievement Name:</h4>
+      <input type="text"  name="newAchievementName" [(ngModel)]="selectedAchievement.name">
+      <h4>Achievement Description:</h4>
+      <input type="text"  name="newAchievementDescription" [(ngModel)]="selectedAchievement.description">
+      <h4>Achievement Image URL:</h4>
+      <input type="text"  name="newAchievementImageUrl" [(ngModel)]="selectedAchievement.imageUrl">
+    </form>
+    <button (click)="goBack()"> Go Back </button>
+    <button (click)="addNewAchievement()"> Add This Achievement </button>
+    
   </div>
 </div>

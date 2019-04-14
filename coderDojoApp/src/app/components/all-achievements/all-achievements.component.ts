@@ -16,6 +16,7 @@ export class AllAchievementsComponent implements OnInit {
   public isCollapsed: boolean[] = [];
   isNewGoal: boolean = true;
   isExistingGoal: boolean = true;
+  isDeleteGoal: boolean = true;
 
   achievements: Achievement[];
 
@@ -28,7 +29,7 @@ export class AllAchievementsComponent implements OnInit {
 
   selectedGoal = null;
 
-  storedIndex: number=0
+  storedIndex: number = 0
 
 
   constructor(private achievementService: AchievementService, private goalService: GoalService) { }
@@ -49,26 +50,29 @@ export class AllAchievementsComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
           this.isCollapsed[data[i].id] = false;
         }
-        
-        
+
+
         // this is for the new goal post -> refresh
         this.selectedAchievement = this.achievements[this.storedIndex];
         this.selectedAchievementGoals = this.selectedAchievement.goals;
         this.newGoal = new Goal();
       },
       err => {
-        console.error('TodoListComponent.reload(): Error');
+        console.error('AchievementListComponent.reload(): Error');
         console.error(err);
       }
     );
   };
 
-  goback() {
+  goBack() {
     this.mode = "index";
     this.newAchievement = new Achievement();
     this.newGoal = new Goal();
     this.selectedAchievement = null;
+    this.selectedAchievementGoals = [];
+    this.selectedGoal = null;
   };
+
   addGoalForm(achievement: Achievement) {
     this.mode = "addGoalForm";
     this.selectedAchievement = achievement;
@@ -79,42 +83,81 @@ export class AllAchievementsComponent implements OnInit {
     this.mode = 'achievementEditForm';
     this.selectedAchievementGoals = this.selectedAchievement.goals;
   };
-  addGoalToAchievement(){
+  addGoalToAchievement() {
     this.newGoal.achievement = this.selectedAchievement;
     this.storedIndex = this.achievements.indexOf(this.selectedAchievement);
     this.goalService.create(this.newGoal).subscribe(
       data => {
         this.reload();
- 
+
         // console.log(this.storedIndex);
         // console.log(this.selectedAchievement);
-        
-     
-          },
-          err => {
-            console.error('all-achievementsComponent.newGoal(): Error');
-            console.error(err);
-          }
+
+
+      },
+      err => {
+        console.error('all-achievementsComponent.newGoal(): Error');
+        console.error(err);
+      }
     )
   }
 
-  deleteGoal(goal: Goal){
-  this.goalService.destroy(goal.id).subscribe(
-    data => {
-      this.reload();
+  deleteGoal(goal: Goal) {
+    this.goalService.destroy(goal.id).subscribe(
+      data => {
+        this.reload();
 
-   
+
+      },
+      err => {
+        console.error('all-achievementsComponent.newGoal(): Error');
+        console.error(err);
+      }
+    )
+  }
+
+  editGoalForm(goal: Goal) {
+    this.selectedGoal = goal;
+    this.mode = "editGoalForm"
+  }
+
+  deleteAchievement(achievement: Achievement) {
+
+      // must delete the goals (children) before we can delete the parent (achievemtnt);
+
+      this.achievementService.destroy(achievement.id).subscribe(
+        data => {
+
+          this.reload();
+          this.goBack()
+
         },
         err => {
-          console.error('all-achievementsComponent.newGoal(): Error');
+          console.error('all-achievementsComponent.deleteAchievement: Error');
           console.error(err);
         }
-  )
-}
- 
-editGoalForm(goal: Goal){
- this.selectedGoal = goal;
- this.mode="editGoalForm"
-}
+      );
+    
+  }
+
+  addAchievementForm(){
+    this.mode="addAchievementForm"
+    this.selectedAchievement = new Achievement();
+  }
+
+  addNewAchievement(){
+    this.achievementService.create(this.selectedAchievement).subscribe(
+      data => {
+
+        this.reload();
+        this.goBack();
+      },
+      err => {
+        console.error('all-achievementsComponent.deleteAchievement: Error');
+        console.error(err);
+      }
+    );
+    
+  }
 
 }

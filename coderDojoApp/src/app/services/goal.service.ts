@@ -80,13 +80,14 @@ export class GoalService {
     };
     return this.http.put<Goal>(`${this.url}/${goal.id}`, goal, httpOptions).pipe(
       catchError((err: any) => {
-        console.error('TodoService.update(): Error');
+        console.error('GoalService.update(): Error');
         console.error(err);
-        return throwError('Error in TodoService.update()');
+        return throwError('Error in GoalService.update()');
       })
     );
   }
 
+  
 
 
 
