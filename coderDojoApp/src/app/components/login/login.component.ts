@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
       next => {
         this.loggedIn();
         this.buttonText = this.username;
-        this.routerPath = `/user/${next.name}/profile`;
         document.getElementById('loginDropdown').classList.remove('show');
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
         const auth = [];
@@ -65,7 +64,6 @@ export class LoginComponent implements OnInit {
       data => {
         this.loggedIn();
         this.buttonText = this.username;
-        this.routerPath = `/user/${this.username}/profile`;
         document.getElementById('loginDropdown').classList.remove('show');
         this.newUser = data;
         this.newUser.email = form.value.email;
@@ -93,7 +91,6 @@ export class LoginComponent implements OnInit {
     this.buttonText = 'Login';
     this.registering = false;
     this.newUser = null;
-    this.routerPath = null;
     this.loggedIn();
     document.getElementById('profileDropdown').classList.remove('show');
     this.router.navigateByUrl('/home');

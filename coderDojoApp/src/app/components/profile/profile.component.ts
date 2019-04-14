@@ -109,6 +109,13 @@ export class ProfileComponent implements OnInit {
           data => {
             this.user = data;
             this.currentAuth = this.user.user;
+
+            this.userService.getUserAchievements(this.user.user.username).subscribe(
+              achieves => {
+                this.user.achievements = achieves;
+              },
+              err => console.error('Observer got an error: ' + err)
+            );
           },
           err => {
             this.router.navigateByUrl('not-found');

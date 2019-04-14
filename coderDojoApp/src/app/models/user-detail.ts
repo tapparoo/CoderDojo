@@ -14,6 +14,7 @@ export class UserDetail {
   user: User;
   location: Location;
   address: Address;
+  achievements: [{}];
   parents: [{}];
   children: [{}];
 
@@ -29,6 +30,7 @@ export class UserDetail {
     user?: User,
     location?: Location,
     address?: Address,
+    achievements?: [{}],
     parents: [{}] = [{}],
     children: [{}] = [{}],
     id?: number
@@ -43,6 +45,7 @@ export class UserDetail {
     this.gender = gender;
     this.userImageUrl = userImageUrl;
     this.user = user;
+    this.achievements = achievements;
     this.location = location;
     this.address = address;
     this.parents = parents;

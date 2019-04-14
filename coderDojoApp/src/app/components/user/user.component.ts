@@ -11,31 +11,40 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  users = null;
+  user = null;
   selected = null;
-
-  showAll() {
-    this.userService.index().subscribe(
-      data => this.users = data,
-      err => {
-        console.log(err);
-        console.log('Error getting list of users from UserComponent as admin');
-      }
-    );
-  }
-
-  reload() {
-
-  }
+  achievements = [];
 
   constructor(
     private auth: AuthService,
     private router: Router,
+    private currentRoute: ActivatedRoute,
     private userService: UserService
     ) { }
 
   ngOnInit() {
-    this.showAll();
+    if (this.auth.checkLogin()) {
+      if (this.currentRoute.snapshot.paramMap.get('username')) {
+        this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
+          data => {
+            this.user = data;
+            this.userService.getUserAchievements(this.user.user.username).subscribe(
+              achieves => {
+                this.user.achievements = achieves;
+                this.achievements = achieves;
+                console.log(this.user);
+
+              },
+              err => console.error('Observer got an error: ' + err)
+            );
+          },
+          err => {
+            this.router.navigateByUrl('not-found');
+            console.error('Observer got an error: ' + err);
+          }
+        );
+      }
+    }
   }
 
 }
