@@ -159,5 +159,8 @@ export class AllAchievementsComponent implements OnInit {
     );
     
   }
+  saveAchievement(){
+    
+  }
 
 }
