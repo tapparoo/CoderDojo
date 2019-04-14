@@ -7,6 +7,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatPaginatorModule, MatDialogModule } from '@angular/material';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MatFormFieldModule, MatInputModule} from '@angular/material';
 @NgModule({
   declarations: [],
   imports: [
@@ -18,7 +20,11 @@ import { MatPaginatorModule, MatDialogModule } from '@angular/material';
     MatPaginatorModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
     ],
   exports: [
     MatTabsModule,
@@ -28,7 +34,12 @@ import { MatPaginatorModule, MatDialogModule } from '@angular/material';
     MatPaginatorModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSortModule
+    MatSortModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
+
   ]
 })
 export class MaterialModule { }

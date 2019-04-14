@@ -18,6 +18,7 @@ import { AllGoalsComponent } from './components/all-goals/all-goals.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,7 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
     UserComponent,
     NavbarComponent,
     AdminDasboardComponent,
-    AllAchievementsComponent
+    AllAchievementsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [AuthService, MeetingService ],
   bootstrap: [AppComponent]

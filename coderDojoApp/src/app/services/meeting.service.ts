@@ -66,9 +66,13 @@ export class MeetingService {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Basic ${credentials}`,
+        'Content-Type':  'application/json',
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
+    console.log(meeting);
+    console.log(httpOptions);
+    console.log(this.url);
     return this.http.post<any>(this.url, meeting, httpOptions);
   }
 

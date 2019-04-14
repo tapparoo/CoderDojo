@@ -5,6 +5,9 @@ import { MeetingService } from './../../services/meeting.service';
 import { Meeting } from './../../models/meeting';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-meeting',
   templateUrl: './meeting.component.html',
@@ -18,7 +21,9 @@ export class MeetingComponent implements OnInit {
   editMeeting = false;
   selected = null;
   displayAttendees = false;
-  appId = 'theme1'; // default
+  searchKey: string;
+  isCreateMeeting = false;
+
   constructor(
     private meetingService: MeetingService,
     private auth: AuthService,
@@ -37,7 +42,7 @@ export class MeetingComponent implements OnInit {
       this.reloadAdmin();
 
     }
-    console.log(this.newMeeting, 'newMeeting');
+
   }
 
   reload() {
@@ -52,7 +57,7 @@ export class MeetingComponent implements OnInit {
         ];
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
-         this.listData.paginator = this.paginator;
+        this.listData.paginator = this.paginator;
         console.log(this.meetings + 'this.meetings');
         this.isAuthorized = false;
       },
@@ -85,6 +90,11 @@ export class MeetingComponent implements OnInit {
       }
     );
   }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+
   setEditMeeting(meeting) {
     this.editMeeting = true;
     this.meeting = meeting;
@@ -102,6 +112,26 @@ export class MeetingComponent implements OnInit {
       }
     );
     this.newMeeting = new Meeting();
+  }
+
+  addPerson(createForm){
+    console.log(createForm);
+    // this.newMeeting = {
+    //   name: createForm.value.name,
+    //   scheduledTime: createForm.value.scheduledTime,
+    //   location: {
+    //     id: createForm.value.locationId}
+    // }
+    this.meetingService.create(createForm.value).subscribe(
+      data => {
+        console.log(data);
+        this.reloadAdmin();
+      },
+      err => {
+        console.error(err);
+      }
+    );
+
   }
 
   deleteMeeting(meeting) {
@@ -135,6 +165,10 @@ export class MeetingComponent implements OnInit {
     this.selected = meeting;
     this.displayAttendees = true;
     console.log(this.selected);
+  }
+
+  openCreateForm() {
+    this.isCreateMeeting = true;
   }
 }
 

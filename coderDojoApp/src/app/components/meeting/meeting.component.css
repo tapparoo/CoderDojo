@@ -1,29 +1,30 @@
-.deletIcon{
-  color: #E14C55;
+
+.deletIcon {
+  color: #e14c55;
   background: none !important;
   border: none;
 }
-.deletIcon:focus{
+.deletIcon:focus {
   border: none;
   outline-color: white;
 }
 
-.editIcon{
-  color: #35D2C8;
+.editIcon {
+  color: #35d2c8;
   background: none !important;
   border: none;
 }
-.editIcon:focus{
+.editIcon:focus {
   border: none;
   outline-color: white;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
 }
-.hide{
-  display:none;
+.hide {
+  display: none;
 }
 /* center loading info */
-mat-footer-row mat-footer-cell{
+mat-footer-row mat-footer-cell {
   justify-content: center;
 }
 textarea:focus,
@@ -43,32 +44,103 @@ input[type="tel"]:focus,
 input[type="color"]:focus,
 button[type="color"]:focus,
 .uneditable-input:focus {
-  border-color:none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  border-color: none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(126, 239, 104, 0.6);
   outline: 0 none;
   outline-color: white;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
 }
-.button.mat-sort-header-button{
-  outline: unset !important;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 
+
+/* You can add global styles to this file, and also import other style files */
+
+div.container {
+  margin: 0px 40px;
 }
-.mat-sort-header-container.mat-sort-header-sorted :focus{
-  outline-color: white !important;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }
-.mat-header-cell.mat-header-cell.ng-tns-c6-1.cdk-column-Location.mat-column-Location.ng-star-inserted:focus{
-  outline-color: white !important;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 
+form.normal-form {
+  margin: 10px;
 }
-.mat-sort-header-container:focus{
-  outline-color: white !important;
-  outline: 0 none;
-  border-color:none;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 
+.controles-container {
+  width: 100%;
+  padding: 5%;
+}
+
+.controles-container > * {
+  width: 100%;
+}
+
+.add-bottom-padding {
+  padding-bottom: 10px;
+}
+/* radio group */
+mat-radio-group mat-radio-button {
+  margin-left: 5px;
+}
+
+.button-row button {
+  margin: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+/* mat-table */
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+  font-style: italic;
+}
+
+/* filter controls */
+.search-div {
+  margin: 10px;
+}
+.search-form-field {
+  width: 60%;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.search-form-field div.mat-form-field-underline {
+  display: none;
+}
+.search-form-field div.mat-form-field-infix {
+  border-top: 0px;
+}
+.search-form-field div.mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+.search-form-field div.mat-form-field-suffix button {
+  height: 32px;
+  width: 32px;
+}
+.create-btn{
+border: none;
+color: #2469F9;
+float: right;
+font-size: 16px;
+padding-top:5px;
+}
+
+.create-btn:hover{
+  border: none;
+  color: rgb(124, 159, 235);
+  }
+.mat-cell{
+    display:flex;
+    justify-content:center;
+}
+.mat-header-cell {
+  display:flex;
+  justify-content:center;
 }

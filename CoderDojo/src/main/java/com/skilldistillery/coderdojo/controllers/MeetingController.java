@@ -36,33 +36,7 @@ public class MeetingController {
 			Principal principal) {
 		return service.findAllMeetings(principal.getName());
 	}
-	
-	//  GET Meetings
-//	@GetMapping("meetings/attendance/{mid}")
-//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
-//			@PathVariable("mid") Integer mid,
-//			Principal principal) {
-//		try {
-//			List<UserDetail> meeting = service.showMeetingUsers(mid);
-//			if (meeting == null) {
-//				res.setStatus(404);
-//			} else {
-//				StringBuffer url = req.getRequestURL();
-//				url.append("/");
-//				url.append(mid);
-//				res.setHeader("Location", url.toString());
-//
-//				res.setStatus(201);
-//			}
-//
-//			return meeting;
-//		} catch (Exception e) {
-//			res.setStatus(500);
-//			return null;
-//		}
-//	}
-	
-	
+		
 	//  GET Meetings
 	@GetMapping("schedule")
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res) {
@@ -152,5 +126,30 @@ public class MeetingController {
 		}
 		
 	}
+	//  GET Meetings
+//	@GetMapping("meetings/attendance/{mid}")
+//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
+//			@PathVariable("mid") Integer mid,
+//			Principal principal) {
+//		try {
+//			List<UserDetail> meeting = service.showMeetingUsers(mid);
+//			if (meeting == null) {
+//				res.setStatus(404);
+//			} else {
+//				StringBuffer url = req.getRequestURL();
+//				url.append("/");
+//				url.append(mid);
+//				res.setHeader("Location", url.toString());
+//
+//				res.setStatus(201);
+//			}
+//
+//			return meeting;
+//		} catch (Exception e) {
+//			res.setStatus(500);
+//			return null;
+//		}
+//	}
+	
 
 }
