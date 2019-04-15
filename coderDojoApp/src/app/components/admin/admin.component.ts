@@ -51,10 +51,13 @@ export class AdminComponent implements OnInit {
         this.editUser = false;
         const oldUser = this.user.user;
 
-        oldUser.username = form.value.username;
-        oldUser.password = form.value.password;
-
         if (oldUser.username !== form.value.username || form.value.password) {
+          if (oldUser.username !== form.value.username) {
+            oldUser.username = form.value.username;
+          }
+          if (form.value.password) {
+            oldUser.password = form.value.password;
+          }
           console.log('updating user');
           this.userService.updateUser(oldUser).subscribe(
             updatedUser => {

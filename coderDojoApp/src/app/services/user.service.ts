@@ -107,6 +107,25 @@ export class UserService {
           );
   }
 
+  getUserMeetings(username) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<any>(this.url + `/${username}/meetings`, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s profile');
+
+                 }
+                 return 'getUserAchievements error';
+               })
+          );
+  }
+
   updateUser(user: User) {
     const httpOptions = {
       headers: new HttpHeaders({

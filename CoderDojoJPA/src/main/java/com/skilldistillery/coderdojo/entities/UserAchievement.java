@@ -84,11 +84,7 @@ public class UserAchievement {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (achieved ? 1231 : 1237);
-		result = prime * result + ((achievedDate == null) ? 0 : achievedDate.hashCode());
-		result = prime * result + ((achievement == null) ? 0 : achievement.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((userDetail == null) ? 0 : userDetail.hashCode());
 		return result;
 	}
 	@Override
@@ -100,24 +96,7 @@ public class UserAchievement {
 		if (getClass() != obj.getClass())
 			return false;
 		UserAchievement other = (UserAchievement) obj;
-		if (achieved != other.achieved)
-			return false;
-		if (achievedDate == null) {
-			if (other.achievedDate != null)
-				return false;
-		} else if (!achievedDate.equals(other.achievedDate))
-			return false;
-		if (achievement == null) {
-			if (other.achievement != null)
-				return false;
-		} else if (!achievement.equals(other.achievement))
-			return false;
 		if (id != other.id)
-			return false;
-		if (userDetail == null) {
-			if (other.userDetail != null)
-				return false;
-		} else if (!userDetail.equals(other.userDetail))
 			return false;
 		return true;
 	}

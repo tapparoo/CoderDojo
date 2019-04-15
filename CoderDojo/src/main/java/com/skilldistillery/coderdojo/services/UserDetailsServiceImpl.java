@@ -76,7 +76,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (old == null) {
 			return null;
 		}
-		
 		if (ud.getLocation() == null || ud.getLocation().getId() <= 0) {
 			ud.setLocation(null);
 		}
@@ -85,6 +84,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			ud.setAddress(new Address());
 		}
 
-		return deetsRepo.save(ud);
+		return deetsRepo.saveAndFlush(ud);
 	}
 }

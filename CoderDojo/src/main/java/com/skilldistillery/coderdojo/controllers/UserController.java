@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Achievement;
+import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.AchievementService;
@@ -103,6 +104,25 @@ public class UserController {
 
 		return achievements;
 	}
+	
+	@GetMapping("{username}/meetings")
+	public Set<Meeting> getUserMeetings(@PathVariable("username") String username, HttpServletResponse res,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		Set<Meeting> meetings = requestedUser.getMeetingsAttended();
+		
+		if (requestedUser != null) {
+			// Only the owning user or an admin can see a user's profile
+			if (requestingUser.isAdmin()
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+				
+				res.setStatus(200);
+			}
+		}
+		
+		return meetings;
+	}
 
 	@GetMapping("{username}/children")
 	public Set<UserDetail> getChildren(@PathVariable("username") String username, HttpServletResponse res,
@@ -133,8 +153,6 @@ public class UserController {
 	public User updateUser(@RequestBody User usr, Principal principal, HttpServletResponse res) {
 		User requestedUser = serv.findByUsername(usr.getUsername());
 		User requestingUser = serv.findByUsername(principal.getName());
-		User user = null;
-		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can update a user's profile
 			if (requestingUser.isAdmin()
@@ -149,7 +167,7 @@ public class UserController {
 			res.setStatus(404);
 		}
 		
-		return user;
+		return requestedUser;
 	}
 
 	// Update USER DETAILS
@@ -158,6 +176,7 @@ public class UserController {
 		if (usr.getAddress() != null) {
 			addrServ.update(usr.getAddress());
 		}
+		System.out.println(usr);
 		
 		UserDetail requestedUser = deets.findUserDetailByUsername(usr.getUser().getUsername());
 		User requestingUser = serv.findByUsername(principal.getName());
@@ -165,7 +184,7 @@ public class UserController {
 			// Only the owning user, the parent, or an admin can update a user's profile
 			if (requestingUser.isAdmin() || deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
-				
+				System.out.println(usr);
 				deets.update(usr);
 				res.setStatus(200);
 			} else {
