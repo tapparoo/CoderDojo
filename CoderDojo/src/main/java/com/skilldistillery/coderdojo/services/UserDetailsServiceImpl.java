@@ -76,6 +76,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (old == null) {
 			return null;
 		}
+		
+		old.setDob(ud.getDob());
+		old.setEmail(ud.getEmail());
+		old.setFirstName(ud.getFirstName());
+		old.setLastName(ud.getLastName());
+		old.setNickname(ud.getNickname());
+		old.setGender(ud.getGender());
+		old.setUserImageUrl(ud.getUserImageUrl());
+		
 		if (ud.getLocation() == null || ud.getLocation().getId() <= 0) {
 			ud.setLocation(null);
 		}
@@ -84,8 +93,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			ud.setAddress(new Address());
 		}
 
-		return deetsRepo.saveAndFlush(ud);
+		return deetsRepo.save(old);
 	}
-	
-
 }

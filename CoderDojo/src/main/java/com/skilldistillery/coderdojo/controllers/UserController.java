@@ -150,14 +150,14 @@ public class UserController {
 
 	// Update USER object (username/password)
 	@PutMapping("{id}")
-	public User updateUser(@RequestBody User usr, Principal principal, HttpServletResponse res) {
-		User requestedUser = serv.findByUsername(usr.getUsername());
+	public User updateUser(@PathVariable("id") Integer uid, @RequestBody User usr, Principal principal, HttpServletResponse res) {
+		User requestedUser = serv.findById(uid);
 		User requestingUser = serv.findByUsername(principal.getName());
+		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can update a user's profile
 			if (requestingUser.isAdmin()
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUsername())) {
-				
 				serv.updateUser(usr);
 				res.setStatus(200);
 			} else {
@@ -184,7 +184,6 @@ public class UserController {
 			// Only the owning user, the parent, or an admin can update a user's profile
 			if (requestingUser.isAdmin() || deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
-				System.out.println(usr);
 				deets.update(usr);
 				res.setStatus(200);
 			} else {

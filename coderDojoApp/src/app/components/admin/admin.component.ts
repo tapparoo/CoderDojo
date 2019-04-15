@@ -58,6 +58,8 @@ export class AdminComponent implements OnInit {
           if (form.value.password) {
             oldUser.password = form.value.password;
           }
+          console.log(oldUser);
+
           console.log('updating user');
           this.userService.updateUser(oldUser).subscribe(
             updatedUser => {

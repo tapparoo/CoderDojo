@@ -13,73 +13,78 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-	
-
-@Entity	
-@Table(name="user_achievement")
+@Entity
+@Table(name = "user_achievement")
 public class UserAchievement {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private boolean achieved;
-	
-	@Column(name="achieved_date")
+
+	@Column(name = "achieved_date")
 	private Date achievedDate;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_detail_id")
+	@JoinColumn(name = "user_detail_id")
 	private UserDetail userDetail;
-	
-	 
+
 	@ManyToOne
 	@JoinColumn(name = "achievement_id")
 	private Achievement achievement;
-	
-	
+
 	@OneToMany(mappedBy = "userAchievement")
 	private Set<UserGoal> userGoals;
-	
-	
-	
+
 	public Achievement getAchievement() {
 		return achievement;
 	}
+
 	public void setAchievement(Achievement achievement) {
 		this.achievement = achievement;
 	}
+
 	public Set<UserGoal> getUserGoals() {
 		return userGoals;
 	}
+
 	public void setUserGoals(Set<UserGoal> userGoals) {
 		this.userGoals = userGoals;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public boolean isAchieved() {
 		return achieved;
 	}
+
 	public void setAchieved(boolean achieved) {
 		this.achieved = achieved;
 	}
+
 	public Date getAchievedDate() {
 		return achievedDate;
 	}
+
 	public void setAchievedDate(Date achievedDate) {
 		this.achievedDate = achievedDate;
 	}
+
 	public UserDetail getUserDetail() {
 		return userDetail;
 	}
+
 	public void setUserDetail(UserDetail userDetail) {
 		this.userDetail = userDetail;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,6 +92,7 @@ public class UserAchievement {
 		result = prime * result + id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -100,11 +106,13 @@ public class UserAchievement {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "UserAchievement [id=" + id + ", achieved=" + achieved + ", achievedDate=" + achievedDate
 				+ ", userDetail=" + userDetail + ", achievement=" + achievement + "]";
 	}
+
 	public UserAchievement(int id, boolean achieved, Date achievedDate, UserDetail userDetail,
 			Achievement achievement) {
 		super();
@@ -114,9 +122,9 @@ public class UserAchievement {
 		this.userDetail = userDetail;
 		this.achievement = achievement;
 	}
+
 	public UserAchievement() {
 		super();
 	}
-	
-	
+
 }

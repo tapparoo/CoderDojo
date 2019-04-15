@@ -48,9 +48,9 @@
             <div ngbDropdown class="d-inline-block" autoClose="outside">
                 <button class="btn btn-outline-primary" id="profileButton" ngbDropdownToggle>{{buttonText}}</button>
                 <div id="profileDropdown" ngbDropdownMenu aria-labelledby="profileButton">
-                    <button  ngbDropdownItem class="btn btn-primary btn-lg" [routerLink]="'user/' + username">View Profile</button>
+                    <button  ngbDropdownItem class="btn btn-primary btn-lg" [routerLink]="'user/' + getUsername()">View Profile</button>
                     <div class="dropdown-divider"></div>
-                    <a ngbDropdownItem [routerLink]="'user/' + username + '/profile'" routerLinkActive="router-link-active" >Edit Profile</a>
+                    <a ngbDropdownItem [routerLink]="'user/' + getUsername() + '/profile'" routerLinkActive="router-link-active" >Edit Profile</a>
                     <button ngbDropdownItem (click)="logout()">Logout</button>
                     <!-- <button ngbDropdownItem>Forgot password?</button> -->
                 </div>

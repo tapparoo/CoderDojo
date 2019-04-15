@@ -57,10 +57,10 @@ public class UserDetail {
 	private Address address;
 
 	@JsonIgnore
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	@ManyToMany
 	@JoinTable(name = "user_achievement",
 			joinColumns = {@JoinColumn(name = "user_detail_id")},
-			inverseJoinColumns = {@JoinColumn(name = "achievement_id")})
+			inverseJoinColumns = {@JoinColumn(name = "id")})
 	private List<Achievement> achievements;
 	
 	@JsonProperty(access = Access.READ_ONLY)

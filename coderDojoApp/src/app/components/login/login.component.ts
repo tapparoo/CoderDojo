@@ -11,14 +11,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username = this.auth.getLoggedInUsername();
   registering = false;
-  buttonText = this.loggedIn() ? this.username : 'Login';
+  buttonText = this.loggedIn() ? this.auth.getLoggedInUsername() : 'Login';
   newUser = null;
 
   loggedIn() {
     if (this.auth.checkLogin()) {
-      this.username = this.auth.getLoggedInUsername();
+      this.auth.setUsername();
       return true;
     } else {
       return false;
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(user, pw).subscribe(
       next => {
         this.loggedIn();
-        this.buttonText = this.username;
+        this.buttonText = this.auth.getLoggedInUsername();
         document.getElementById('loginDropdown').classList.remove('show');
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
 
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
         if (auth.indexOf('ADMIN') > -1 ) {
           this.router.navigateByUrl('admin');
         } else {
-          this.router.navigateByUrl(`user/${this.username}`);
+          this.router.navigateByUrl(`user/${this.auth.getLoggedInUsername()}`);
         }
       },
       error => {
@@ -62,7 +61,7 @@ export class LoginComponent implements OnInit {
     this.auth.register(user).subscribe(
       data => {
         this.loggedIn();
-        this.buttonText = this.username;
+        this.buttonText = this.auth.getLoggedInUsername();
         document.getElementById('loginDropdown').classList.remove('show');
         this.newUser = data;
         this.newUser.email = form.value.email;
@@ -93,6 +92,11 @@ export class LoginComponent implements OnInit {
     this.loggedIn();
     document.getElementById('profileDropdown').classList.remove('show');
     this.router.navigateByUrl('/home');
+  }
+
+  getUsername(){
+    this.auth.setUsername();
+    return this.auth.getLoggedInUsername();
   }
 
   constructor(private auth: AuthService, private userService: UserService, private router: Router) { }
