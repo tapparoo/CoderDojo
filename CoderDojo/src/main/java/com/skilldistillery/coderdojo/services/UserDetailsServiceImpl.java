@@ -88,10 +88,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return deetsRepo.save(ud);
 	}
 	
-	public List<UserDetail> findUsersByRole(String role){
-		
-		List<UserDetail> results = deetsRepo.findUsersByRole(role);
-		return results;
-		
-	}
+
 }

@@ -1,8 +1,8 @@
 <div>
   <div *ngIf="mode==='studentList'">
-      <div class="row mb-3">
+      <div class="row">
           <div class="col">
-            <h4> </h4>
+            <h4> Image </h4>
           </div>
           <div class="col">
             <h4> Name </h4>
@@ -10,19 +10,37 @@
           <div class="col">
             <h4> Prefered Name </h4>
           </div>
-          <div class="col">
-            <h4> Image </h4>
-          </div>
         </div>
-        <ul>
-          <li *ngFor="let userDetail of students">
-            {{userDetail.lastName}}, {{userDetail.firstName}} 
-          </li>
-        </ul>
-        <!-- <div *ngFor="let student of students">
-
-        </div> -->
-
+        <div class="row" *ngFor="let student of students" (click)="studentAchievementDetailView(student)">
+            <div class="col">
+                <img src="{{student.userImageUrl}}">
+           </div>
+            <div class="col">
+                {{student.lastName}}, {{student.firstName}}
+           </div>
+            <div class="col">
+                {{student.lastName}}, {{student.firstName}}
+           </div>
+            <div class="col">
+                {{student.lastName}}, {{student.firstName}}
+           </div>
+         
+        </div>
+  </div>
+  <div *ngIf="mode==='studentAchievementDetailView'">
+    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} )</h4>
+    <h5>Achievements: </h5>
+    <div class="row" *ngFor="let achievement of selectedStudent.achievements">
+      <div class="col">
+        <img src="{{achievement.imageUrl}}" alt="">
+      </div>
+        <div class="col">
+            {{achievement.name}}
+          </div>
+          <div class="col">
+            {{achievement.description}}
+          </div>
+    </div>
   </div>
 
 </div>
