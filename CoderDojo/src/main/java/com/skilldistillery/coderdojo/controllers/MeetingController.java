@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,15 @@ public class MeetingController {
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
 		return service.findAllMeetings(principal.getName());
+	}
+	
+	//  GET Meetings
+	@GetMapping("meetings/locations/{lid}")
+	public List<Meeting> getMeetingsByLocation(HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable("lid") Integer lid,
+			Principal principal) {
+		return service.findAllByLocationId(principal.getName(),lid);
 	}
 		
 	//  GET Meetings

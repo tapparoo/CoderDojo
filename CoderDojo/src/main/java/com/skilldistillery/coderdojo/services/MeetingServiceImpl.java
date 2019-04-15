@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -103,6 +104,19 @@ public class MeetingServiceImpl implements MeetingService {
             }
         }
         return false;
+	}
+
+	@Override
+	public List<Meeting> findAllByLocationId(String username, Integer lid) {
+		List<Meeting> meetings= null;
+		User u = repoUser.findByUsername(username);
+		if(u != null) {
+			
+			meetings = repo.findAllByLocationId(lid);
+			return meetings;
+		}
+
+		return null;
 	}
 	
 //    @Override

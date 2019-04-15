@@ -101,14 +101,18 @@ mat-footer-row mat-footer-cell {
   font-style: italic;
 }
 
-/* filter controls */
-.search-div {
-  margin: 10px;
+/* location dropdown */
+.location-div{
+  margin-left: 25px;
 }
+
+/* filter  */
+.search-div {
+  margin-left: 10px;
+}
+
 .search-form-field {
   width: 60%;
-  margin-left: 10px;
-  padding: 5px 10px;
   border-radius: 5px;
 }
 .search-form-field div.mat-form-field-underline {
@@ -124,18 +128,22 @@ mat-footer-row mat-footer-cell {
   height: 32px;
   width: 32px;
 }
+
+/* create  btn */
 .create-btn{
-border: none;
-color: #2469F9;
-float: right;
-font-size: 16px;
-padding-top:5px;
+  border: none;
+  color: #2469F9;
+  float: right;
+  font-size: 16px;
+  padding-top:5px;
 }
 
 .create-btn:hover{
   border: none;
   color: rgb(124, 159, 235);
   }
+
+  /*  table  */
 .mat-cell{
     display:flex;
     justify-content:center;
@@ -149,14 +157,10 @@ padding-top:5px;
 .btn-reate-row{
   margin-top:-10px;
 }
-.close-btn{
- color: red;
-}
-/* .search-div.row.ng-star-inserted {
-  justify-content: flex-end;
-} */
 
-/* styling buttons */
+
+
+/* general styling buttons */
 .saveBtn{
   color: white;
   background-color: #2DB9AE;

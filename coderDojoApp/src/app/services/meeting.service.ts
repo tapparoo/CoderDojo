@@ -40,6 +40,27 @@ export class MeetingService {
           );
   }
 
+  // for admin
+  getMeetingsByLocation(locationid: number) {
+    const credentials = this.auth.getCredentials();
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<Meeting[]>(this.url + '/locations/' + locationid, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getAll error');
+               })
+          );
+  }
+
+
   index() {
       const credentials = this.auth.getCredentials();
 
