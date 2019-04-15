@@ -69,6 +69,25 @@ export class UserService {
           );
   }
 
+  getParents(username) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<any>(this.url + `/${username}/parents`, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s children');
+
+                 }
+                 return 'getChildren error';
+               })
+          );
+  }
+
   addChild(username, child) {
     const httpOptions = {
       headers: new HttpHeaders({

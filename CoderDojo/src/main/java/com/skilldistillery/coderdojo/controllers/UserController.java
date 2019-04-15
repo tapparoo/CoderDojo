@@ -147,6 +147,29 @@ public class UserController {
 
 		return children;
 	}
+	
+	@GetMapping("{username}/parents")
+	public Set<UserDetail> getParents(@PathVariable("username") String username, HttpServletResponse res,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		Set<UserDetail> parents = null;
+		if (requestedUser != null) {
+			parents = requestedUser.getParents();
+			// Only the owning user or an admin can see a user's profile
+			if (requestingUser.isAdmin()
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+				
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		
+		return parents;
+	}
 
 	// Update USER object (username/password)
 	@PutMapping("{id}")
