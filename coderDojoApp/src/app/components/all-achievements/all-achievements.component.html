@@ -2,16 +2,16 @@
   <div *ngIf="mode==='index'" class="container">
     <div class="row mb-3">
       <div class="col">
-        <h2>Name</h2>
+        <h4> Name </h4>
       </div>
       <div class="col">
-        <h2>Description</h2>
+        <h4> Description </h4>
       </div>
       <div class="col">
-        <h2>Image URL</h2>
+        <h4> Image </h4>
       </div>
       <div class="col">
-        <h2> </h2>
+        <h4> </h4>
       </div>
     </div>
 
@@ -27,7 +27,8 @@
           {{achievement.description}}
         </div>
         <div class="col">
-          {{achievement.imageUrl}}
+          <img src="{{achievement.imageUrl}}" alt="">
+          <!-- {{achievement.imageUrl}} -->
         </div>
         <div class="col">
           <button (click)="achievementEditForm(achievement)"> Edit </button>
@@ -38,12 +39,17 @@
       <div id="{{achievement.id}}" [ngbCollapse]="!isCollapsed[achievement.id]" class="row">
         <div class="card">
           <div class="card-body">
+            <ul>
+              <li *ngFor="let goal of achievement.goals">
+                {{goal.name}}
+                <br>
+                {{goal.description}}
+              </li>
+            </ul>
             <div *ngFor="let goal of achievement.goals">
               <div class="col">
-                {{goal.name}}
               </div>
               <div class="col">
-                {{goal.description}}
               </div>
             </div>
           </div>
@@ -152,4 +158,10 @@
     <button (click)="addNewAchievement()"> Add This Achievement </button>
 
   </div>
+
+  <!-- <mat-tab-group>
+      <mat-tab label="First"> Content 1 </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group> -->
 </div>

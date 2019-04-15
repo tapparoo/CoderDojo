@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Goal } from 'src/app/models/goal';
 
 
+
 @Component({
   selector: 'app-all-achievements',
   templateUrl: './all-achievements.component.html',

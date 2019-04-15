@@ -155,16 +155,25 @@ public class UserController {
 		}
 	}
 
-//   @DeleteMapping("{username}")
-//   public User disableUser(@PathVariable("username") String username, HttpServletResponse res, HttpServletRequest req){
-//	   User user = serv.disableUser(username);
-//	   
-//	   if (user != null) {
-//		   res.setStatus(200);
-//	   } else {
-//		   res.setStatus(404);
-//	   }
-//	   
-//	   return user;
-//   }
+		@GetMapping("roles/{role}")
+		public List<UserDetail> getUsersByRoleName(@PathVariable("role") String role, HttpServletResponse res, HttpServletRequest req, Principal principal){
+			
+			User requestingUser = serv.findByUsername(principal.getName());
+			List<UserDetail> results = deets.findUsersByRole(role);
+			
+			if (results != null) {
+				if (requestingUser.isAdmin()) {
+
+					res.setStatus(200);
+				}
+			}
+
+		
+			
+			return results;
+			
+		}
+
 }
+
+

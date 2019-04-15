@@ -1,0 +1,28 @@
+<div>
+  <div *ngIf="mode==='studentList'">
+      <div class="row mb-3">
+          <div class="col">
+            <h4> </h4>
+          </div>
+          <div class="col">
+            <h4> Name </h4>
+          </div>
+          <div class="col">
+            <h4> Prefered Name </h4>
+          </div>
+          <div class="col">
+            <h4> Image </h4>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let userDetail of students">
+            {{userDetail.lastName}}, {{userDetail.firstName}} 
+          </li>
+        </ul>
+        <!-- <div *ngFor="let student of students">
+
+        </div> -->
+
+  </div>
+
+</div>

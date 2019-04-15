@@ -100,4 +100,22 @@ export class UserService {
                })
           );
   }
+
+  getUsersByRole(role: string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    
+    return this.http.get<UserDetail[]>((this.url+'/roles/'+role),  httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getUserDetailByRole error');
+               })
+          );
+  }
+  
 }

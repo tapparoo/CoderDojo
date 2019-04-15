@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './components/user/user.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgModule } from '@angular/core';
+import { StudentAchievementComponent } from './components/student-achievement/student-achievement.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -15,7 +16,9 @@ const routes: Routes = [
   { path: 'admin', component: AdminDasboardComponent },
   { path: 'user/:username', component: UserComponent },
   { path: 'user/:username/profile', component: ProfileComponent },
-  { path: 'all-achievements', component: AllAchievementsComponent }
+  { path: 'all-achievements', component: AllAchievementsComponent },
+  { path: 'student-achievements', component: StudentAchievementComponent },
+  
 ];
 
 @NgModule({
