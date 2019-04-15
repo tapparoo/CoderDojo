@@ -80,11 +80,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (ud.getLocation() == null || ud.getLocation().getId() <= 0) {
 			ud.setLocation(null);
 		}
-		
+
 		if (ud.getAddress() == null || ud.getAddress().getId() <= 0) {
 			ud.setAddress(new Address());
 		}
-		
+
 		return deetsRepo.save(ud);
 	}
 	

@@ -41,7 +41,7 @@ public class User {
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
-	
+	@JsonIgnore
 	public boolean isAdmin() {
 		boolean admin = false;
 		for (Role role : roles) {
@@ -51,6 +51,28 @@ public class User {
 			}
 		}
 		return admin;
+	}
+	
+	public boolean isStudent() {
+		boolean student = false;
+		for (Role role : roles) {
+			if (role.getName().equalsIgnoreCase("student")) {
+				student = true;
+				break;
+			}
+		}
+		return student;
+	}
+	
+	public boolean isParent() {
+		boolean parent = false;
+		for (Role role : roles) {
+			if (role.getName().equalsIgnoreCase("parent")) {
+				parent = true;
+				break;
+			}
+		}
+		return parent;
 	}
 	
 	public void addRole(Role role) {

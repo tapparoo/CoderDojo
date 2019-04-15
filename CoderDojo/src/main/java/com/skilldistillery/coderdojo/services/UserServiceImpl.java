@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.addRole(roleRepository.findByName("STUDENT"));
+		user.addRole(roleRepository.findByName("PARENT"));
 		user.setEnabled(true);
 		userRepository.saveAndFlush(user);
 		
