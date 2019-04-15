@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   registering = false;
   buttonText = this.loggedIn() ? this.username : 'Login';
   newUser = null;
-  routerPath = '';
 
   loggedIn() {
     if (this.auth.checkLogin()) {
@@ -36,8 +35,8 @@ export class LoginComponent implements OnInit {
         this.buttonText = this.username;
         document.getElementById('loginDropdown').classList.remove('show');
         console.log('LoginComponent.login(): user logged in, routing to default page by role/authority.');
-        const auth = [];
 
+        const auth = [];
         for (const a of next.authorities) {
           auth.push(a.authority);
         }
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
         if (auth.indexOf('ADMIN') > -1 ) {
           this.router.navigateByUrl('admin');
         } else {
-          this.router.navigateByUrl(`user/${next.name}/profile`);
+          this.router.navigateByUrl(`user/${this.username}`);
         }
       },
       error => {

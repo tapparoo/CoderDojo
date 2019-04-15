@@ -2,6 +2,7 @@ package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "user_detail")
@@ -59,16 +62,16 @@ public class UserDetail {
 			inverseJoinColumns = {@JoinColumn(name = "achievement_id")})
 	private List<Achievement> achievements;
 	
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@ManyToMany
 	@JoinTable(name = "parent_child_relationship", 
-		joinColumns = {@JoinColumn(name = "child_id") }, 
-		inverseJoinColumns = { @JoinColumn(name = "parent_id") })
-	private Set<UserDetail> parents;
+		joinColumns = {@JoinColumn(name = "parent_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "child_id") })
+	private Set<UserDetail> children;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy = "parents")
-	private Set<UserDetail> children;
+	@ManyToMany(mappedBy = "children")
+	private Set<UserDetail> parents;
 
 	@JsonIgnore
 	@ManyToMany
@@ -77,20 +80,47 @@ public class UserDetail {
 		inverseJoinColumns = @JoinColumn(name = "meeting_id"))
 	private Set<Meeting> meetingsAttended;
 	
+	@JsonIgnore
+	public boolean isParentOf(UserDetail child) {
+		for (UserDetail kid: children) {
+			if (child == kid) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public void addChild(UserDetail child) {
+		if (child == null)
+			return;
+		if (children == null)
+			children = new HashSet<>();
+		
+		children.add(child);
+	}
+	
+	public void removeChild(UserDetail child) {
+		if (child == null)
+			return;
+		
+		children.remove(child);
+	}
+	
 	public void addAchievement(Achievement achievement) {
 		if (achievement == null)
 			return;
 		if (achievements == null)
 			achievements = new ArrayList<>();
-
+		
 		achievements.add(achievement);
 		achievement.getUsers().add(this);
 	}
-
+	
 	public void removeAchievement(Achievement achievement) {
 		if (achievement == null)
 			return;
-
+		
 		achievements.remove(achievement);
 		achievement.getUsers().remove(this);
 	}
@@ -161,10 +191,6 @@ public class UserDetail {
 
 	public Set<UserDetail> getParents() {
 		return parents;
-	}
-
-	public void setParents(Set<UserDetail> parents) {
-		this.parents = parents;
 	}
 
 	public Set<UserDetail> getChildren() {

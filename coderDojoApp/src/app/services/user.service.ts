@@ -50,6 +50,44 @@ export class UserService {
           );
   }
 
+  getChildren(username){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<any>(this.url + `/${username}/children`, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s children');
+
+                 }
+                 return 'getChildren error';
+               })
+          );
+  }
+
+  addChild(username, child) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.post<any>(this.url + `/${username}/children`, child, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Problem adding a child to this parent');
+
+                 }
+                 return 'getChildren error';
+               })
+          );
+  }
+
   getUserAchievements(username){
     const httpOptions = {
       headers: new HttpHeaders({
@@ -64,7 +102,7 @@ export class UserService {
                   console.log('Not authorized to see this user\'s profile');
 
                  }
-                 return 'getUser error';
+                 return 'getUserAchievements error';
                })
           );
   }

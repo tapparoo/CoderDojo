@@ -63,6 +63,29 @@ export class AuthService {
           })
         );
   }
+  // Same as register(), but don't re-set credentials as child
+  registerChild(user) {
+    const credentials = this.generateBasicAuthCredentials(user.username, user.password);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    // create request to register a new account
+    return this.http.post<any>(this.baseUrl + 'register', user)
+      .pipe(
+        tap((res) => {
+          return res;
+        }),
+          catchError((err: any) => {
+            console.log(err);
+            return throwError('AuthService.register(): error registering user.');
+          })
+        );
+  }
 
   logout() {
     localStorage.removeItem('credentials');

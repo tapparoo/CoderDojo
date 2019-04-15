@@ -2,6 +2,7 @@ package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.AchievementService;
 import com.skilldistillery.coderdojo.services.AddressService;
+import com.skilldistillery.coderdojo.services.RoleService;
 import com.skilldistillery.coderdojo.services.SecurityService;
 import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
 import com.skilldistillery.coderdojo.services.UserService;
@@ -39,10 +42,12 @@ public class UserController {
 	private AddressService addrServ;
 	@Autowired
 	private AchievementService achieveServ;
+	@Autowired
+	private RoleService roleServ;
 
 	// admin
 	@GetMapping
-	public List<UserDetail> getAllUsers(HttpServletResponse res, HttpServletRequest req, Principal principal) {
+	public List<UserDetail> getAllUsers(HttpServletResponse res, Principal principal) {
 		// Only admins can get this
 		if (!serv.findByUsername(principal.getName()).isAdmin()) {
 			return null;
@@ -61,7 +66,7 @@ public class UserController {
 
 	@GetMapping("{username}")
 	public UserDetail getUserDetailsByUsername(@PathVariable("username") String username, HttpServletResponse res,
-			HttpServletRequest req, Principal principal) {
+			Principal principal) {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
 
@@ -82,7 +87,7 @@ public class UserController {
 
 	@GetMapping("{username}/achievements")
 	public List<Achievement> getUserAchievements(@PathVariable("username") String username, HttpServletResponse res,
-			HttpServletRequest req, Principal principal) {
+			Principal principal) {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
 		List<Achievement> achievements = requestedUser.getAchievements();
@@ -99,32 +104,106 @@ public class UserController {
 		return achievements;
 	}
 
-	// Update USER object (username/password)
-	@PutMapping("{id}")
-	public User updateUser(@RequestBody User usr, HttpServletResponse res, HttpServletRequest req) {
-		User user = serv.updateUser(usr);
+	@GetMapping("{username}/children")
+	public Set<UserDetail> getChildren(@PathVariable("username") String username, HttpServletResponse res,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		Set<UserDetail> children = null;
 
-		if (user != null) {
-			res.setStatus(200);
+		if (requestedUser != null) {
+			children = requestedUser.getChildren();
+			// Only the owning user or an admin can see a user's profile
+			if (requestingUser.isAdmin()
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
 		} else {
 			res.setStatus(404);
 		}
 
+		return children;
+	}
+
+	// Update USER object (username/password)
+	@PutMapping("{id}")
+	public User updateUser(@RequestBody User usr, Principal principal, HttpServletResponse res) {
+		User requestedUser = serv.findByUsername(usr.getUsername());
+		User requestingUser = serv.findByUsername(principal.getName());
+		User user = null;
+		
+		if (requestedUser != null) {
+			// Only the owning user or an admin can update a user's profile
+			if (requestingUser.isAdmin()
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUsername())) {
+				
+				serv.updateUser(usr);
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		
 		return user;
 	}
 
 	// Update USER DETAILS
 	@PutMapping
-	public UserDetail updateUserDetails(@RequestBody UserDetail usr, HttpServletResponse res) {
-		addrServ.update(usr.getAddress());
-		UserDetail user = deets.update(usr);
-		if (user != null) {
-			res.setStatus(200);
+	public UserDetail updateUserDetails(@RequestBody UserDetail usr, Principal principal, HttpServletResponse res) {
+		if (usr.getAddress() != null) {
+			addrServ.update(usr.getAddress());
+		}
+		
+		UserDetail requestedUser = deets.findUserDetailByUsername(usr.getUser().getUsername());
+		User requestingUser = serv.findByUsername(principal.getName());
+		if (requestedUser != null) {
+			// Only the owning user, the parent, or an admin can update a user's profile
+			if (requestingUser.isAdmin() || deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+				
+				deets.update(usr);
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
 		} else {
 			res.setStatus(404);
 		}
 
-		return user;
+		return requestedUser;
+	}
+	
+	// Add child
+	@PostMapping("{username}/children")
+	public UserDetail addChild(@RequestBody UserDetail usr, Principal principal, HttpServletResponse res) {
+		UserDetail child = deets.findUserDetailByUsername(usr.getUser().getUsername());
+		User requestingUser = serv.findByUsername(principal.getName());
+		
+		if (child != null) {
+			// Only the owning user, the parent, or an admin can update a user's profile
+			if (requestingUser.isAdmin() || requestingUser.isParent()) {
+				// Add Student role, remove default Parent role ( set in UserServiceImpl - save() )
+				User childAuth = serv.findByUsername(child.getUser().getUsername());
+				childAuth.removeRole(roleServ.findByName("PARENT"));
+				childAuth.addRole(roleServ.findByName("STUDENT"));
+				// Add child to parent that created it
+				UserDetail parent = deets.findUserDetailByUsername(principal.getName());
+				parent.addChild(child);
+				deets.update(parent);
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		
+		return child;
 	}
 
 	@PutMapping("{username}/achievements/{id}")
@@ -143,7 +222,7 @@ public class UserController {
 
 	@DeleteMapping("{username}/achievements/{id}")
 	public void removeAchievement(@PathVariable("username") String username, @PathVariable("id") Integer aid,
-			HttpServletResponse res, HttpServletRequest req) {
+			HttpServletResponse res) {
 		UserDetail user = deets.findUserDetailByUsername(username);
 		Achievement achievement = achieveServ.findAchievementById(aid);
 

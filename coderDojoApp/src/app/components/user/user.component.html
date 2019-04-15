@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="user && user.user.student">
   <table  class="table table-striped" >
     <thead>
         <th scope="col">Name</th>
@@ -11,4 +11,51 @@
       <td>{{achieve.imageUrl}}</td>
     </tr>
   </table>
+</div>
+
+<div *ngIf="user && user.user.parent">
+  <br><br>
+    <div ngbDropdown class="d-inline-block" autoClose="outside">
+      <button class="btn btn-outline-primary" ngbDropdownToggle>Register New Child</button>
+      <div id="registerNewChildDropdown" ngbDropdownMenu>
+        <form #NewChild="ngForm" class="px-4 py-3">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="firstName" class="form-control" id="firstName" name="firstName" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="lastName" class="form-control" id="lastName" name="lastName" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="nickname">Nickname</label>
+                <input type="nickname" class="form-control" id="nickname" name="nickname" ngModel>
+              </div>
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob" ngModel>
+              </div>
+              <button  class="btn btn-primary btn-sm" (click)="addChild(NewChild);">Save/Register</button>
+              <button  class="btn btn-secondary btn-sm" (click)="newChild = false;">Cancel</button>
+              <br><br>
+        </form>
+      </div>
+    </div>
+    <br><br>
+    <table  class="table table-striped" >
+        <thead>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Nickname</th>
+            <th scope="col">Date of Birth</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kid of children" (click)="selected = kid;">
+            <td>{{kid.firstName}}</td>
+            <td>{{kid.lastName}}  </td>
+            <td>{{kid.nickname}}</td>
+            <td>{{kid.dob}}</td>
+          </tr>
+        </tbody>
+      </table>
 </div>
