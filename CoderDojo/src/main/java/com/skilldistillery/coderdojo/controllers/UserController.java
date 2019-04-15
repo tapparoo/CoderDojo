@@ -253,16 +253,8 @@ public class UserController {
 		}
 	}
 
-//   @DeleteMapping("{username}")
-//   public User disableUser(@PathVariable("username") String username, HttpServletResponse res, HttpServletRequest req){
-//	   User user = serv.disableUser(username);
-//	   
-//	   if (user != null) {
-//		   res.setStatus(200);
-//	   } else {
-//		   res.setStatus(404);
-//	   }
-//	   
-//	   return user;
-//   }
+
+
 }
+
+

@@ -60,7 +60,7 @@ public class AchievementController {
 			return null;
 		}
 	}
-
+	
 	@PostMapping("achievements")
 	public Achievement createAchievements(@RequestBody Achievement achievement, HttpServletResponse response,
 			HttpServletRequest request, Principal principal) {

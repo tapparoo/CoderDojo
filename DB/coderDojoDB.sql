@@ -371,11 +371,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', 'https://i.imgur.com/eouDBcn.gif');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', 'https://i.imgur.com/SYvA20Z.jpg');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', 'https://i.imgur.com/7NhByZl.jpg');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', 'https://i.imgur.com/9wvgRSm.jpg');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', 'http://www.qmsacademy.com/wp-content/cache/thumbnails/2016/08/six-sigma-master-570x705-c.png');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/7/76/White_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a4/Yellow_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a3/Blue_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115230243');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e3/Red_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013917');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/b/b2/Black_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013918');
 
 COMMIT;
 

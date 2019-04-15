@@ -86,4 +86,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return deetsRepo.saveAndFlush(ud);
 	}
+	
+
 }
