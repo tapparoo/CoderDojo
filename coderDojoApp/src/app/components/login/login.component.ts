@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-
+import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
+import { User } from "src/app/models/user";
+import { AuthService } from "src/app/services/auth.service";
+import { UserService } from "src/app/services/user.service";
+import { Location } from "./../../models/location";
+import { LocationService } from 'src/app/services/location.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +16,34 @@ export class LoginComponent implements OnInit {
   registering = false;
   buttonText = this.loggedIn() ? this.username : 'Login';
   newUser = null;
+  selectedLocationValue: Location;
+  locations: Location[] = [];
+
+  selectUserLocation(){
+    console.log(event);
+    console.log(this.selectedLocationValue);
+
+
+  }
+  constructor(private auth: AuthService, private userService: UserService, private router: Router,
+    private locationService: LocationService) { }
+
+  ngOnInit() {
+    this.loadLocations();
+    this.loggedIn();
+  }
+  loadLocations() {
+    this.locationService.showAllLocations().subscribe(
+      data => {
+        this.locations = data;
+        console.log(data);
+
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 
   loggedIn() {
     if (this.auth.checkLogin()) {
@@ -56,6 +85,9 @@ export class LoginComponent implements OnInit {
   }
 
   register(form: NgForm) {
+    let userLocation = {
+      id : this.selectedLocationValue
+    }
     const user = new User(
       form.value.username, form.value.password, true
     );
@@ -67,6 +99,8 @@ export class LoginComponent implements OnInit {
         this.newUser = data;
         this.newUser.email = form.value.email;
         this.newUser.phoneNumber = form.value.phoneNumber;
+        this.newUser.location = userLocation;
+        console.log(this.newUser);
         this.userService.updateUserDetail(this.newUser).subscribe(
           userDetailData => {
             this.registering = false;
@@ -95,9 +129,5 @@ export class LoginComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
 
-  constructor(private auth: AuthService, private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-    this.loggedIn();
-  }
 }

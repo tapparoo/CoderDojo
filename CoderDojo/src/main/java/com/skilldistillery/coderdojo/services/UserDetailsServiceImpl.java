@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.skilldistillery.coderdojo.entities.Address;
+import com.skilldistillery.coderdojo.entities.Location;
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.repositories.LocationRepository;
 import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 
@@ -27,6 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository userRepository;
 	@Autowired
 	private UserDetailRepository deetsRepo;
+	
+	@Autowired
+	private LocationRepository locationRepo;
 
 	// Spring Security method(s)
 
@@ -77,7 +82,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			return null;
 		}
 		
-		if (ud.getLocation() == null || ud.getLocation().getId() <= 0) {
+		Optional<Location> opt = locationRepo.findById(ud.getLocation().getId());
+		if (opt.isPresent()) {
+			ud.setLocation(opt.get());
+		} else {
 			ud.setLocation(null);
 		}
 
