@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/_theming.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/scss/bootstrap.scss";
+body,
+html {
+	margin: 0 auto;
+	height: 100% !important;
+}
+button:focus {
+  outline: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;}
+
+$my-theme-primary: mat-palette($mat-indigo, 700, 300, 900);
+$my-theme-accent: mat-palette($mat-light-blue);
+$my-theme-warn: mat-palette($mat-deep-orange, A200);
+
+// create theme (use mat-dark-theme for themes with dark backgrounds)
+$my-theme: mat-light-theme(
+    $my-theme-primary,
+    $my-theme-accent,
+    $my-theme-warn
+);
+
