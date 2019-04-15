@@ -1,3 +1,6 @@
+import { User } from './user';
+import { Address } from './address';
+
 export class UserDetail {
   id: number;
   firstName: string;
@@ -8,22 +11,26 @@ export class UserDetail {
   dob: Date;
   gender: string;
   userImageUrl: string;
-  location: {};
-  address: {};
+  user: User;
+  location: Location;
+  address: Address;
+  achievements: [{}];
   parents: [{}];
   children: [{}];
 
   constructor(
-    nickname: string = '',
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string = '',
-    dob: Date = new Date(),
-    gender: string,
-    userImageUrl: string,
-    location: {} = {},
-    address: {} = {},
+    nickname?: string,
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string,
+    dob?: Date,
+    gender?: string,
+    userImageUrl?: string,
+    user?: User,
+    location?: Location,
+    address?: Address,
+    achievements?: [{}],
     parents: [{}] = [{}],
     children: [{}] = [{}],
     id?: number
@@ -37,6 +44,8 @@ export class UserDetail {
     this.dob = dob;
     this.gender = gender;
     this.userImageUrl = userImageUrl;
+    this.user = user;
+    this.achievements = achievements;
     this.location = location;
     this.address = address;
     this.parents = parents;

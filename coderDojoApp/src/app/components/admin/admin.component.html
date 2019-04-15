@@ -2,17 +2,29 @@
     <form>
       <label>ID: {{user.id}}</label>
       <br>
+      <label>First Name
+      <input type="text" name="firstName" disabled [ngModel]="user.firstName">
+      </label><br>
+      <label>Last Name
+      <input type="text" name="lastName" disabled [ngModel]="user.lastName">
+      </label><br>
       <label>Nickname
       <input type="text" name="nickname" disabled [ngModel]="user.nickname">
+      </label><br>
+      <label>Username
+      <input type="text" name="username" disabled [ngModel]="user.user.username">
+      </label><br>
+      <label>Email
+      <input type="text" name="email" disabled [ngModel]="user.email">
       </label><br>
       <label>Phone Number
       <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
       </label><br>
-      <label>Address
-      <input type="text" name="address" disabled [ngModel]="user.address">
+      <label>DOB
+      <input type="text" name="dob" disabled [ngModel]="user.dob">
       </label><br>
       <label>Location
-      <input type="text" name="location" disabled [ngModel]="user.location">
+      <input type="text" name="location" disabled [ngModel]="user.location.name">
       </label><br>
       <label>Parents
       <input type="text" name="parents" disabled [ngModel]="user.parents">
@@ -29,17 +41,32 @@
     <form #EditUserForm="ngForm">
         <label>ID: {{user.id}}</label>
         <br>
+        <label>First Name
+        <input type="text" name="firstName" [ngModel]="user.firstName">
+        </label><br>
+        <label>Last Name
+        <input type="text" name="lastName" [ngModel]="user.lastName">
+        </label><br>
         <label>Nickname
         <input type="text" name="nickname" [ngModel]="user.nickname">
+        </label><br>
+        <label>Username
+        <input type="text" name="username" [ngModel]="user.user.username">
+        </label><br>
+        <label>New Password
+        <input type="password" name="password" [ngModel]="user.user.password">
+        </label><br>
+        <label>Email
+        <input type="email" name="email" [ngModel]="user.email">
         </label><br>
         <label>Phone Number
         <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
         </label><br>
-        <label>Address
-        <input type="text" name="address" disabled [ngModel]="user.address">
+        <label>DOB
+        <input type="date" name="dob" [ngModel]="user.dob">
         </label><br>
         <label>Location
-        <input type="text" name="location" disabled [ngModel]="user.location">
+        <input type="text" name="location" disabled [ngModel]="user.location.name">
         </label><br>
         <label>Parents
         <input type="text" name="parents" disabled [ngModel]="user.parents">
@@ -53,13 +80,20 @@
 </div>
 
 <div *ngIf="!user && !editUser">
-  <ul *ngFor="let u of users" (click)="user = u;">
-    <li>{{u.id}}</li>
-    <li>{{u.nickname}}</li>
-    <li>{{u.phoneNumber}}</li>
-    <li>{{u.address.street}}</li>
-    <li>{{u.location.name}}</li>
-    <li>{{u.parents}}</li>
-    <li>{{u.children}}</li>
-  </ul>
+    <table  class="table table-striped" >
+        <thead>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Nickname</th>
+            <th scope="col">Username</th>
+            <th scope="col">Phone Number</th>
+        </thead>
+        <tr *ngFor="let u of users" (click)="user = u;">
+          <td>{{u.firstName}}</td>
+          <td>{{u.lastName}}  </td>
+          <td>{{u.nickname}}  </td>
+          <td>{{u.user.username}}</td>
+          <td>{{u.phoneNumber}}  </td>
+        </tr>
+    </table>
 </div>

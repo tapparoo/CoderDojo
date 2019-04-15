@@ -29,6 +29,7 @@ export class MeetingComponent implements OnInit {
     private auth: AuthService,
     private router: Router
   ) {}
+  createMeeting = false;
 
   listData: MatTableDataSource<any>;
   displayedColumns = [  ];
@@ -83,6 +84,8 @@ export class MeetingComponent implements OnInit {
           'Attendees',
           'Actions'
         ];
+        console.log(data);
+        this.meetings = data;
         this.isAuthorized = true;
       },
       err => {
@@ -99,12 +102,22 @@ export class MeetingComponent implements OnInit {
     this.editMeeting = true;
     this.meeting = meeting;
   }
+  cancelCreate(){
+    this.createMeeting = false;
+  }
+  openCreate(){
+    this.createMeeting = !this.createMeeting;
+  }
 
+  closeDisplayAttend(){
+    this.displayAttendees = false;
+  }
   addMeeting() {
     console.log(this.newMeeting);
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
         console.log(data);
+        this.isCreateMeeting = !this.createMeeting;
         this.reloadAdmin();
       },
       err => {
@@ -169,8 +182,30 @@ export class MeetingComponent implements OnInit {
   }
 
   openCreateForm() {
-    this.isCreateMeeting = true;
+    this.isCreateMeeting = !this.isCreateMeeting;
   }
+  closeCreateForm(){
+    this.isCreateMeeting =false;
+  }
+  changeStatus(meetId:number, meetingAttendent, e){
+      console.log(meetId);
+      console.log(meetingAttendent);
+      console.log(e.target.checked);
+      this.meetingService.updateMeetingAttendeeStatus(meetId, meetingAttendent, e.target.checked ).subscribe(
+        data => {
+          this.reloadAdmin();
+          console.log(data + "confirm");
+          this.editMeeting = false;
+        },
+        err => {
+            console.error(err);
+            console.log('Error in update');
+        }
+      );
+
+  }
+
+
 }
 
 // export class MeetingComponent implements OnInit {

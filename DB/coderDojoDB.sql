@@ -113,7 +113,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `achievement` ;
 
 CREATE TABLE IF NOT EXISTS `achievement` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(500) NULL,
   `image_url` VARCHAR(255) NULL,

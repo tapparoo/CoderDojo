@@ -10,9 +10,9 @@ public interface GoalService {
 
 	Goal findGoalById(Integer id);
 
-	void create(Goal goal);
+	Goal create(Goal goal);
 
-	void delete(Integer id);
+	boolean delete(Integer id);
 
 	Goal update(Integer id, Goal goal);
 

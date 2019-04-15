@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,9 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Achievement {
@@ -27,9 +28,37 @@ public class Achievement {
 	
 	@OneToMany(mappedBy="achievement")
 	private Set<Goal> goals;
+	
+	@ManyToMany(mappedBy="achievements")
+	private List<UserDetail> users;
 
 	
+	public void addUser(UserDetail user) {
+		if (user == null)
+			return;
+		if (users == null)
+			users = new ArrayList<>();
+
+		users.add(user);
+		user.getAchievements().add(this);
+	}
+
+	public void removeUser(UserDetail user) {
+		if (user == null)
+			return;
+
+		users.remove(user);
+		user.getAchievements().remove(this);
+	}
 	
+	public List<UserDetail> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserDetail> users) {
+		this.users = users;
+	}
+
 	public Set<Goal> getGoals() {
 		return goals;
 	}

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Goal;
+import com.skilldistillery.coderdojo.entities.GoalAndAchievementIdDTO;
+import com.skilldistillery.coderdojo.services.AchievementService;
 import com.skilldistillery.coderdojo.services.GoalService;
 
 
@@ -27,6 +29,9 @@ import com.skilldistillery.coderdojo.services.GoalService;
 	public class GoalController {
 		@Autowired
 		private GoalService service;
+		
+		@Autowired
+		private AchievementService achievementservice;
 		
 		@GetMapping("goals")
 		public List<Goal> findAllGoals(HttpServletRequest req, HttpServletResponse res, Principal principal) {
@@ -58,9 +63,22 @@ import com.skilldistillery.coderdojo.services.GoalService;
 		}
 	
 		@PostMapping("goals")
-		public Goal createGoals(@RequestBody Goal goal, HttpServletResponse response,
+		public Goal createGoals(@RequestBody GoalAndAchievementIdDTO goalAndId, HttpServletResponse response,
 				HttpServletRequest request,  Principal principal) {
 			try {
+				System.out.println(goalAndId);
+//				System.out.println(goalAndId.getAchievementId());
+//				System.out.println(goalAndId.getDescription());
+//				System.out.println(goalAndId.getName());
+				Goal goal = new Goal();
+				goal.setName(goalAndId.getName());
+				goal.setDescription(goalAndId.getDescription());
+//				System.out.println(goalAndId.getAchievementId());
+//				System.out.println("should see an id right after this line");
+//				System.out.println(achievementservice.findAchievementById(goalAndId.getAchievementId()));
+				
+				goal.setAchievement(achievementservice.findAchievementById(goalAndId.getAchievementId()));
+				
 				System.out.println("controller.createGoals(): " + goal);
 				service.create(goal);
 				StringBuffer url = request.getRequestURL();

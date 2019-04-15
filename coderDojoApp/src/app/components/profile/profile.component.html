@@ -1,0 +1,146 @@
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <div *ngIf="!editUser && user">
+            <form>
+              <label>ID: {{user.id}}</label>
+              <br>
+              <label>First Name
+              <input type="text" name="firstName" disabled [ngModel]="user.firstName">
+              </label><br>
+              <label>Last Name
+              <input type="text" name="lastName" disabled [ngModel]="user.lastName">
+              </label><br>
+              <label>Email
+              <input type="text" name="email" disabled [ngModel]="user.email">
+              </label><br>
+              <label>Gender
+              <input type="text" name="gender" disabled [ngModel]="user.gender">
+              </label><br>
+              <label>Date of Birth
+              <input type="date" name="dob" disabled [ngModel]="user.dob">
+              </label><br>
+              <label>Image URL
+              <input type="text" name="userImageUrl" disabled [ngModel]="user.userImageUrl">
+              </label><br>
+              <label>Phone Number
+              <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
+              </label><br>
+              <div *ngIf="user.address">
+                <label>Street
+                <input type="text" name="street"  disabled [ngModel]="user.address.street">
+                </label><br>
+                <label>Street2
+                <input type="text" name="street2"   disabled [ngModel]="user.address.street2">
+                </label><br>
+                <label>City
+                <input type="text" name="city"   disabled [ngModel]="user.address.city">
+                </label><br>
+                <label>State
+                <input type="text" name="state"   disabled [ngModel]="user.address.state">
+                </label><br>
+                <label>Zipcode
+                <input type="text" name="zip"   disabled [ngModel]="user.address.zip">
+                </label><br>
+                <label>Country
+                <input type="text" name="country"   disabled [ngModel]="user.address.country">
+                </label><br>
+              </div>
+              <label>Location
+              <input type="text" name="location" disabled [ngModel]="user.location">
+              </label><br>
+              <label>Parents
+              <input type="text" name="parents" disabled [ngModel]="user.parents">
+              </label><br>
+              <label>Children
+              <input type="text" name="children" disabled [ngModel]="user.children">
+              </label><br>
+            </form>
+          <button (click)="editUser = true;">Edit</button>
+        </div>
+
+        <div *ngIf="editUser && user">
+            <form #EditUserForm="ngForm">
+                <label>ID:
+                  <input type="text" name="id" disabled [ngModel]="user.id">
+                </label><br>
+              <label>First Name
+              <input type="text" name="firstName" [ngModel]="user.firstName">
+              </label><br>
+              <label>Last Name
+              <input type="text" name="lastName" [ngModel]="user.lastName">
+              </label><br>
+              <label>Email
+              <input type="text" name="email" [ngModel]="user.email">
+              </label><br>
+              <label>Gender
+              <input type="text" name="gender" [ngModel]="user.gender">
+              </label><br>
+              <label>Date of Birth
+              <input type="date" name="dob" [ngModel]="user.dob">
+              </label><br>
+              <label>Image URL
+              <input type="text" name="userImageUrl" [ngModel]="user.userImageUrl">
+              </label><br>
+              <label>Phone Number
+              <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
+              </label><br>
+              <label>Street
+                  <input type="text" name="street" [ngModel]="user.address.street">
+                  </label><br>
+                  <label>Street2
+                  <input type="text" name="street2" [ngModel]="user.address.street2">
+                  </label><br>
+                  <label>City
+                  <input type="text" name="city" [ngModel]="user.address.city">
+                  </label><br>
+                  <label>State
+                  <input type="text" name="state" [ngModel]="user.address.state">
+                  </label><br>
+                  <label>Zipcode
+                  <input type="text" name="zip" [ngModel]="user.address.zip">
+                  </label><br>
+                  <label>Country
+                  <input type="text" name="country" [ngModel]="user.address.country">
+                  </label><br>
+              <label>Location
+              <input type="text" name="location" disabled [ngModel]="user.location">
+              </label><br>
+              <label>Parents
+              <input type="text" name="parents" disabled [ngModel]="user.parents">
+              </label><br>
+              <label>Children
+              <input type="text" name="children" disabled [ngModel]="user.children">
+              </label><br>
+              </form>
+            <button (click)="editUser = false;">Cancel</button>
+            <button (click)="updateUserDetails(EditUserForm)">Save</button>
+        </div>
+      </div>
+          <div *ngIf="!editUserPass && currentAuth" class="col">
+              <form>
+                <label>Username
+                <input type="text" name="username" disabled [ngModel]="currentAuth.username">
+                </label><br>
+
+                </form>
+              <button class="btn btn-sm btn-secondary" (click)="editUserPass = true;">Edit Username/Password</button>
+          </div>
+          <div *ngIf="editUserPass && currentAuth" class="col">
+              <form #EditUserPassForm="ngForm">
+                <label>Username
+                <input type="text" name="username" [ngModel]="currentAuth.username">
+                </label><br>
+                <label>Current Password
+                <input type="password" name="currentPass" value = '' ngModel>
+                </label><br>
+                <label>New Password
+                <input type="password" name="newPass" value = '' ngModel>
+                </label><br>
+
+                </form>
+              <button class="btn btn-sm btn-secondary"  (click)="editUserPass = false;">Cancel</button>
+              <button class="btn btn-sm btn-primary"  (click)="updateUsernamePassword(EditUserPassForm)">Save</button>
+          </div>
+    </div>
+  </div>

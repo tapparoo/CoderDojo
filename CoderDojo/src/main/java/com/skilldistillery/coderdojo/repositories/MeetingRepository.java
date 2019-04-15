@@ -1,12 +1,8 @@
 package com.skilldistillery.coderdojo.repositories;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.skilldistillery.coderdojo.entities.Meeting;
-import com.skilldistillery.coderdojo.entities.UserDetail;
 
 public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 //

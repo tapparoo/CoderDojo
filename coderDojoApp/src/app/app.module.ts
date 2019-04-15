@@ -9,15 +9,15 @@ import { AppComponent } from './app.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
 import { AllAchievementsComponent } from './components/all-achievements/all-achievements.component';
 import { AllGoalsComponent } from './components/all-goals/all-goals.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +25,14 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
     MeetingComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent,
     AdminComponent,
     UserComponent,
+    AllAchievementsComponent,
+    AllGoalsComponent,
     NavbarComponent,
     AdminDasboardComponent,
     AllAchievementsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

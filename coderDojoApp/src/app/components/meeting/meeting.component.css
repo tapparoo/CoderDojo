@@ -142,5 +142,26 @@ padding-top:5px;
 }
 .mat-header-cell {
   display:flex;
-  justify-content:center;
+  justify-content:center;}
+.btn-top{
+  float:right;
+}
+.btn-reate-row{
+  margin-top:-10px;
+}
+.close-btn{
+ color: red;
+}
+/* .search-div.row.ng-star-inserted {
+  justify-content: flex-end;
+} */
+
+/* styling buttons */
+.saveBtn{
+  color: white;
+  background-color: #2DB9AE;
+}
+.remove-btn-border{
+ border:none;
+ background:none;
 }

@@ -26,8 +26,8 @@ export class AdminComponent implements OnInit {
     );
   }
 
-  showUser(id: number) {
-    this.userService.getUser(id).subscribe(
+  showUser(username: string) {
+    this.userService.getUser(username).subscribe(
       data => this.user = data,
       err => {
         console.log(err);
@@ -37,15 +37,39 @@ export class AdminComponent implements OnInit {
   }
 
   updateUser(form: NgForm) {
-    console.log(form.value);
-
+    this.user.firstName = form.value.firstName;
+    this.user.lastName = form.value.lastName;
     this.user.nickname = form.value.nickname;
+    this.user.phoneNumber = form.value.phoneNumber;
+    this.user.email = form.value.email;
     this.user.dob = form.value.dob;
 
-    this.userService.updateUser(this.user).subscribe(
+
+    this.userService.updateUserDetail(this.user).subscribe(
       data => {
         this.user = data;
         this.editUser = false;
+        const oldUser = this.user.user;
+
+        oldUser.username = form.value.username;
+        oldUser.password = form.value.password;
+
+        if (oldUser.username !== form.value.username || form.value.password) {
+          console.log('updating user');
+          this.userService.updateUser(oldUser).subscribe(
+            updatedUser => {
+              this.user.user = updatedUser;
+              this.displayUsers();
+            },
+            err => {
+              console.log(err);
+              console.log('Error updating username password from admin panel');
+            }
+          );
+        } else {
+          this.displayUsers();
+        }
+
       },
       err => {
         console.log(err);

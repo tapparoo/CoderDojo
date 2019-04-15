@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "user")
@@ -23,11 +25,12 @@ public class User {
 	private Long id;
 
 	private String username;
-
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	private boolean enabled;
 
+	@JsonIgnore
 	@Transient
 	private String passwordConfirm;
 
@@ -38,6 +41,18 @@ public class User {
 		inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 
+	
+	public boolean isAdmin() {
+		boolean admin = false;
+		for (Role role : roles) {
+			if (role.getName().equalsIgnoreCase("admin")) {
+				admin = true;
+				break;
+			}
+		}
+		return admin;
+	}
+	
 	public void addRole(Role role) {
 		if (role == null)
 			return;

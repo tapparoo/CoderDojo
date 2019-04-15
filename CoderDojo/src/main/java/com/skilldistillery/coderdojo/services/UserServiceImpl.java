@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.addRole(roleRepository.findByName("STUDENT"));
 		user.setEnabled(true);
-		userRepository.save(user);
+		userRepository.saveAndFlush(user);
 		
 		// Associate new UserDetail object with newly created User
 		UserDetail deets = new UserDetail();
@@ -51,6 +51,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUsername(String username) {
 		return userRepository.findByUsername(username);
+	}
+	
+	@Override
+	public User findById(long id) {
+		Optional<User> opt = userRepository.findById(id);
+		User user = null;
+		if (opt.isPresent()) {
+			user = opt.get();
+		}
+		return user;
 	}
 
 	@Override

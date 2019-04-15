@@ -1,113 +1,14 @@
-<div *ngIf="user && !editUser">
-    <form>
-      <label>ID: {{user.id}}</label>
-      <br>
-      <label>First Name
-      <input type="text" name="firstName" disabled [ngModel]="user.firstName">
-      </label><br>
-      <label>Last Name
-      <input type="text" name="lastName" disabled [ngModel]="user.lastName">
-      </label><br>
-      <label>Email
-      <input type="text" name="email" disabled [ngModel]="user.email">
-      </label><br>
-      <label>Gender
-      <input type="text" name="gender" disabled [ngModel]="user.gender">
-      </label><br>
-      <label>Date of Birth
-      <input type="date" name="dob" disabled [ngModel]="user.dob">
-      </label><br>
-      <label>Image URL
-      <input type="text" name="userImageUrl" disabled [ngModel]="user.userImageUrl">
-      </label><br>
-      <label>Phone Number
-      <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
-      </label><br>
-      <label>Street
-          <input type="text" name="street"  disabled [ngModel]="user.address.street">
-          </label><br>
-          <label>Street2
-          <input type="text" name="street2"   disabled [ngModel]="user.address.street2">
-          </label><br>
-          <label>City
-          <input type="text" name="city"   disabled [ngModel]="user.address.city">
-          </label><br>
-          <label>State
-          <input type="text" name="state"   disabled [ngModel]="user.address.state">
-          </label><br>
-          <label>Zipcode
-          <input type="text" name="zip"   disabled [ngModel]="user.address.zip">
-          </label><br>
-          <label>Country
-          <input type="text" name="country"   disabled [ngModel]="user.address.country">
-          </label><br>
-      <label>Location
-      <input type="text" name="location" disabled [ngModel]="user.location">
-      </label><br>
-      <label>Parents
-      <input type="text" name="parents" disabled [ngModel]="user.parents">
-      </label><br>
-      <label>Children
-      <input type="text" name="children" disabled [ngModel]="user.children">
-      </label><br>
-    </form>
-  <button (click)="editUser = true;">Edit</button>
-</div>
-
-<div *ngIf="editUser">
-    <form #EditUserForm="ngForm">
-        <label>ID:
-          <input type="text" name="id" disabled [ngModel]="user.id">
-        </label><br>
-      <label>First Name
-      <input type="text" name="firstName" [ngModel]="user.firstName">
-      </label><br>
-      <label>Last Name
-      <input type="text" name="lastName" [ngModel]="user.lastName">
-      </label><br>
-      <label>Email
-      <input type="text" name="email" [ngModel]="user.email">
-      </label><br>
-      <label>Gender
-      <input type="text" name="gender" [ngModel]="user.gender">
-      </label><br>
-      <label>Date of Birth
-      <input type="date" name="dob" [ngModel]="user.dob">
-      </label><br>
-      <label>Image URL
-      <input type="text" name="userImageUrl" [ngModel]="user.userImageUrl">
-      </label><br>
-      <label>Phone Number
-      <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
-      </label><br>
-      <label>Street
-          <input type="text" name="street" [ngModel]="user.address.street">
-          </label><br>
-          <label>Street2
-          <input type="text" name="street2" [ngModel]="user.address.street2">
-          </label><br>
-          <label>City
-          <input type="text" name="city" [ngModel]="user.address.city">
-          </label><br>
-          <label>State
-          <input type="text" name="state" [ngModel]="user.address.state">
-          </label><br>
-          <label>Zipcode
-          <input type="text" name="zip" [ngModel]="user.address.zip">
-          </label><br>
-          <label>Country
-          <input type="text" name="country" [ngModel]="user.address.country">
-          </label><br>
-      <label>Location
-      <input type="text" name="location" disabled [ngModel]="user.location">
-      </label><br>
-      <label>Parents
-      <input type="text" name="parents" disabled [ngModel]="user.parents">
-      </label><br>
-      <label>Children
-      <input type="text" name="children" disabled [ngModel]="user.children">
-      </label><br>
-      </form>
-    <button (click)="editUser = false;">Cancel</button>
-    <button (click)="updateUserDetails(EditUserForm)">Save</button>
+<div>
+  <table  class="table table-striped" >
+    <thead>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Image URL</th>
+    </thead>
+    <tr *ngFor="let achieve of achievements" (click)="selected = achieve;">
+      <td>{{achieve.name}}</td>
+      <td>{{achieve.description}}  </td>
+      <td>{{achieve.imageUrl}}</td>
+    </tr>
+  </table>
 </div>

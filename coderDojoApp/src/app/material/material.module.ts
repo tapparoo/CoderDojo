@@ -9,6 +9,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatPaginatorModule, MatDialogModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -24,7 +26,8 @@ import {MatFormFieldModule, MatInputModule} from '@angular/material';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
     ],
   exports: [
     MatTabsModule,
@@ -38,7 +41,8 @@ import {MatFormFieldModule, MatInputModule} from '@angular/material';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
 
   ]
 })
