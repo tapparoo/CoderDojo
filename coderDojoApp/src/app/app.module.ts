@@ -1,3 +1,4 @@
+import { MaterialModule } from './material/material.module';
 import { MeetingService } from './services/meeting.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -43,6 +44,8 @@ import { StudentAchievementComponent } from './components/student-achievement/st
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    MaterialModule,
+    FormsModule
   ],
   providers: [AuthService, MeetingService ],
   bootstrap: [AppComponent]

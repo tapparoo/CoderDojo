@@ -1,3 +1,171 @@
+
+.deletIcon {
+  color: #e14c55;
+  background: none !important;
+  border: none;
+}
+.deletIcon:focus {
+  border: none;
+  outline-color: white;
+}
+
+.editIcon {
+  color: #35d2c8;
+  background: none !important;
+  border: none;
+}
+.editIcon:focus {
+  border: none;
+  outline-color: white;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+.hide {
+  display: none;
+}
+/* center loading info */
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+button[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+  outline-color: white;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+
+div.container {
+  margin: 0px 40px;
+}
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+form.normal-form {
+  margin: 10px;
+}
+
+.controles-container {
+  width: 100%;
+  padding: 5%;
+}
+
+.controles-container > * {
+  width: 100%;
+}
+
+.add-bottom-padding {
+  padding-bottom: 10px;
+}
+/* radio group */
+mat-radio-group mat-radio-button {
+  margin-left: 5px;
+}
+
+.button-row button {
+  margin: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+/* mat-table */
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+  font-style: italic;
+}
+
+/* location dropdown */
+.location-div{
+  margin-left: 25px;
+}
+
+/* filter  */
+.search-div {
+  margin-left: 10px;
+}
+
+.search-form-field {
+  width: 60%;
+  border-radius: 5px;
+}
+.search-form-field div.mat-form-field-underline {
+  display: none;
+}
+.search-form-field div.mat-form-field-infix {
+  border-top: 0px;
+}
+.search-form-field div.mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+.search-form-field div.mat-form-field-suffix button {
+  height: 32px;
+  width: 32px;
+}
+
+/* create  btn */
+.create-btn{
+  border: none;
+  color: #2469F9;
+  float: right;
+  font-size: 16px;
+  padding-top:5px;
+}
+
+.create-btn:hover{
+  border: none;
+  color: rgb(124, 159, 235);
+  }
+
+  /*  table  */
+.mat-cell{
+    display:flex;
+    justify-content:center;
+}
+.mat-header-cell {
+  display:flex;
+  justify-content:center;}
 .btn-top{
   float:right;
+}
+.btn-reate-row{
+  margin-top:-10px;
+}
+
+
+
+/* general styling buttons */
+.saveBtn{
+  color: white;
+  background-color: #2DB9AE;
+}
+.remove-btn-border{
+ border:none;
+ background:none;
 }
