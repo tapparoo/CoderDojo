@@ -29,8 +29,7 @@ public class LocationController {
 
 	//  GET Meetings
 	@GetMapping("locations")
-	public Set<Location> index(HttpServletRequest req, HttpServletResponse res,
-			Principal principal) {
-		return service.findAllLocation(principal.getName());
+	public Set<Location> index(HttpServletRequest req, HttpServletResponse res) {
+		return service.findAllLocation();
 	}
 }
