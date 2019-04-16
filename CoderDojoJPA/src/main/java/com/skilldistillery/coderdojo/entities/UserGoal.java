@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="user_goal")
 public class UserGoal {
@@ -23,6 +25,7 @@ public class UserGoal {
 	@Column(name="completed_date")
 	private Date completedDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_achievement_id")
 	private UserAchievement userAchievement;
@@ -39,7 +42,7 @@ public class UserGoal {
 		this.id = id;
 	}
 
-	public boolean isCompleted() {
+	public boolean getCompleted() {
 		return completed;
 	}
 

@@ -1,10 +1,13 @@
+import { UserAchievementService } from './../../services/user-achievement.service';
+import { UserGoalService } from './../../services/user-goal.service';
+import { UserAchievement } from './../../models/user-achievement';
 import { UserService } from 'src/app/services/user.service';
 import { UserDetail } from 'src/app/models/user-detail';
 import { Component, OnInit } from '@angular/core';
 import { AchievementService } from 'src/app/services/achievement.service';
 import { GoalService } from 'src/app/services/goal.service';
-import { ResourceLoader } from '@angular/compiler';
 import { RoleService } from 'src/app/services/role.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-student-achievement',
@@ -15,8 +18,9 @@ export class StudentAchievementComponent implements OnInit {
   mode: string = "studentList"
   students: UserDetail[] = [];
   selectedStudent: UserDetail = null;
-
-  constructor(private userService: UserService, private roleService: RoleService, private achievementService: AchievementService, private goalService: GoalService) { }
+  selectedStudentAchievementsStatus: UserAchievement[] = [];
+  selectedUserAchievement = null;
+  constructor(private userService: UserService, private roleService: RoleService, private achievementService: AchievementService, private goalService: GoalService, private userGoalService: UserGoalService, private userAchievementService: UserAchievementService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.reload();
@@ -41,20 +45,28 @@ export class StudentAchievementComponent implements OnInit {
     );
   };
 
-
+goBack(){
+  this.selectedStudent = null;
+  this.selectedStudentAchievementsStatus = [];
+  this.index();
+}
   studentAchievementDetailView(student: UserDetail) {
     this.selectedStudent = student;
-    this.getStudentAchievements(student);
+    // this.getStudentAchievements(student);
+    this.getStudentUserAchievements(student);
     this.mode = "studentAchievementDetailView";
-    console.log(this.selectedStudent.achievements);
+    // console.log(this.selectedStudent.achievements);
     
   }
 
   getStudentAchievements(student: UserDetail){
     this.userService.getUserAchievements(student.user.username).subscribe(
       data => {
-
+        
         this.selectedStudent.achievements = data;
+        
+        // console.log(this.selectedStudent.achievements)
+        this.getStudentUserAchievements(student)
       },
       err => {
         console.error('StudentList.reload(): Error');
@@ -62,5 +74,47 @@ export class StudentAchievementComponent implements OnInit {
       }
     );
   };
+
+  getStudentUserAchievements(student: UserDetail){
+    this.userAchievementService.getUserAchievementsByUserDetail(student).subscribe(
+      data => {
+        
+        this.selectedStudentAchievementsStatus = data;
+        console.log(this.selectedStudentAchievementsStatus);
+        
+        
+        // console.log(this.selectedStudent.achievements)
+      },
+      err => {
+        console.error('StudentList.reload(): Error');
+        console.error(err);
+      }
+    );
+  };
+
+  achievedCheckBox(userAchievement: UserAchievement){
+    if(!userAchievement.achieved){
+      let currentDate = new Date();
+      console.log(currentDate);
+      userAchievement.achievedDate= currentDate;
+    }
+    userAchievement.achieved = !userAchievement.achieved;
+    this.userAchievementService.update(userAchievement).subscribe(
+      data => {
+        this.getStudentUserAchievements(this.selectedStudent);
+        
+        
+      },
+      err => {
+        console.error('StudentList.reload(): Error');
+        console.error(err);
+      }
+    );
+  };
+
+  achievementDetailView(userachievement: UserAchievement){
+    this.selectedUserAchievement = userachievement;
+    this.mode='userAchievementDetail';
+  }
 
 }

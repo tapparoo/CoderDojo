@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 	
 
 @Entity	
@@ -28,6 +30,7 @@ public class UserAchievement {
 	@Column(name="achieved_date")
 	private Date achievedDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_detail_id")
 	private UserDetail userDetail;
@@ -61,7 +64,7 @@ public class UserAchievement {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public boolean isAchieved() {
+	public boolean getAchieved() {
 		return achieved;
 	}
 	public void setAchieved(boolean achieved) {

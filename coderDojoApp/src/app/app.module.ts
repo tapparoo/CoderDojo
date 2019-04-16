@@ -19,6 +19,7 @@ import { AdminDasboardComponent } from './components/admin-dasboard/admin-dasboa
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserAchievementComponent } from './components/user-achievement/user-achievement.component';
 import { StudentAchievementComponent } from './components/student-achievement/student-achievement.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { StudentAchievementComponent } from './components/student-achievement/st
     HttpClientModule,
     NgbModule.forRoot(),
   ],
-  providers: [AuthService, MeetingService ],
+  providers: [AuthService, MeetingService, DatePipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

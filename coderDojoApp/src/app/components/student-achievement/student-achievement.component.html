@@ -1,46 +1,79 @@
 <div>
   <div *ngIf="mode==='studentList'">
-      <div class="row">
-          <div class="col">
-            <h4> Image </h4>
-          </div>
-          <div class="col">
-            <h4> Name </h4>
-          </div>
-          <div class="col">
-            <h4> Prefered Name </h4>
-          </div>
-        </div>
-        <div class="row" *ngFor="let student of students" (click)="studentAchievementDetailView(student)">
-            <div class="col">
-                <img src="{{student.userImageUrl}}">
-           </div>
-            <div class="col">
-                {{student.lastName}}, {{student.firstName}}
-           </div>
-            <div class="col">
-                {{student.lastName}}, {{student.firstName}}
-           </div>
-            <div class="col">
-                {{student.lastName}}, {{student.firstName}}
-           </div>
-         
-        </div>
-  </div>
-  <div *ngIf="mode==='studentAchievementDetailView'">
-    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} )</h4>
-    <h5>Achievements: </h5>
-    <div class="row" *ngFor="let achievement of selectedStudent.achievements">
+    <div class="row">
       <div class="col">
-        <img src="{{achievement.imageUrl}}" alt="">
+        <h4> Image </h4>
       </div>
-        <div class="col">
-            {{achievement.name}}
-          </div>
-          <div class="col">
-            {{achievement.description}}
-          </div>
+      <div class="col">
+        <h4> Name </h4>
+      </div>
+      <div class="col">
+        <h4> Prefered Name </h4>
+      </div>
+    </div>
+    <div class="row" *ngFor="let student of students" (click)="studentAchievementDetailView(student)">
+      <div class="col">
+        <img src="{{student.userImageUrl}}">
+      </div>
+      <div class="col">
+        {{student.lastName}}, {{student.firstName}}
+      </div>
+      <div class="col">
+        {{student.nickname}}
+      </div>
+
+
     </div>
   </div>
+  <div *ngIf="mode==='studentAchievementDetailView'">
+    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} ) </h4>
+    <h5>Assigned Achievements: </h5>
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col">
+        Name
+      </div>
+      <div class="col">
+        Completed
+      </div>
+      <div class="col">
+      </div>
+      <!-- <div class="col">
+        Completion Date
+      </div> -->
+    </div>
+    <!-- <div class="row" *ngFor="let achievement of selectedStudent.achievements"> -->
+    <div class="row" *ngFor="let userAchievement of selectedStudentAchievementsStatus">
+      <div class="col">
+        <img src="{{userAchievement.achievement.imageUrl}}">
+      </div>
+      <div class="col">
+        {{userAchievement.achievement.name}}
+      </div>
+      <!-- <div class="col">
+        {{userAchievement.achievement.description}}
+      </div> -->
+      <div class="col">
+        <input type="checkbox" [checked]="userAchievement.achieved" (click)='achievedCheckBox(userAchievement)'>
+        {{userAchievement.achieved}}
+      </div>
+      <div class="col">
+        <button (click)="achievementDetailView(userAchievement)"> Detail View </button>
+      </div>
+      <!-- <div class="col">
+        {{userAchievement.achievedDate}}
+      </div> -->
+    </div>
+    <button (click)="goBack()"> Go Back </button>
+  </div>
 
+  <div *ngIf="mode==='userAchievementDetail'">
+    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}}: {{selectedUserAchievement.name}}</h4>
+
+    <div class="row">
+test
+    </div>
+    <button (click)='goBack()'> Go Back </button>
+  </div>
 </div>

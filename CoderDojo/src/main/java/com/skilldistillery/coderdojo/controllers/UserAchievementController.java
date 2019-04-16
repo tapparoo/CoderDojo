@@ -1,7 +1,6 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,30 +18,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.coderdojo.entities.Achievement;
-import com.skilldistillery.coderdojo.entities.Goal;
-import com.skilldistillery.coderdojo.services.AchievementService;
-import com.skilldistillery.coderdojo.services.GoalService;
+import com.skilldistillery.coderdojo.entities.UserAchievement;
+import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.entities.UserGoal;
+import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
+import com.skilldistillery.coderdojo.services.UserAchievementService;
+import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
+import com.skilldistillery.coderdojo.services.UserGoalService;
+import com.skilldistillery.coderdojo.services.UserService;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost:4202" })
 @RequestMapping("api")
-public class AchievementController {
+public class UserAchievementController {
+	
 	@Autowired
-	private AchievementService service;
+	private UserAchievementService service;
+	
 	@Autowired
-	private GoalService goalService;
-
-	@GetMapping("achievements")
-	public List<Achievement> findAllAchievements(HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		return service.findAllAchievement();
+	private UserGoalService userGoalService;
+	
+	@Autowired
+	private UserDetailsServiceImpl deets;
+	
+	
+	@GetMapping("userachievements")
+	public List<UserAchievement> findAllUserAchievement(HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		return service.findAllUserAchievement();
 	}
 
-	@GetMapping("achievements/{aid}")
-	public Achievement findAchievementById(@PathVariable("aid") Integer id, HttpServletResponse response,
+	@GetMapping("userachievements/{aid}")
+	public UserAchievement findAchievementById(@PathVariable("aid") Integer id, HttpServletResponse response,
 			HttpServletRequest request, Principal principal) {
 		try {
-			Achievement p = service.findAchievementById(id);
+			UserAchievement p = service.findUserAchievementById(id);
 			if (p == null) {
 				response.setStatus(404);
 			} else {
@@ -61,8 +70,8 @@ public class AchievementController {
 		}
 	}
 	
-	@PostMapping("achievements")
-	public Achievement createAchievements(@RequestBody Achievement achievement, HttpServletResponse response,
+	@PostMapping("userachievements")
+	public UserAchievement createAchievements(@RequestBody UserAchievement achievement, HttpServletResponse response,
 			HttpServletRequest request, Principal principal) {
 		try {
 			System.out.println("controller.createAchievements(): " + achievement);
@@ -81,20 +90,20 @@ public class AchievementController {
 
 	}
 
-	@DeleteMapping("achievements/{aid}")
+	@DeleteMapping("userachievements/{aid}")
 	public Boolean delete(@PathVariable("aid") Integer id, HttpServletResponse response, HttpServletRequest request,
 			Principal principal) {
 		try {
-			if (service.findAchievementById(id) == null) {
+			if (service.findUserAchievementById(id) == null) {
 				response.setStatus(404);
 				return false;
 			} else {
-				if (service.findAchievementById(id).getGoals().size() > 0) {
+				if (service.findUserAchievementById(id).getUserGoals().size() > 0) {
 					System.out.println("made it into the goal delete if statement.");
-					Achievement ach = service.findAchievementById(id);
-					Set<Goal> goals = ach.getGoals();
-					for (Goal goal : goals) {
-						goalService.delete(goal.getId());
+					UserAchievement ach = service.findUserAchievementById(id);
+					Set<UserGoal> goals = ach.getUserGoals();
+					for (UserGoal goal : goals) {
+						userGoalService.delete(goal.getId());
 					}
 				}
 				service.delete(id);
@@ -109,8 +118,8 @@ public class AchievementController {
 
 	}
 
-	@PutMapping("achievements/{aid}")
-	public Achievement putAchievement(@PathVariable("aid") Integer id, @RequestBody Achievement achievement,
+	@PutMapping("userachievements/{aid}")
+	public UserAchievement putUserAchievement(@PathVariable("aid") Integer id, @RequestBody UserAchievement achievement,
 			HttpServletResponse resp, Principal principal) {
 		achievement = service.update(id, achievement);
 		if (achievement == null) {
@@ -118,4 +127,14 @@ public class AchievementController {
 		}
 		return achievement;
 	}
+	
+	@GetMapping("userachievements/user/{username}")
+	public List<UserAchievement> findAllUserAchievementByUser(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse res, Principal principal) {
+		UserDetail ud = deets.findUserDetailByUsername(username);
+		List<UserAchievement>  results = service.findAllUserAchievementByUserId(ud);
+		return results;
+	}
 }
+	
+
+
