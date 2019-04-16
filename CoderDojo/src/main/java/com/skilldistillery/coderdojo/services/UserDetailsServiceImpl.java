@@ -89,16 +89,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		old.setNickname(ud.getNickname());
 		old.setGender(ud.getGender());
 		old.setUserImageUrl(ud.getUserImageUrl());
+		old.setPhoneNumber(ud.getPhoneNumber());
 		
 		Optional<Location> opt = locationRepo.findById(ud.getLocation().getId());
 		if (opt.isPresent()) {
-			ud.setLocation(opt.get());
+			old.setLocation(opt.get());
 		} else {
-			ud.setLocation(null);
+			old.setLocation(null);
 		}
 
 		if (ud.getAddress() == null || ud.getAddress().getId() <= 0) {
-			ud.setAddress(new Address());
+			old.setAddress(new Address());
 		}
 
 		return deetsRepo.save(old);
