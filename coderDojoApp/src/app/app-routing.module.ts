@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'user/:username/profile', component: ProfileComponent },
   { path: 'all-achievements', component: AllAchievementsComponent },
   { path: 'student-achievements', component: StudentAchievementComponent },
-  
+
 ];
 
 @NgModule({

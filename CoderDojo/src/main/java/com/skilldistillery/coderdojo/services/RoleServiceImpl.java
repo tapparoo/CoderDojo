@@ -19,6 +19,11 @@ public class RoleServiceImpl implements RoleService {
 	UserDetailRepository deetsRepo;
 	
 	@Override
+	public List<Role> index(){
+		return repo.findAll();
+	}
+	
+	@Override
 	public Role findByName(String name) {
 		return repo.findByName(name);
 	}

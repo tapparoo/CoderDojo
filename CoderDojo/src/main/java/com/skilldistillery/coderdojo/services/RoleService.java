@@ -9,5 +9,6 @@ public interface RoleService {
 
 	Role findByName(String name);
 	List<UserDetail> findUsersByRole(String role);
+	List<Role> index();
 
 }

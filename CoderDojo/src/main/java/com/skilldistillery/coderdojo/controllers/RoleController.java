@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.RoleService;
@@ -27,6 +28,19 @@ public class RoleController {
 	RoleService serv;
 	@Autowired
 	UserService userServ;
+	
+	@GetMapping
+	public List<Role> getRoles(HttpServletResponse res, Principal principal){
+		List<Role> roles = null;
+		
+		if (userServ.findByUsername(principal.getName()).isAdmin()) {
+			roles = serv.index();
+			res.setStatus(200);
+		}else {
+			res.setStatus(401);
+		}
+		return roles;
+	}
 	
 	@GetMapping("{role}/users")
 	public List<UserDetail> getUsersByRoleName(@PathVariable("role") String role, HttpServletResponse res,

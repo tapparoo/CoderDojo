@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User } from '../models/user';
 import { UserDetail } from '../models/user-detail';
+import { Role } from '../models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -107,14 +108,18 @@ export class UserService {
           );
   }
 
-  updateRoles(username) {
+  updateRoles(user: UserDetail) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<any>(this.url + `/${username}/roles`, httpOptions)
+    console.log('from userservice updateRoles()');
+
+    console.log(user);
+
+    return this.http.put<Role[]>(this.url + `/${user.user.username}/roles`, user.user.roles, httpOptions)
          .pipe(
                catchError((err: any) => {
                  if (err.status === 401) {
