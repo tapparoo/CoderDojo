@@ -6,6 +6,6 @@ import com.skilldistillery.coderdojo.entities.Location;
 
 public interface LocationService {
 	
-	Set<Location> findAllLocation(String name);
+	Set<Location> findAllLocation();
 
 }

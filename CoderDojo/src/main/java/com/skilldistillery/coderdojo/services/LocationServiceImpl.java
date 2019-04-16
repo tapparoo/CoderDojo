@@ -21,15 +21,10 @@ public class LocationServiceImpl implements LocationService {
 	private UserRepository repoUser;
 
 	@Override
-	public Set<Location> findAllLocation(String username) {
+	public Set<Location> findAllLocation() {
 		Set<Location> locations= null;
-		User u = repoUser.findByUsername(username);
-		if(u != null) {
-			locations = new HashSet<Location>(repo.findAll());
-			return locations;
-		}
-
-		return null;
+		locations = new HashSet<Location>(repo.findAll());
+		return locations;
 	}
 	
 	

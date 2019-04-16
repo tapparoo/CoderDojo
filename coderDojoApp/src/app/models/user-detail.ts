@@ -1,5 +1,6 @@
 import { User } from './user';
 import { Address } from './address';
+import { Location } from './location';
 
 export class UserDetail {
   id: number;
@@ -28,7 +29,10 @@ export class UserDetail {
     gender?: string,
     userImageUrl?: string,
     user?: User,
-    location?: Location,
+    location?: {
+      id?: number;
+      name?: string;
+    },
     address?: Address,
     achievements?: [{}],
     parents: [{}] = [{}],
@@ -46,7 +50,7 @@ export class UserDetail {
     this.userImageUrl = userImageUrl;
     this.user = user;
     this.achievements = achievements;
-    this.location = location;
+    this.location = Object.assign({}, this.location);
     this.address = address;
     this.parents = parents;
     this.children = children;
