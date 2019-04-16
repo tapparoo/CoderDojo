@@ -169,3 +169,13 @@ mat-footer-row mat-footer-cell {
  border:none;
  background:none;
 }
+.containerMeeting{
+  margin: 5%;
+  border: solid 1px #ededed;
+  padding: 20px;
+}
+
+
+app-meeting.ng-star-inserted{
+  background-image: url("https://img.freepik.com/free-vector/minimal-diagonal-zigzag-pattern-design_1017-15351.jpg?size=338&ext=jpg")
+}

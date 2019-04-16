@@ -25,12 +25,9 @@ export class LocationService {
   // METHODS
 
   showAllLocations() {
-    const credentials = this.auth.getCredentials();
-
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
-        'X-Requested-With': 'XMLHttpRequest'
+        'Content-Type':  'application/json'
       })
     };
 
