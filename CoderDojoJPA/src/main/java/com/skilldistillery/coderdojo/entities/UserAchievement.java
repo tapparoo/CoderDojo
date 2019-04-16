@@ -42,7 +42,7 @@ public class UserAchievement {
 	@JoinColumn(name = "achievement_id")
 	private Achievement achievement;
 
-	@OneToMany(mappedBy = "userAchievement", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "userAchievement", cascade=CascadeType.REMOVE)
 	private Set<UserGoal> userGoals;
 
 	public Achievement getAchievement() {

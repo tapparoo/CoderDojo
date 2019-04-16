@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,12 +30,16 @@ public class Achievement {
 	@Column(name="image_url")
 	private String imageUrl;
 	
-	@OneToMany(mappedBy="achievement")
+	@OneToMany(mappedBy="achievement", cascade=CascadeType.REMOVE)
 	private Set<Goal> goals;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="achievements")
 	private List<UserDetail> users;
+	
+	@OneToMany(mappedBy="achievement", cascade=CascadeType.REMOVE)
+	@JsonIgnore
+	private List<UserAchievement> userAchievements;
 
 	
 	public void addUser(UserDetail user) {
@@ -54,6 +60,14 @@ public class Achievement {
 		user.getAchievements().remove(this);
 	}
 	
+	public List<UserAchievement> getUserAchievements() {
+		return userAchievements;
+	}
+
+	public void setUserAchievements(List<UserAchievement> userAchievements) {
+		this.userAchievements = userAchievements;
+	}
+
 	public List<UserDetail> getUsers() {
 		return users;
 	}
