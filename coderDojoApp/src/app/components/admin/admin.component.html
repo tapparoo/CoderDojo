@@ -26,6 +26,16 @@
       <label>Location
       <input type="text" name="location" disabled [ngModel]="user.location.name">
     </label><br>
+    <div *ngIf="user.user.roles && user.user.roles.length > 0">
+      <mat-form-field>
+        <mat-label>Roles</mat-label>
+        <select matNativeControl>
+          <option></option>
+          <option *ngFor="let role of user.user.roles">{{role.name}}</option>
+        </select>
+      </mat-form-field>
+      <br>
+    </div>
     <div *ngIf="user.parents && user.parents.length > 0">
       <mat-form-field>
         <mat-label>Parents</mat-label>
@@ -82,12 +92,26 @@
         <label>Location
         <input type="text" name="location" disabled [ngModel]="user.location.name">
         </label><br>
-        <label>Parents
-        <input type="text" name="parents" disabled [ngModel]="user.parents">
-        </label><br>
-        <label>Children
-        <input type="text" name="children" disabled [ngModel]="user.children">
-        </label><br>
+        <div *ngIf="user.parents && user.parents.length > 0">
+            <mat-form-field>
+              <mat-label>Parents</mat-label>
+              <select matNativeControl #p (change)="showUser(p.value)" >
+                <option></option>
+                <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
+              </select>
+            </mat-form-field>
+            <br>
+          </div>
+          <div *ngIf="user.children && user.children.length > 0">
+            <mat-form-field>
+              <mat-label>Children</mat-label>
+              <select matNativeControl #c (change)="showUser(c.value)" >
+                <option></option>
+                <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
+              </select>
+            </mat-form-field>
+            <br>
+          </div>
       </form>
     <button (click)="editUser = false;">Cancel</button>
     <button (click)="updateUser(EditUserForm)">Save</button>

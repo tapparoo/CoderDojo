@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.Meeting;
+import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.AchievementService;
@@ -169,6 +170,28 @@ public class UserController {
 		}
 		
 		return parents;
+	}
+	
+	@GetMapping("{username}/roles")
+	public Set<Role> getRoles(@PathVariable("username") String username, HttpServletResponse res,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		Set<Role> roles = null;
+				
+		if (requestedUser != null) {
+			// Only an admin can see a user's roles
+			if (requestingUser.isAdmin()) {
+				roles = serv.findByUsername(username).getRoles();
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		
+		return roles;
 	}
 
 	// Update USER object (username/password)

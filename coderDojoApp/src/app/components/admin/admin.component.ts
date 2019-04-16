@@ -41,6 +41,15 @@ export class AdminComponent implements OnInit {
             console.log('Error loading parents from admin page');
           }
         );
+        this.userService.getRoles(username).subscribe(
+          roles => {
+            this.user.user.roles = roles;
+          },
+          err => {
+            console.log(err);
+            console.log('Error loading parents from admin page');
+          }
+        );
       },
       err => {
         console.log(err);
