@@ -1,121 +1,142 @@
-<div *ngIf="user && !editUser">
-    <form>
-      <label>ID: {{user.id}}</label>
-      <br>
-      <label>First Name
-      <input type="text" name="firstName" disabled [ngModel]="user.firstName">
-      </label><br>
-      <label>Last Name
-      <input type="text" name="lastName" disabled [ngModel]="user.lastName">
-      </label><br>
-      <label>Nickname
-      <input type="text" name="nickname" disabled [ngModel]="user.nickname">
-      </label><br>
-      <label>Username
-      <input type="text" name="username" disabled [ngModel]="user.user.username">
-      </label><br>
-      <label>Email
-      <input type="text" name="email" disabled [ngModel]="user.email">
-      </label><br>
-      <label>Phone Number
-      <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
-      </label><br>
-      <label>DOB
-      <input type="text" name="dob" disabled [ngModel]="user.dob">
-      </label><br>
-      <label>Location
-      <input type="text" name="location" disabled [ngModel]="user.location.name">
-    </label><br>
-    <div *ngIf="user.user.roles && user.user.roles.length > 0">
-      <mat-form-field>
-        <mat-label>Roles</mat-label>
-        <select matNativeControl>
-          <option></option>
-          <option *ngFor="let role of user.user.roles">{{role.name}}</option>
-        </select>
-      </mat-form-field>
-      <br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <div *ngIf="user && !editUser">
+            <form>
+              <label>ID: {{user.id}}</label>
+              <br>
+              <label>First Name
+              <input type="text" name="firstName" disabled [ngModel]="user.firstName">
+              </label><br>
+              <label>Last Name
+              <input type="text" name="lastName" disabled [ngModel]="user.lastName">
+              </label><br>
+              <label>Nickname
+              <input type="text" name="nickname" disabled [ngModel]="user.nickname">
+              </label><br>
+              <label>Username
+              <input type="text" name="username" disabled [ngModel]="user.user.username">
+              </label><br>
+              <label>Email
+              <input type="text" name="email" disabled [ngModel]="user.email">
+              </label><br>
+              <label>Phone Number
+              <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
+              </label><br>
+              <label>DOB
+              <input type="text" name="dob" disabled [ngModel]="user.dob">
+              </label><br>
+              <label>Location
+              <input type="text" name="location" disabled [ngModel]="user.location.name">
+            </label><br>
+            <div *ngIf="user.user.roles && user.user.roles.length > 0">
+              <mat-form-field>
+                <mat-label>Roles</mat-label>
+                <select matNativeControl>
+                  <option></option>
+                  <option *ngFor="let role of user.user.roles">{{role.name}}</option>
+                </select>
+              </mat-form-field>
+              <br>
+            </div>
+            <div *ngIf="user.parents && user.parents.length > 0">
+              <mat-form-field>
+                <mat-label>Parents</mat-label>
+                <select matNativeControl #p (change)="showUser(p.value)" >
+                  <option></option>
+                  <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
+                </select>
+              </mat-form-field>
+              <br>
+            </div>
+            <div *ngIf="user.children && user.children.length > 0">
+              <mat-form-field>
+                <mat-label>Children</mat-label>
+                <select matNativeControl #c (change)="showUser(c.value)" >
+                  <option></option>
+                  <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
+                </select>
+              </mat-form-field>
+              <br>
+            </div>
+            </form>
+          <button (click)="user = null;">Back</button>
+          <button (click)="editUser = true;">Edit</button>
+        </div>
+
+        <div *ngIf="editUser">
+            <form #EditUserForm="ngForm">
+                <label>ID: {{user.id}}</label>
+                <br>
+                <label>First Name
+                <input type="text" name="firstName" [ngModel]="user.firstName">
+                </label><br>
+                <label>Last Name
+                <input type="text" name="lastName" [ngModel]="user.lastName">
+                </label><br>
+                <label>Nickname
+                <input type="text" name="nickname" [ngModel]="user.nickname">
+                </label><br>
+                <label>Username
+                <input type="text" name="username" [ngModel]="user.user.username">
+                </label><br>
+                <label>New Password
+                <input type="password" name="password" [ngModel]="user.user.password">
+                </label><br>
+                <label>Email
+                <input type="email" name="email" [ngModel]="user.email">
+                </label><br>
+                <label>Phone Number
+                <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
+                </label><br>
+                <label>DOB
+                <input type="date" name="dob" [ngModel]="user.dob">
+                </label><br>
+                <label>Location
+                <input type="text" name="location" disabled [ngModel]="user.location.name">
+                </label><br>
+                <div *ngIf="user.parents && user.parents.length > 0">
+                    <mat-form-field>
+                      <mat-label>Parents</mat-label>
+                      <select matNativeControl #p (change)="showUser(p.value)" >
+                        <option></option>
+                        <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
+                      </select>
+                    </mat-form-field>
+                    <br>
+                  </div>
+                  <div *ngIf="user.children && user.children.length > 0">
+                    <mat-form-field>
+                      <mat-label>Children</mat-label>
+                      <select matNativeControl #c (change)="showUser(c.value)" >
+                        <option></option>
+                        <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
+                      </select>
+                    </mat-form-field>
+                    <br>
+                  </div>
+              </form>
+            <button (click)="editUser = false; ">Cancel</button>
+            <button (click)="updateUser(EditUserForm)">Save</button>
+        </div>
     </div>
-    <div *ngIf="user.parents && user.parents.length > 0">
-      <mat-form-field>
-        <mat-label>Parents</mat-label>
-        <select matNativeControl #p (change)="showUser(p.value)" >
-          <option></option>
-          <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
-        </select>
-      </mat-form-field>
-      <br>
+
+    <div class="col">
+      <div *ngIf="editUser">
+        <h3>Update Roles</h3>
+          <form [formGroup]="editUserRolesForm">
+            <div *ngFor="let role of roles">
+              <mat-checkbox type="checkbox" [checked]="userHasRole(role.name)" (change)="onChange(role, $event.checked)"> {{role.name}}</mat-checkbox>
+              <br>
+            </div>
+            <button (click)="updateUserRoles(user)">Save Roles</button>
+            <pre>Form values: {{editUserRolesForm.value | json}}</pre>
+          </form>
+      </div>
     </div>
-    <div *ngIf="user.children && user.children.length > 0">
-      <mat-form-field>
-        <mat-label>Children</mat-label>
-        <select matNativeControl #c (change)="showUser(c.value)" >
-          <option></option>
-          <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
-        </select>
-      </mat-form-field>
-      <br>
-    </div>
-    </form>
-  <button (click)="user = null;">Back</button>
-  <button (click)="editUser = true;">Edit</button>
+  </div>
 </div>
 
-<div *ngIf="editUser">
-    <form #EditUserForm="ngForm">
-        <label>ID: {{user.id}}</label>
-        <br>
-        <label>First Name
-        <input type="text" name="firstName" [ngModel]="user.firstName">
-        </label><br>
-        <label>Last Name
-        <input type="text" name="lastName" [ngModel]="user.lastName">
-        </label><br>
-        <label>Nickname
-        <input type="text" name="nickname" [ngModel]="user.nickname">
-        </label><br>
-        <label>Username
-        <input type="text" name="username" [ngModel]="user.user.username">
-        </label><br>
-        <label>New Password
-        <input type="password" name="password" [ngModel]="user.user.password">
-        </label><br>
-        <label>Email
-        <input type="email" name="email" [ngModel]="user.email">
-        </label><br>
-        <label>Phone Number
-        <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
-        </label><br>
-        <label>DOB
-        <input type="date" name="dob" [ngModel]="user.dob">
-        </label><br>
-        <label>Location
-        <input type="text" name="location" disabled [ngModel]="user.location.name">
-        </label><br>
-        <div *ngIf="user.parents && user.parents.length > 0">
-            <mat-form-field>
-              <mat-label>Parents</mat-label>
-              <select matNativeControl #p (change)="showUser(p.value)" >
-                <option></option>
-                <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
-              </select>
-            </mat-form-field>
-            <br>
-          </div>
-          <div *ngIf="user.children && user.children.length > 0">
-            <mat-form-field>
-              <mat-label>Children</mat-label>
-              <select matNativeControl #c (change)="showUser(c.value)" >
-                <option></option>
-                <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
-              </select>
-            </mat-form-field>
-            <br>
-          </div>
-      </form>
-    <button (click)="editUser = false;">Cancel</button>
-    <button (click)="updateUser(EditUserForm)">Save</button>
-</div>
 
 <div *ngIf="!user && !editUser">
     <table  class="table table-striped" >

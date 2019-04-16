@@ -49,17 +49,15 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserDetails(form: NgForm) {
-    const deets = new UserDetail(
-      form.value.nickname,
-      form.value.firstName,
-      form.value.lastName,
-      form.value.email,
-      form.value.phoneNumber,
-      form.value.dob,
-      form.value.gender,
-      form.value.userImageUrl,
-      form.value.userId
-    );
+    this.user.nickname = form.value.nickname;
+    this.user.firstName = form.value.firstName;
+    this.user.lastName = form.value.lastName;
+    this.user.email = form.value.email;
+    this.user.phoneNumber = form.value.phoneNumber;
+    this.user.dob = form.value.dob;
+    this.user.gender = form.value.gender;
+    this.user.imageUrl = form.value.userImageUrl;
+
     const addr = new Address();
     addr.street = form.value.street;
     addr.street2 = form.value.street2;
@@ -69,10 +67,9 @@ export class ProfileComponent implements OnInit {
     addr.country = form.value.country;
     addr.id = this.user.address.id;
 
-    deets.id = this.user.id;
-    deets.address = addr;
+    this.user.address = addr;
 
-    this.userService.updateUserDetail(deets).subscribe(
+    this.userService.updateUserDetail(this.user).subscribe(
       data => {
         this.user = data;
         this.editUser = false;

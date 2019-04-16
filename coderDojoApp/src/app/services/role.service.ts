@@ -14,6 +14,23 @@ export class RoleService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
+  getRoles() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<any[]>((this.url),  httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getUserDetailByRole error');
+               })
+          );
+  }
+
   getUsersByRole(role: string){
     const httpOptions = {
       headers: new HttpHeaders({
@@ -21,7 +38,7 @@ export class RoleService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    
+
     return this.http.get<UserDetail[]>((this.url+role+'/users'),  httpOptions)
          .pipe(
                catchError((err: any) => {

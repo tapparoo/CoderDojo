@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -204,6 +205,7 @@ public class UserController {
 			// Only the owning user or an admin can update a user's profile
 			if (requestingUser.isAdmin()
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUsername())) {
+				
 				serv.updateUser(usr);
 				res.setStatus(200);
 			} else {
@@ -222,8 +224,6 @@ public class UserController {
 		if (usr.getAddress() != null) {
 			addrServ.update(usr.getAddress());
 		}
-		System.out.println(usr);
-		
 		UserDetail requestedUser = deets.findUserDetailByUsername(usr.getUser().getUsername());
 		User requestingUser = serv.findByUsername(principal.getName());
 		if (requestedUser != null) {
@@ -240,6 +240,27 @@ public class UserController {
 		}
 
 		return requestedUser;
+	}
+	
+	// Update USER ROLES
+	@PutMapping("{username}/roles")
+	public Set<Role> updateUserRoles(@PathVariable("username") String username, @RequestBody List<Role> roles, Principal principal, HttpServletResponse res) {
+		User requestedUser = serv.findByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		
+		if (requestedUser != null) {
+			// Only an admin can update a user's roles
+			if (requestingUser.isAdmin()) {
+				requestedUser.setRoles(new HashSet<Role>(roles));
+				serv.updateUser(requestedUser);
+				res.setStatus(200);
+			} else {
+				res.setStatus(401);
+			}
+		} else {
+			res.setStatus(404);
+		}
+		return requestedUser.getRoles();
 	}
 	
 	// Add child

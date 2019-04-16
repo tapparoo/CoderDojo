@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User } from '../models/user';
 import { UserDetail } from '../models/user-detail';
+import { Role } from '../models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,29 @@ export class UserService {
       })
     };
     return this.http.get<any>(this.url + `/${username}/roles`, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s children');
+
+                 }
+                 return 'getChildren error';
+               })
+          );
+  }
+
+  updateRoles(user: UserDetail) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    console.log('from userservice updateRoles()');
+
+    console.log(user);
+
+    return this.http.put<Role[]>(this.url + `/${user.user.username}/roles`, user.user.roles, httpOptions)
          .pipe(
                catchError((err: any) => {
                  if (err.status === 401) {

@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
   register(form: NgForm) {
     let userLocation = {
       id : this.selectedLocationValue
-    }
+    };
     const user = new User(
       form.value.username, form.value.password, true
     );

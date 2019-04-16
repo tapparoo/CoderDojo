@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("//api/usergoals/**").hasAnyAuthority("ADMIN")
 		.antMatchers("/api/user_achievement/**'").hasAnyAuthority("ADMIN")
 		.antMatchers("/api/users/roles/**").hasAuthority("ADMIN")
+		.antMatchers("/api/users/**/roles").hasAuthority("ADMIN")
 		.antMatchers("/api/**").hasAuthority("ADMIN")
 		.anyRequest().authenticated()
         .and().httpBasic();

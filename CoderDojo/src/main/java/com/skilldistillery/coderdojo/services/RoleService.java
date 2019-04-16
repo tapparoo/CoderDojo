@@ -9,6 +9,9 @@ import com.skilldistillery.coderdojo.entities.UserDetail;
 public interface RoleService {
 
 	Role findByName(String name);
+
 	Set<UserDetail> findUsersByRole(String role);
+	List<Role> index();
+
 
 }

@@ -9,7 +9,7 @@ export class UserDetail {
   email: string;
   nickname: string;
   phoneNumber: string;
-  dob: Date;
+  dob = Date;
   gender: string;
   userImageUrl: string;
   user: User;
@@ -20,13 +20,13 @@ export class UserDetail {
   children: [{}];
 
   constructor(
-    nickname?: string,
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    phoneNumber?: string,
-    dob?: Date,
-    gender?: string,
+    nickname: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phoneNumber: string,
+    dob: Date,
+    gender: string,
     userImageUrl?: string,
     user?: User,
     location?: {
