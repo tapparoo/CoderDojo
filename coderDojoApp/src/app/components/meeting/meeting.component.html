@@ -1,5 +1,5 @@
 
-  <div *ngIf="!editMeeting && !displayAttendees">
+  <div class="containerMeeting" *ngIf="!editMeeting && !displayAttendees">
   <div  class="location-div row">
     <form>
         <mat-form-field>
@@ -78,6 +78,7 @@
         </button>
 
         </form>
+
 
 <mat-table [dataSource]="listData" matSort>
   <ng-container matColumnDef="name">

@@ -1,3 +1,20 @@
 .dropdown-menu.show {
   width: max-content;
 }
+button#loginForm , button#profileButton{
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.btn-noframe{
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.saveBtn{
+color: #ffffff;
+}
+
+.cancelBtn{
+color: #ededed;
+}
