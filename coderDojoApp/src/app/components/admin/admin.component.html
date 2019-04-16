@@ -25,13 +25,27 @@
       </label><br>
       <label>Location
       <input type="text" name="location" disabled [ngModel]="user.location.name">
-      </label><br>
-      <label>Parents
-      <input type="text" name="parents" disabled [ngModel]="user.parents">
-      </label><br>
-      <label>Children
-      <input type="text" name="children" disabled [ngModel]="user.children">
-      </label><br>
+    </label><br>
+    <div *ngIf="user.parents && user.parents.length > 0">
+      <mat-form-field>
+        <mat-label>Parents</mat-label>
+        <select matNativeControl #p (change)="showUser(p.value)" >
+          <option></option>
+          <option *ngFor="let parent of user.parents" [value]="parent.user.username">{{parent.firstName}} {{parent.lastName}}</option>
+        </select>
+      </mat-form-field>
+      <br>
+    </div>
+    <div *ngIf="user.children && user.children.length > 0">
+      <mat-form-field>
+        <mat-label>Children</mat-label>
+        <select matNativeControl #c (change)="showUser(c.value)" >
+          <option></option>
+          <option *ngFor="let child of user.children" [value] = "child.user.username" >{{child.firstName}} {{child.lastName}}</option>
+        </select>
+      </mat-form-field>
+      <br>
+    </div>
     </form>
   <button (click)="user = null;">Back</button>
   <button (click)="editUser = true;">Edit</button>
@@ -88,7 +102,7 @@
             <th scope="col">Username</th>
             <th scope="col">Phone Number</th>
         </thead>
-        <tr *ngFor="let u of users" (click)="user = u;">
+        <tr *ngFor="let u of users" (click)="showUser(u.user.username);">
           <td>{{u.firstName}}</td>
           <td>{{u.lastName}}  </td>
           <td>{{u.nickname}}  </td>

@@ -1,25 +1,202 @@
 
-  <!-- create -->
-  <div  *ngIf="isAuthorized && !displayAttendees && createMeeting">
-      <form>
-          <div class="form-group">
-          <input lass="form-control" type="text"
-            name="task" placeholder="name" [(ngModel)]="newMeeting.name"/>
-            <input lass="form-control" type="text"
-            name="task" placeholder="date" [(ngModel)]="newMeeting.scheduledTime"/>
-            <input type="text" name='locationId' [(ngModel)]="newMeeting.location.id" class='form-check-input'>
-         <br> <input class=" ml-2 btn btn-outline-success"
-            type="submit" value="Add Meeting" (click) = "addMeeting()">
-            <br> <input class=" ml-2 btn btn-outline-success"
-            type="submit" value="Close" (click) = "cancelCreate()">
-          </div>
-        </form>
+  <div class="containerMeeting" *ngIf="!editMeeting && !displayAttendees">
+  <div  class="location-div row">
+    <form>
+        <mat-form-field>
+          <mat-label>Select location</mat-label>
+          <mat-select (selectionChange)="loadMeetingsByLocation($event)" [(ngModel)]="selectedLocationValue" name="locationName">
+            <mat-option *ngFor="let location of locations" [value]="location.id">
+              {{location.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </form>
   </div>
-<div *ngIf="!displayAttendees ">
-  <div *ngIf="isAuthorized" class="row"> <input class=" ml-2 btn btn-top btn-outline-success"
-    type="submit" value="add" (click) = "openCreate()">
+  <div class="search-div row">
+    <div class="col-md-8">
+      <mat-form-field class="search-form-field" floatLabel="never">
+        <input
+          matInput
+          [(ngModel)]="searchKey"
+          placeholder="Search"
+          autocomplete="off"
+          (keyup)="applyFilter()"
+        />
+      </mat-form-field>
     </div>
-<table  class="table table-striped" >
+    <span *ngIf="isAuthorized" class="search-div  row">
+        <button (click)="openCreateForm()" class="create-btn btn-reate-row" mat-button>
+          Create
+          <i class="fas fa-2x fa-plus-circle"></i>
+        </button>
+      </span>
+  </div>
+<!-- Create form -->
+      <form   *ngIf="isAuthorized && isCreateMeeting" class="form-inline">
+          <div class="form-group mb-2">
+            <input
+              class="form-control"
+              type="text"
+              name="task"
+              placeholder="name"
+              [(ngModel)]="newMeeting.name"
+            />
+          </div>
+          <div class="form form-group mx-sm-3 mb-2">
+            <input
+              type="text"
+              name="locationId"
+              placeholder="location"
+              [(ngModel)]="newMeeting.location.id"
+              class="form-check-input"
+            />
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <input
+              class="form-control"
+              type="text"
+              name="task"
+              placeholder="date"
+              [(ngModel)]="newMeeting.scheduledTime"
+            />
+          </div>
+          <button
+            class=" ml-2 btn saveBtn"
+            type="submit"
+            value="Add Item"
+            (click)="addMeeting()"
+          >
+            Save
+          </button>
+          <button
+          class=" ml-2 btn close-btn"
+          type="submit"
+          value="Close Item"
+          (click)="closeCreateForm()"
+        >
+         <i class="fas fa-2x fa-plus-times"></i>
+        </button>
+
+        </form>
+
+
+<mat-table [dataSource]="listData" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="location.name">
+    <mat-header-cell
+      *matHeaderCellDef
+      className="mat-sort-header-button"
+      mat-sort-header
+      >Location
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.location.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="scheduledTime">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{
+      element.scheduledTime | date: 'MMM d, y, h:mm a'
+    }}
+</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Attendees">
+    <mat-header-cell *matHeaderCellDef>Attendees</mat-header-cell>
+    <mat-cell *matCellDef="let element"
+      ><a matTooltip="Click to see All Attendees" (click)="displayAttendeesList(element)"
+        ><i class="fas fa-user-friends"></i></a
+    ></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <button mat-icon-button class="remove-btn-border" (click)="setEditMeeting(element)">
+            <mat-icon color="accent" class="mat-18">edit</mat-icon>
+          </button>
+      <button mat-icon-button class="remove-btn-border" (click)="deleteMeeting(element.id)">
+        <mat-icon color="primary" class="mat-18">delete</mat-icon>
+      </button>
+    </mat-cell >
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="loading">
+    <mat-footer-cell *matFooterCellDef colspan="6">
+        <mat-spinner color="primary"></mat-spinner>Loading data...
+    </mat-footer-cell>
+  </ng-container>
+  <ng-container matColumnDef="noData">
+    <mat-footer-cell *matFooterCellDef colspan="6">
+      No data.
+    </mat-footer-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-footer-row
+    *matFooterRowDef="['loading']"
+    [ngClass]="{ hide: listData != null }"
+  ></mat-footer-row>
+  <mat-footer-row
+    *matFooterRowDef="['noData']"
+    [ngClass]="{ hide: !(listData != null && listData.data.length == 0) }"
+  ></mat-footer-row>
+</mat-table>
+<mat-paginator
+  [pageSizeOptions]="[1, 10, 25, 100]"
+  [pageSize]="5"
+  showFirstLastButtons
+></mat-paginator>
+</div>
+
+
+<!-- create -->
+<!-- <div *ngIf="isAuthorized && !displayAttendees && createMeeting">
+  <form>
+    <div class="form-group">
+      <input
+        lass="form-control"
+        type="text"
+        name="task"
+        placeholder="name"
+        [(ngModel)]="newMeeting.name"
+      />
+      <input
+        lass="form-control"
+        type="text"
+        name="task"
+        placeholder="date"
+        [(ngModel)]="newMeeting.scheduledTime"
+      />
+      <input
+        type="text"
+        name="locationId"
+        [(ngModel)]="newMeeting.location.id"
+        class="form-check-input"
+      />
+      <br />
+      <input
+        class=" ml-2 btn btn-outline-success"
+        type="submit"
+        value="Add Meeting"
+        (click)="addMeeting()"
+      />
+      <br /> -->
+      <!-- <input
+        class=" ml-2 btn btn-outline-success"
+        type="submit"
+        value="Close"
+        (click)="cancelCreate()"
+      /> -->
+    <!-- </div>
+  </form>
+</div> -->
+
+<!-- <div *ngIf="!displayAttendees"> -->
+
+  <!-- <table  class="table table-striped" >
   <thead>
       <th scope="col">Name</th>
       <th scope="col">Location</th>
@@ -38,22 +215,52 @@
 <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
 <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td>
 </tr>
-</table>
-</div>
-<!-- edit section -->
-<div  *ngIf='editMeeting && !displayAttendees'>
-  <form class='form'>
-    <input type="text" name='name' [(ngModel)]="meeting.name" class='form-control'> <br>
-    <input type="text" name='scheduledTime' [(ngModel)]="meeting.scheduledTime" class='form-control'> <br>
-    <input type="text" name='locationId' [(ngModel)]="meeting.location.id" class='form-check-input'>
-    <br>
-    <div class="row">
-        <button (click)='editMeeting=null' class='btn btn-danger'>Cancel</button>
-        <button (click)='updateMeeting(meeting)' class='btn btn-success'>Save</button>
-    </div>
+</table> -->
 
-  </form>
-</div>
+  <!-- edit section -->
+  <!-- <div *ngIf='editMeeting'>
+</table>
+</div>-->
+  <!-- edit section -->
+  <div *ngIf="editMeeting && !displayAttendees">
+    <form class="form">
+      name
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="meeting.name"
+        class="form-control"
+      />
+      <br />
+      schedule
+      <input
+        type="text"
+        name="scheduledTime"
+        [(ngModel)]="meeting.scheduledTime"
+        class="form-control"
+      />
+      <br />
+      location
+      <br />
+      <input
+        type="text"
+        name="locationId"
+        [(ngModel)]="meeting.location.id"
+        class="form-check-input"
+      />
+      <br />
+      <br />
+      <br />
+      <div class="row">
+        <button (click)="editMeeting = null" class="btn btn-danger">
+          Cancel
+        </button>
+        <button (click)="updateMeeting(meeting)" class="btn btn-success">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
 
 
 <div *ngIf="displayAttendees">
@@ -68,9 +275,7 @@
           <th scope="col">phone#</th>
           <th scope="col">Attend</th>
           <th scope="col">attend</th>
-          <!-- <th *ngIf="isAuthorized" scope="col">Edit</th>
-          <th *ngIf="isAuthorized" scope="col">Delete</th> -->
-        </thead>
+  </thead>
     <tr *ngFor="let attend of selected.meetingAttendees " >
 
 
@@ -80,9 +285,6 @@
       <td>{{attend.userDetail.phoneNumber}}</td>
       <input type="checkbox" [checked]="attend.attended" (change)="changeStatus(selected.id,attend,$event)">
       <td>{{attend.attended}}</td>
-    <!-- <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
-    <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td> -->
-    </tr>
+  </tr>
     </table>
-    <td *ngIf="isAuthorized"><button (click)="addAttendee(selected)">Add</button>  </td>
   </div>

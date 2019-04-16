@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,7 +60,7 @@ public class UserDetail {
 	@ManyToMany
 	@JoinTable(name = "user_achievement",
 			joinColumns = {@JoinColumn(name = "user_detail_id")},
-			inverseJoinColumns = {@JoinColumn(name = "achievement_id")})
+			inverseJoinColumns = {@JoinColumn(name = "id")})
 	private List<Achievement> achievements;
 	
 	@JsonProperty(access = Access.READ_ONLY)

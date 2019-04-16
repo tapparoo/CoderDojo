@@ -27,8 +27,6 @@ export class ProfileComponent implements OnInit {
 
       if (currentPasswordMatch) {
           creds[1] = form.value.newPass;
-      } else {
-        return;
       }
     }
 
@@ -37,10 +35,11 @@ export class ProfileComponent implements OnInit {
 
     this.userService.updateUser(this.currentAuth).subscribe(
         data => {
-          this.auth.login(creds[0], creds[1]);
+          // this.auth.login(creds[0], creds[1]);
+          this.auth.logout();
           this.editUserPass = false;
           this.currentAuth = data;
-          this.router.navigateByUrl(`user/${form.value.username}/profile`);
+          this.auth.setCredentials(creds[0], creds[1]);
         },
         err => {
           this.router.navigateByUrl('not-found');

@@ -73,11 +73,14 @@ public class UserServiceImpl implements UserService {
 		// by id to handle username updates
 		Optional<User> optUser = userRepository.findById(user.getId());
 		User modifiedUser = null;
-
+		System.out.println("***********");
+		System.out.println(user);
 		if (optUser.isPresent()) {
 			modifiedUser = optUser.get();
 			modifiedUser.setUsername(user.getUsername());
-			modifiedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+			if (user.getPassword() != null  && !user.getPassword().equals(modifiedUser.getPassword())) {
+				modifiedUser.setPassword(passwordEncoder.encode(user.getPassword()));
+			}
 			modifiedUser.setEnabled(user.getEnabled());
 			userRepository.save(modifiedUser);
 		}

@@ -32,20 +32,27 @@ export class UserComponent implements OnInit {
             child.dob = form.value.dob;
             this.userService.updateUserDetail(child).subscribe(
               deets => {
-                // Push to parent model
+                console.log(deets);
+                // Reload parent's children array
                 this.reloadChildren();
               }
             );
           }
           );
-
       }
     );
   }
 
-  reloadChildren(){
+  // Reload parent's children array
+  reloadChildren() {
     this.userService.getChildren(this.user.user.username).subscribe(
       data => this.children = data
+    );
+  }
+
+  reloadMeetings() {
+    this.userService.getUserMeetings(this.user.user.username).subscribe(
+      data => this.user.meetings = data
     );
   }
 
@@ -69,6 +76,7 @@ export class UserComponent implements OnInit {
               },
               err => console.error('Observer got an error: ' + err)
             );
+            this.reloadMeetings();
             this.reloadChildren();
           },
           err => {

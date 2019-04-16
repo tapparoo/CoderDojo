@@ -1,3 +1,4 @@
+import { UserGoal } from './../../models/user-goal';
 import { UserAchievementService } from './../../services/user-achievement.service';
 import { UserGoalService } from './../../services/user-goal.service';
 import { UserAchievement } from './../../models/user-achievement';
@@ -7,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 import { AchievementService } from 'src/app/services/achievement.service';
 import { GoalService } from 'src/app/services/goal.service';
 import { RoleService } from 'src/app/services/role.service';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-student-achievement',
@@ -20,7 +20,7 @@ export class StudentAchievementComponent implements OnInit {
   selectedStudent: UserDetail = null;
   selectedStudentAchievementsStatus: UserAchievement[] = [];
   selectedUserAchievement = null;
-  constructor(private userService: UserService, private roleService: RoleService, private achievementService: AchievementService, private goalService: GoalService, private userGoalService: UserGoalService, private userAchievementService: UserAchievementService, private datePipe: DatePipe) { }
+  constructor(private userService: UserService, private roleService: RoleService, private achievementService: AchievementService, private userGoalService: UserGoalService, private userAchievementService: UserAchievementService) { }
 
   ngOnInit() {
     this.reload();
@@ -114,7 +114,15 @@ goBack(){
 
   achievementDetailView(userachievement: UserAchievement){
     this.selectedUserAchievement = userachievement;
+    // console.log(userachievement);
+    
     this.mode='userAchievementDetail';
   }
+  goalAchieved(userGoal: UserGoal){
+    userGoal.completed = !userGoal.completed;
+    this.userGoalService.update(userGoal).subscribe(
 
+    )
+
+  }
 }

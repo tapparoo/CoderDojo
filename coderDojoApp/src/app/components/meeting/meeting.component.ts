@@ -1,8 +1,14 @@
+import { Location } from './../../models/location';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetingService } from './../../services/meeting.service';
 import { Meeting } from './../../models/meeting';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-meeting',
@@ -10,7 +16,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit {
-
   meetings: Meeting[] = [];
   meeting = new Meeting();
   newMeeting = new Meeting();
@@ -18,29 +23,45 @@ export class MeetingComponent implements OnInit {
   editMeeting = false;
   selected = null;
   displayAttendees = false;
+  searchKey: string;
+  isCreateMeeting = false;
+
+  selectedLocationValue: Location;
+  locations: Location[] = [];
+
+
+  constructor(
+    private meetingService: MeetingService,
+    private auth: AuthService,
+    private router: Router,
+    private locationService: LocationService,
+  ) {}
   createMeeting = false;
 
-  constructor(private meetingService: MeetingService,
-              private auth: AuthService,
-              private router: Router) { }
+  listData: MatTableDataSource<any>;
+  displayedColumns = [  ];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
+    this.loadLocations();
     if (this.router.url === '/schedule') {
       this.reload();
     } else if (this.router.url === '/admin') {
-    this.reloadAdmin();
-  }
-    console.log(this.newMeeting, 'newMeeting');
-
+      this.reloadAdmin();
+    }
   }
 
-  reload() {
-    this.meetingService.showSchedule().subscribe(
+  loadMeetingsByLocation(event) {
+    this.reloadAdminByLocation(event.value);
+  }
+
+  loadLocations() {
+    this.locationService.showAllLocations().subscribe(
       data => {
+        this.locations = data;
         console.log(data);
-        this.meetings = data;
-        console.log(this.meetings + 'this.meetings');
-        this.isAuthorized = false;
+
       },
       err => {
         console.error(err);
@@ -48,10 +69,22 @@ export class MeetingComponent implements OnInit {
     );
   }
 
-
-  reloadAdmin() {
-    this.meetingService.index().subscribe(
+  reloadAdminByLocation(id: number) {
+    this.meetingService.getMeetingsByLocation(id).subscribe(
       data => {
+        // this.meetings = data;
+        console.log(data);
+        this.listData = new MatTableDataSource(data);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+
+        this.displayedColumns = [
+          'name',
+          'location.name',
+          'scheduledTime',
+          'Attendees',
+          'Actions'
+        ];
         console.log(data);
         this.meetings = data;
         this.isAuthorized = true;
@@ -61,8 +94,63 @@ export class MeetingComponent implements OnInit {
       }
     );
   }
+
+  reload() {
+    this.meetingService.showSchedule().subscribe(
+      data => {
+        console.log(data);
+        // this.meetings = data;
+        this.displayedColumns = [
+          'name',
+          'location.name',
+          'scheduledTime'
+        ];
+        this.listData = new MatTableDataSource(data);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+        console.log(this.meetings + 'this.meetings');
+        this.isAuthorized = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  reloadAdmin() {
+    this.meetingService.index().subscribe(
+      data => {
+        // this.meetings = data;
+        console.log(data);
+        this.listData = new MatTableDataSource(data);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
+
+        this.displayedColumns = [
+          'name',
+          'location.name',
+          'scheduledTime',
+          'Attendees',
+          'Actions'
+        ];
+        console.log(data);
+        this.meetings = data;
+        this.isAuthorized = true;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+
   setEditMeeting(meeting) {
     this.editMeeting = true;
+    console.log(meeting);
+
     this.meeting = meeting;
   }
   cancelCreate(){
@@ -80,42 +168,62 @@ export class MeetingComponent implements OnInit {
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
         console.log(data);
-        this.createMeeting = true;
+        this.isCreateMeeting = !this.createMeeting;
         this.reloadAdmin();
       },
       err => {
-          console.error(err);
+        console.error(err);
       }
     );
     this.newMeeting = new Meeting();
   }
 
-  deleteMeeting(meeting) {
-    this.meetingService.destroy(meeting.id).subscribe(
+  addPerson(createForm){
+    console.log(createForm);
+    // this.newMeeting = {
+    //   name: createForm.value.name,
+    //   scheduledTime: createForm.value.scheduledTime,
+    //   location: {
+    //     id: createForm.value.locationId}
+    // }
+    this.meetingService.create(createForm.value).subscribe(
       data => {
-        console.log('updated datd + ' + data);
+        console.log(data);
         this.reloadAdmin();
       },
       err => {
-          console.error(err);
+        console.error(err);
+      }
+    );
+
+  }
+
+
+  deleteMeeting(id) {
+    console.log(id);
+    this.meetingService.destroy(id).subscribe(
+      data => {
+        console.log("delete data + " + data);
+        this.reloadAdmin();
+      },
+      err => {
+        console.error(err);
       }
     );
   }
-
   updateMeeting(meeting) {
     this.meetingService.update(meeting).subscribe(
       data => {
         this.reloadAdmin();
         // this.selected = data;
-        console.log(data + "datadatadata");
+        console.log(data + 'datadatadata');
         this.editMeeting = false;
       },
       err => {
-          console.error(err);
-          console.log('Error in update');
+        console.error(err);
+        console.log('Error in update');
       }
     );
-
   }
 
   displayAttendeesList(meeting) {
@@ -124,6 +232,12 @@ export class MeetingComponent implements OnInit {
     console.log(this.selected);
   }
 
+  openCreateForm() {
+    this.isCreateMeeting = !this.isCreateMeeting;
+  }
+  closeCreateForm(){
+    this.isCreateMeeting =false;
+  }
   changeStatus(meetId:number, meetingAttendent, e){
       console.log(meetId);
       console.log(meetingAttendent);
@@ -142,8 +256,108 @@ export class MeetingComponent implements OnInit {
 
   }
 
-  addAttendee(userdetails){
-    console.log(userdetails);
-  }
 
 }
+
+// export class MeetingComponent implements OnInit {
+//   meetings: Meeting[] = [];
+//   meeting = new Meeting();
+//   newMeeting = new Meeting();
+//   isAuthorized = false;
+//   editMeeting = false;
+//   selected = null;
+//   displayAttendees = false;
+
+//   constructor(private meetingService: MeetingService,
+//               private auth: AuthService,
+//               private router: Router) { }
+
+//   ngOnInit() {
+//     if (this.router.url === '/schedule') {
+//       this.reload();
+//     } else if (this.router.url === '/admin') {
+//     this.reloadAdmin();
+//   }
+//     console.log(this.newMeeting, 'newMeeting');
+
+//   }
+
+//   reload() {
+//     this.meetingService.showSchedule().subscribe(
+//       data => {
+//         console.log(data);
+//         this.meetings = data;
+//         console.log(this.meetings + 'this.meetings');
+//         this.isAuthorized = false;
+//       },
+//       err => {
+//         console.error(err);
+//       }
+//     );
+//   }
+
+//   reloadAdmin() {
+//     this.meetingService.index().subscribe(
+//       data => {
+//         this.meetings = data;
+//         this.isAuthorized = true;
+//       },
+//       err => {
+//         console.error(err);
+//       }
+//     );
+//   }
+//   setEditMeeting(meeting) {
+//     this.editMeeting = true;
+//     this.meeting = meeting;
+//   }
+
+//   addMeeting() {
+//     console.log(this.newMeeting);
+//     this.meetingService.create(this.newMeeting).subscribe(
+//       data => {
+//         console.log(data);
+//         this.reloadAdmin();
+//       },
+//       err => {
+//           console.error(err);
+//       }
+//     );
+//     this.newMeeting = new Meeting();
+//   }
+
+//   deleteMeeting(meeting) {
+//     this.meetingService.destroy(meeting.id).subscribe(
+//       data => {
+//         console.log('updated datd + ' + data);
+//         this.reloadAdmin();
+//       },
+//       err => {
+//           console.error(err);
+//       }
+//     );
+//   }
+
+//   updateMeeting(meeting) {
+//     this.meetingService.update(meeting).subscribe(
+//       data => {
+//         this.reloadAdmin();
+//         // this.selected = data;
+//         console.log(data + "datadatadata");
+//         this.editMeeting = false;
+//       },
+//       err => {
+//           console.error(err);
+//           console.log('Error in update');
+//       }
+//     );
+
+//   }
+
+//   displayAttendeesList(meeting) {
+//     this.selected = meeting;
+//     this.displayAttendees = true;
+//     console.log(this.selected);
+//   }
+
+// }

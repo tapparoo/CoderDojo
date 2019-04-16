@@ -78,11 +78,7 @@ public class UserGoal {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (completed ? 1231 : 1237);
-		result = prime * result + ((completedDate == null) ? 0 : completedDate.hashCode());
-		result = prime * result + ((goal == null) ? 0 : goal.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((userAchievement == null) ? 0 : userAchievement.hashCode());
 		return result;
 	}
 
@@ -95,24 +91,7 @@ public class UserGoal {
 		if (getClass() != obj.getClass())
 			return false;
 		UserGoal other = (UserGoal) obj;
-		if (completed != other.completed)
-			return false;
-		if (completedDate == null) {
-			if (other.completedDate != null)
-				return false;
-		} else if (!completedDate.equals(other.completedDate))
-			return false;
-		if (goal == null) {
-			if (other.goal != null)
-				return false;
-		} else if (!goal.equals(other.goal))
-			return false;
 		if (id != other.id)
-			return false;
-		if (userAchievement == null) {
-			if (other.userAchievement != null)
-				return false;
-		} else if (!userAchievement.equals(other.userAchievement))
 			return false;
 		return true;
 	}

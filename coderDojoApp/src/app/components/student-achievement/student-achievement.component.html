@@ -56,7 +56,6 @@
       </div> -->
       <div class="col">
         <input type="checkbox" [checked]="userAchievement.achieved" (click)='achievedCheckBox(userAchievement)'>
-        {{userAchievement.achieved}}
       </div>
       <div class="col">
         <button (click)="achievementDetailView(userAchievement)"> Detail View </button>
@@ -69,10 +68,34 @@
   </div>
 
   <div *ngIf="mode==='userAchievementDetail'">
-    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}}: {{selectedUserAchievement.name}}</h4>
-
+    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}}: {{selectedUserAchievement.achievement.name}}</h4>
+    Has this student completed all goals for this achievement?
+    <input type="checkbox" [checked]="selectedUserAchievement.achieved"
+      (click)='achievedCheckBox(selectedUserAchievement)'>
+    <!-- {{selectedUserAchievement.achieved}} -->
     <div class="row">
-test
+      <div class="col">
+       <strong>Goal: </strong> 
+      </div>
+
+      <div class="col">
+        Description: 
+      </div>
+      <div class="col">
+        Completed: 
+      </div>
+    </div>
+    <div class="row" *ngFor="let userGoal of selectedUserAchievement.userGoals">
+      <div class="col">
+        {{userGoal.goal.name}}
+      </div>
+      <div class="col">
+        {{userGoal.goal.description}}
+      </div>
+      <div class="col">
+        <input type="checkbox" [checked]="userGoal.completed" (click)='goalAchieved(userGoal)'>
+      </div>
+
     </div>
     <button (click)='goBack()'> Go Back </button>
   </div>

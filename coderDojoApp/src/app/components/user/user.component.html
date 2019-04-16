@@ -11,6 +11,19 @@
       <td>{{achieve.imageUrl}}</td>
     </tr>
   </table>
+  <h3>Meeting Registrations:</h3>
+  <table  class="table table-striped" >
+    <thead>
+        <th scope="col">Name</th>
+        <th scope="col">Location</th>
+        <th scope="col">Date/Time</th>
+    </thead>
+    <tr *ngFor="let meeting of user.meetings">
+      <td>{{meeting.name}}</td>
+      <td>{{meeting.location.name}}  </td>
+      <td>{{meeting.scheduledTime}}</td>
+    </tr>
+  </table>
 </div>
 
 <div *ngIf="user && user.user.parent">

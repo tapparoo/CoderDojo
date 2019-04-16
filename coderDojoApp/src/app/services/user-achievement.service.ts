@@ -80,7 +80,7 @@ export class UserAchievementService {
     return this.http.put<UserAchievement>(`${this.url}/${userAchievement.id}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievement.update(): Error');
-        console.error(err);
+        // console.error(err);
         return throwError('Error in UserAchievement.update()');
       })
     );
@@ -104,6 +104,7 @@ export class UserAchievementService {
     );
   }
   
+ 
 
   constructor(private http: HttpClient,
     private auth: AuthService) { }

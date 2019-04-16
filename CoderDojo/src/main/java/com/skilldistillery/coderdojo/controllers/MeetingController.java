@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,15 @@ public class MeetingController {
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
 		return service.findAllMeetings(principal.getName());
+	}
+	
+	//  GET Meetings
+	@GetMapping("meetings/locations/{lid}")
+	public List<Meeting> getMeetingsByLocation(HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable("lid") Integer lid,
+			Principal principal) {
+		return service.findAllByLocationId(principal.getName(),lid);
 	}
 		
 	//  GET Meetings
@@ -135,6 +145,32 @@ public class MeetingController {
 		}
 		
 	}
+
+	//  GET Meetings
+//	@GetMapping("meetings/attendance/{mid}")
+//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
+//			@PathVariable("mid") Integer mid,
+//			Principal principal) {
+//		try {
+//			List<UserDetail> meeting = service.showMeetingUsers(mid);
+//			if (meeting == null) {
+//				res.setStatus(404);
+//			} else {
+//				StringBuffer url = req.getRequestURL();
+//				url.append("/");
+//				url.append(mid);
+//				res.setHeader("Location", url.toString());
+//
+//				res.setStatus(201);
+//			}
+//
+//			return meeting;
+//		} catch (Exception e) {
+//			res.setStatus(500);
+//			return null;
+//		}
+//	}
+
 	
 	
 	@PutMapping("meetings/{mid}/attendee/{aid}") 
@@ -158,6 +194,6 @@ public class MeetingController {
 	        return meetingAttendee;
 		
 	}
-	
+
 
 }

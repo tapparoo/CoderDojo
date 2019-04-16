@@ -19,6 +19,8 @@ public interface MeetingService {
 	boolean destroy(String username, int mid);
 	
 	Meeting show(String username, Integer mid);
+	
+	List<Meeting> findAllByLocationId(String username, Integer mid);
 
 //	List<UserDetail> showMeetingUsers(Integer mid);
 

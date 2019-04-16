@@ -1,3 +1,4 @@
+import { MaterialModule } from './material/material.module';
 import { MeetingService } from './services/meeting.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,6 +45,8 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    MaterialModule,
+    FormsModule
   ],
   providers: [AuthService, MeetingService, DatePipe ],
   bootstrap: [AppComponent]

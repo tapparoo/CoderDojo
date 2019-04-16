@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -28,7 +30,18 @@ export class AdminComponent implements OnInit {
 
   showUser(username: string) {
     this.userService.getUser(username).subscribe(
-      data => this.user = data,
+      data => {
+        this.user = data;
+        this.userService.getParents(username).subscribe(
+          parents => {
+            this.user.parents = parents;
+          },
+          err => {
+            console.log(err);
+            console.log('Error loading parents from admin page');
+          }
+        );
+      },
       err => {
         console.log(err);
         console.log('Error loading users from admin page');
@@ -51,10 +64,15 @@ export class AdminComponent implements OnInit {
         this.editUser = false;
         const oldUser = this.user.user;
 
-        oldUser.username = form.value.username;
-        oldUser.password = form.value.password;
-
         if (oldUser.username !== form.value.username || form.value.password) {
+          if (oldUser.username !== form.value.username) {
+            oldUser.username = form.value.username;
+          }
+          if (form.value.password) {
+            oldUser.password = form.value.password;
+          }
+          console.log(oldUser);
+
           console.log('updating user');
           this.userService.updateUser(oldUser).subscribe(
             updatedUser => {

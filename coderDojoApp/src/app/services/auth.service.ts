@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  private username;
 
   constructor(private http: HttpClient) {}
 
@@ -102,11 +103,19 @@ export class AuthService {
     return btoa(`${username}:${password}`);
   }
 
+  setCredentials(username, password) {
+    localStorage.setItem('credentials' , this.generateBasicAuthCredentials(username, password));
+  }
+
   getCredentials() {
     return localStorage.getItem('credentials');
   }
 
+  setUsername() {
+    this.username = atob(this.getCredentials()).split(':')[0];
+  }
+
   getLoggedInUsername() {
-    return atob(this.getCredentials()).split(':')[0];
+    return this.username;
   }
 }
