@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.UserAchievement;
 import com.skilldistillery.coderdojo.entities.UserDetail;
+import com.skilldistillery.coderdojo.entities.UserGoal;
 import com.skilldistillery.coderdojo.repositories.UserAchievementRepository;
 
 @Service
@@ -35,34 +36,50 @@ public class UserAchievementServiceImpl implements UserAchievementService {
 
 	@Override
 	public UserAchievement create(UserAchievement achievement) {
-			repo.saveAndFlush(achievement);
-			return achievement;
+		repo.saveAndFlush(achievement);
+		return achievement;
 	}
 
 	@Override
 	public boolean delete(Integer id) {
 		boolean deleted = false;
-		if(repo.existsById(id)) {
+		if (repo.existsById(id)) {
 			repo.deleteById(id);
-			deleted=true;	
+			deleted = true;
 		}
 		return deleted;
 	}
 
 	@Override
-	public UserAchievement update(Integer id, UserAchievement achievement) {
+	public UserAchievement update(Integer id, UserAchievement achievement, UserDetail user) {
 		Optional<UserAchievement> opt = repo.findById(id);
-		if(opt.isPresent()) {
+		if (opt.isPresent()) {
 			UserAchievement managed = opt.get();
-			managed.setAchieved(achievement.getAchieved());
-			managed.setAchievedDate(achievement.getAchievedDate());
-			managed.setAchievement(achievement.getAchievement());
-			managed.setUserDetail(achievement.getUserDetail());
-			managed.setUserGoals(achievement.getUserGoals());
-			repo.saveAndFlush(managed);
-			
+			achievement.setUserDetail(user);
+			if (user.getUser().getUsername() == managed.getUserDetail().getUser().getUsername()) {
+				
+				if (managed.getAchieved() != achievement.getAchieved()) {
+					if (managed.getAchieved()) {
+						managed.setAchievedDate(null);
+					} else if (!managed.getAchieved()) {
+						long time = System.currentTimeMillis();
+						java.sql.Date date = new java.sql.Date(time);
+						managed.setAchievedDate(date);
+					}
+				}
+				managed.setAchieved(achievement.getAchieved());
+//			managed.setUserDetail(achievement.getUserDetail());
+//			managed.setAchievedDate(achievement.getAchievedDate());
+				managed.setAchievement(achievement.getAchievement());
+				managed.setUserDetail(achievement.getUserDetail());
+				managed.setUserGoals(achievement.getUserGoals());
+				System.out.println(managed.getUserDetail().getUser().getUsername());
+				repo.saveAndFlush(managed);
+
+				return achievement;
+			}
 		}
-		return achievement;
+		return null;
 	}
 
 	@Override

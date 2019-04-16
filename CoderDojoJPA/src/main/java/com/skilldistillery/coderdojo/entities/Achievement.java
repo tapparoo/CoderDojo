@@ -31,6 +31,7 @@ public class Achievement {
 	@OneToMany(mappedBy="achievement")
 	private Set<Goal> goals;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="achievements")
 	private List<UserDetail> users;
 

@@ -1,5 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +37,9 @@ public class UserGoalServiceImpl implements UserGoalService {
 
 	@Override
 	public UserGoal create(UserGoal goal) {
+			System.out.println(goal);
 			repo.saveAndFlush(goal);
+			System.out.println(goal);
 			return goal;
 	}
 
@@ -53,11 +57,21 @@ public class UserGoalServiceImpl implements UserGoalService {
 	public UserGoal update(Integer id, UserGoal goal) {
 		Optional<UserGoal> opt = repo.findById(id);
 		if(opt.isPresent()) {
+			
 			UserGoal managed = opt.get();
+			if(managed.getCompleted()!= goal.getCompleted()) {
+				if (managed.getCompleted()) {
+					managed.setCompletedDate(null);
+				}else if(!managed.getCompleted()) {
+					long time = System.currentTimeMillis();
+					java.sql.Date date = new java.sql.Date(time);
+					managed.setCompletedDate(date);
+				}
+			}
 			managed.setCompleted(goal.getCompleted());
-			managed.setCompletedDate(goal.getCompletedDate());
+//			managed.setCompletedDate(goal.getCompletedDate());
 			managed.setGoal(goal.getGoal());
-			managed.setUserAchievement(goal.getUserAchievement());
+//			managed.setUserAchievement(goal.getUserAchievement());
 			repo.saveAndFlush(managed);
 			
 		}

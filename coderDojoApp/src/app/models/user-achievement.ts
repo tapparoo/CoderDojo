@@ -11,12 +11,12 @@ export class UserAchievement {
     // userDetail: UserDetail;
 
     constructor(
-        id: number,
-        achieved: boolean,
-        achievedDate: Date,
-        achievement: Achievement,
-        userDetail: UserDetail,
-        goals: UserGoal[],
+        id?: number,
+        achieved?: boolean,
+        achievedDate?: Date,
+        achievement?: Achievement,
+        userDetail?: UserDetail,
+        goals?: UserGoal[],
         // userDetail: UserDetail
     ){
         this.id=id;

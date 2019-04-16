@@ -6,6 +6,7 @@ import com.skilldistillery.coderdojo.entities.UserGoal;
 
 public interface UserGoalService {
 	List<UserGoal> findAllUserGoal();
+	
 
 	UserGoal findUserGoalById(Integer id);
 
@@ -14,5 +15,6 @@ public interface UserGoalService {
 	boolean delete(Integer id);
 
 	UserGoal update(Integer id, UserGoal goal);
+	
 
 }

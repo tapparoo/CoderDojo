@@ -3,6 +3,7 @@ package com.skilldistillery.coderdojo.entities;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class UserAchievement {
 	@JoinColumn(name = "achievement_id")
 	private Achievement achievement;
 
-	@OneToMany(mappedBy = "userAchievement")
+	@OneToMany(mappedBy = "userAchievement", cascade=CascadeType.ALL)
 	private Set<UserGoal> userGoals;
 
 	public Achievement getAchievement() {

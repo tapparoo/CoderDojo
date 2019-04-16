@@ -44,7 +44,7 @@
       </div> -->
     </div>
     <!-- <div class="row" *ngFor="let achievement of selectedStudent.achievements"> -->
-    <div class="row" *ngFor="let userAchievement of selectedStudentAchievementsStatus">
+    <div class="row" *ngFor="let userAchievement of selectedStudentAchievements">
       <div class="col">
         <img src="{{userAchievement.achievement.imageUrl}}">
       </div>
@@ -64,8 +64,18 @@
         {{userAchievement.achievedDate}}
       </div> -->
     </div>
+    <strong>Add Achievement: </strong>
+    <br>
+    <select id="addAchievementDropdown" [(ngModel)]="selectedAchievement">
+      <option *ngFor="let achievement of avaliableAchievements"  value={{achievement.id}}>{{achievement.name}}</option>
+    </select>
+    
+    <button (click)='addAchievementToUser()'> Add </button>
+    <br>
+    
     <button (click)="goBack()"> Go Back </button>
   </div>
+
 
   <div *ngIf="mode==='userAchievementDetail'">
     <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}}: {{selectedUserAchievement.achievement.name}}</h4>
@@ -75,14 +85,14 @@
     <!-- {{selectedUserAchievement.achieved}} -->
     <div class="row">
       <div class="col">
-       <strong>Goal: </strong> 
+        <strong>Goal: </strong>
       </div>
 
       <div class="col">
-        Description: 
+        Description:
       </div>
       <div class="col">
-        Completed: 
+        <strong> Completed: </strong>
       </div>
     </div>
     <div class="row" *ngFor="let userGoal of selectedUserAchievement.userGoals">
@@ -97,6 +107,11 @@
       </div>
 
     </div>
+
+    <button (click)='deleteUserAchievement()'> Unassign this Achievement  </button>
+    <br>
     <button (click)='goBack()'> Go Back </button>
+
   </div>
+
 </div>

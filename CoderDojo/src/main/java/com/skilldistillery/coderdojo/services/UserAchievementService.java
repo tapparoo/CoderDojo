@@ -15,7 +15,7 @@ public interface UserAchievementService {
 
 	boolean delete(Integer id);
 
-	UserAchievement update(Integer id, UserAchievement achievement);
+	UserAchievement update(Integer id, UserAchievement achievement, UserDetail userDetail);
 	
 	List<UserAchievement> findAllUserAchievementByUserId(UserDetail userDetail);
 	

@@ -11,7 +11,7 @@ import { throwError } from 'rxjs';
 })
 export class UserGoalService {
   private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/user_goal';
+  private url = this.baseUrl + 'api/usergoals';
  
 
   public index() {

@@ -27,14 +27,14 @@ export class UserAchievementService {
 
     return this.http.get<UserAchievement[]>(this.url, httpOptions).pipe(
       catchError((err: any) => {
-        console.error('GoalService.index(): Error');
+        console.error('userAchievementService.index(): Error');
         console.error(err);
         return throwError('Error in GoalService.index()');
       })
     );
   }
 
-  public create(userAchievement: UserAchievement) {
+  public create(userAchievement: UserAchievement, username: string) {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -42,12 +42,11 @@ export class UserAchievementService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };    
-    
-    return this.http.post<UserAchievement>(this.url, userAchievement, httpOptions).pipe(
+    return this.http.post<UserAchievement>(`${this.url}/${username}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
-        console.error('GoalService.create(): Error');
+        console.error('UserAchievementService.create(): Error');
         console.error(err);
-        return throwError('Error in GoalService.create()');
+        return throwError('Error in UAService.create()');
       })
     );
   }
@@ -69,7 +68,7 @@ export class UserAchievementService {
     );
   }
 
-  public update(userAchievement: UserAchievement) {
+  public update(userAchievement: UserAchievement, user: UserDetail) {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -77,7 +76,7 @@ export class UserAchievementService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<UserAchievement>(`${this.url}/${userAchievement.id}`, userAchievement, httpOptions).pipe(
+    return this.http.put<UserAchievement>(`${this.baseUrl}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievement.update(): Error');
         // console.error(err);
