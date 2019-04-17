@@ -22,6 +22,7 @@ import { UserAchievementComponent } from './components/user-achievement/user-ach
 import { StudentAchievementComponent } from './components/student-achievement/student-achievement.component';
 import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MatButtonModule } from '@angular/material';
     NgbModule.forRoot(),
     MaterialModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    FlexLayoutModule
   ],
   providers: [AuthService, MeetingService, DatePipe ],
   bootstrap: [AppComponent]
