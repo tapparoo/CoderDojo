@@ -1,3 +1,4 @@
+import { UserAchievement } from './../models/user-achievement';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
@@ -158,6 +159,24 @@ export class UserService {
       })
     };
     return this.http.get<any>(this.url + `/${username}/achievements`, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized to see this user\'s profile');
+
+                 }
+                 return 'getUserAchievements error';
+               })
+          );
+  }
+  getUserUserAchievements(username){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return this.http.get<UserAchievement>(this.url + `/${username}/userachievements`, httpOptions)
          .pipe(
                catchError((err: any) => {
                  if (err.status === 401) {

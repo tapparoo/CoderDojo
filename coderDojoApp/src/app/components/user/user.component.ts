@@ -1,3 +1,5 @@
+import { UserAchievementService } from './../../services/user-achievement.service';
+import { UserAchievement } from 'src/app/models/user-achievement';
 import { UserDetail } from './../../models/user-detail';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from './../../services/auth.service';
@@ -5,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
 
 @Component({
   selector: 'app-user',
@@ -18,7 +22,16 @@ export class UserComponent implements OnInit {
   children = [];
   newChild = false;
 
-  addChild(form: NgForm){
+  // for the UserAchievement objects
+  pendingUserAchievements: UserAchievement[] = [];
+  completedUserAchievements: UserAchievement[] = [];
+  isFlipped: boolean[] = [];
+  storedIndex: number = 0;
+
+  // for card flexbox display
+  colCounter: number = 0;
+
+  addChild(form: NgForm) {
     const user = new User(form.value.nickname, 'password', true);
     // Add User
     this.auth.registerChild(user).subscribe(
@@ -38,7 +51,7 @@ export class UserComponent implements OnInit {
               }
             );
           }
-          );
+        );
       }
     );
   }
@@ -56,12 +69,43 @@ export class UserComponent implements OnInit {
     );
   }
 
+  getUserAchievements() {
+    this.userAchievementService.getUserAchievementsByUserDetail(this.user).subscribe(
+      data => {
+        let ua: UserAchievement[] = data;
+        for (let index = 0; index < ua.length; index++) {
+          if (ua[index].achieved === true) {
+            this.completedUserAchievements.push(ua[index])
+            this.isFlipped[ua[index].id] = true;
+          } else if (ua[index].achieved === false) {
+            this.pendingUserAchievements.push(ua[index]);
+            this.isFlipped[ua[index].id] = true;
+          } else {
+            console.log(ua[index]);
+          }
+        }
+      },
+      err => {
+        console.error('UserAchievement.reload(): Error');
+        console.error(err);
+      }
+    );
+  }
+  flipCard(id: number) {
+    let flipped: string = '';
+    this.isFlipped[id] = !this.isFlipped[id];
+  }
+
+  checkFlipped(id: number) {
+    return this.isFlipped[id];
+  }
   constructor(
     private auth: AuthService,
     private router: Router,
     private currentRoute: ActivatedRoute,
-    private userService: UserService
-    ) { }
+    private userService: UserService,
+    private userAchievementService: UserAchievementService,
+  ) { }
 
   ngOnInit() {
     if (this.auth.checkLogin()) {
@@ -78,6 +122,10 @@ export class UserComponent implements OnInit {
             );
             this.reloadMeetings();
             this.reloadChildren();
+            this.getUserAchievements();
+            console.log(this.user);
+
+
           },
           err => {
             this.router.navigateByUrl('not-found');
@@ -86,5 +134,8 @@ export class UserComponent implements OnInit {
         );
       }
     }
+
   }
+
+
 }

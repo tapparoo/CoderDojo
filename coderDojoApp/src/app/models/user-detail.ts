@@ -9,7 +9,7 @@ export class UserDetail {
   email: string;
   nickname: string;
   phoneNumber: string;
-  dob = Date;
+  dob:Date;
   gender: string;
   userImageUrl: string;
   user: User;

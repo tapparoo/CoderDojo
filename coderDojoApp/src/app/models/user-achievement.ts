@@ -16,7 +16,7 @@ export class UserAchievement {
         achievedDate?: Date,
         achievement?: Achievement,
         userDetail?: UserDetail,
-        goals?: UserGoal[],
+        goals?: UserGoal[]
         // userDetail: UserDetail
     ){
         this.id=id;
