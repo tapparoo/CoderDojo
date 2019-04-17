@@ -40,7 +40,6 @@ public class AuthController {
     		resp.setStatus(409);
     		return null;
     	}
-    	
         userService.save(user);
         UserDetail newUser = deetsService.findUserDetailByUsername(user.getUsername());
         

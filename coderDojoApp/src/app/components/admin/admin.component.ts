@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { NgForm, FormBuilder, FormArray } from '@angular/forms';
@@ -7,6 +7,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { LocationService } from 'src/app/services/location.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserDetail } from 'src/app/models/user-detail';
+import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { Role } from 'src/app/models/role';
 
 @Component({
   selector: 'app-admin',
@@ -18,14 +20,49 @@ export class AdminComponent implements OnInit {
   user = null;
   editUser = false;
   locations = null;
-  roles = [];
+  searchKey: string;
   editUserRolesForm: FormGroup;
+
+  selectedRoleFilter: Role;
+  roles: Role[] = [];
+
+  listData: MatTableDataSource<any>;
+  displayedColumns =  [
+    'firstName',
+    'lastName',
+    'nickname',
+    'username',
+    'phoneNumber'
+  ];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  loadUsersByRole(role: string) {
+    if (role.toUpperCase() !== 'all'.toUpperCase()) {
+      this.roleService.getUsersByRole(role).subscribe(
+        data => {
+          this.listData = new MatTableDataSource(data);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+          this.addUsernameToUserObjects(data);
+        },
+        err => {
+          console.log(err);
+          console.log('Error loading users from admin page');
+        }
+      );
+    } else {
+      this.displayUsers();
+    }
+  }
 
   displayUsers(): void {
     this.userService.index().subscribe(
       data => {
-        this.users = data;
-
+        this.addUsernameToUserObjects(data);
+        this.listData = new MatTableDataSource(data);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
       },
       err => {
         console.log(err);
@@ -34,9 +71,15 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  addUsernameToUserObjects(users) {
+    for (const user of users) {
+      user.username = user.user.username;
+    }
+
+    this.users = users;
+  }
+
   showUser(username: string) {
-
-
     this.userService.getUser(username).subscribe(
       data => {
         this.user = data;
@@ -150,7 +193,7 @@ export class AdminComponent implements OnInit {
   }
 
   userHasRole(role: any) {
-    for (var i = 0; i < this.user.user.roles.length; i ++) {
+    for (let i = 0; i < this.user.user.roles.length; i ++) {
       if (this.user.user.roles[i].name === role) {
           return true;
       }
@@ -158,16 +201,33 @@ export class AdminComponent implements OnInit {
     return false;
   }
 
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+
   populateUserRolesCheckboxes(roles: any[]) {
     // reload user roles form
     this.editUserRolesForm = this.fb.group({
       userrole: this.fb.array([])
     });
+
+    // apply
     for (const r of roles) {
         this.onChange(r, true);
     }
   }
 
+  // For changing user roles in the admin panel
+  onChange(role: any, checked) {
+
+    const roleFormArray = this.editUserRolesForm.controls.userrole as FormArray;
+    if (checked) {
+      roleFormArray.push(new FormControl(role));
+    } else {
+      const index = roleFormArray.controls.findIndex(x => x.value === role);
+      roleFormArray.removeAt(index);
+    }
+  }
 
   constructor(
     private userService: UserService,
@@ -179,18 +239,5 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.loadRoles();
     this.displayUsers();
-  }
-
-  // For changing user roles in the admin panel
-  onChange(role: any, checked) {
-
-    const roleFormArray = this.editUserRolesForm.controls.userrole as FormArray;
-    if (checked) {
-      roleFormArray.push(new FormControl(role));
-      const index = roleFormArray.controls.findIndex(x => x.value === role);
-    } else {
-      const index = roleFormArray.controls.findIndex(x => x.value === role);
-      roleFormArray.removeAt(index);
-    }
   }
 }

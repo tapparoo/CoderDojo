@@ -76,14 +76,15 @@ export class AuthService {
     };
 
     // create request to register a new account
-    return this.http.post<any>(this.baseUrl + 'register', user)
+    return this.http.post<User>(this.baseUrl + 'register', user)
       .pipe(
         tap((res) => {
           return res;
         }),
           catchError((err: any) => {
+            confirm(`Username/nickname ${user.username} `)
             console.log(err);
-            return throwError('AuthService.register(): error registering user.');
+            return throwError('AuthService.registerChild(): error registering user.');
           })
         );
   }

@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/api/schedule").permitAll()
 		.antMatchers("/api/users/**").authenticated()
 		.antMatchers("/api/users/**/**").authenticated()
-		.antMatchers("//all-achievements").hasAnyAuthority("ADMIN")
 		.antMatchers("/api/users/roles/**").hasAuthority("ADMIN")
 		.antMatchers("/api/users/**/roles").hasAuthority("ADMIN")
 		.antMatchers("/api/**").hasAuthority("ADMIN")

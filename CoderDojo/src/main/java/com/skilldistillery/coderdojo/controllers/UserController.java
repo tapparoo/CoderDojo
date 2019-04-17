@@ -73,6 +73,7 @@ public class UserController {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
 
+		System.out.println(requestingUser);
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile
 			if (requestingUser.isAdmin()
@@ -278,6 +279,7 @@ public class UserController {
 				childAuth.addRole(roleServ.findByName("STUDENT"));
 				// Add child to parent that created it
 				UserDetail parent = deets.findUserDetailByUsername(principal.getName());
+				child.setLocation(parent.getLocation());
 				parent.addChild(child);
 				deets.update(parent);
 				res.setStatus(200);
