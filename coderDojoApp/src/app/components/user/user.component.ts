@@ -17,8 +17,7 @@ export class UserComponent implements OnInit {
   achievements = [];
   children = [];
   newChild = false;
-
-
+  childrenAchivments =[];
   navigateToUserProfile(username, parentname){
     this.router.navigateByUrl('user/'+username+ '/profile/parent');
   }
@@ -50,9 +49,31 @@ export class UserComponent implements OnInit {
 
   // Reload parent's children array
   reloadChildren() {
+    console.log(this.user);
     this.userService.getChildren(this.user.user.username).subscribe(
-      data => this.children = data
+      data => {
+        this.children = data
+        console.log( this.children);
+        for (const key of this.children) {
+          // console.log(key)
+          this.userService.getUserAchievements(key.user.username).subscribe(
+            achieves => {
+
+              // console.log(this.user);
+              key.achievments = achieves;
+              // console.log( key);
+
+                 },
+            err => console.error('Observer got an error: ' + err)
+          );
+          //key.achievments = achieves;
+
+          console.log(this.children);
+        }
+      }
     );
+    // console.log(this.user);
+
   }
 
   reloadMeetings() {
@@ -84,6 +105,7 @@ export class UserComponent implements OnInit {
             );
             this.reloadMeetings();
             this.reloadChildren();
+
           },
           err => {
             this.router.navigateByUrl('not-found');
@@ -92,5 +114,6 @@ export class UserComponent implements OnInit {
         );
       }
     }
+
   }
 }
