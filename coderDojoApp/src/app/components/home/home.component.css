@@ -1,0 +1,8 @@
+.bg {
+  background-image: url("./../../../assets/landing3.png");
+  height: 80%;
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

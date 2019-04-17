@@ -68,6 +68,7 @@ export class UserComponent implements OnInit {
       if (this.currentRoute.snapshot.paramMap.get('username')) {
         this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
           data => {
+            console.log(data)
             this.user = data;
             this.userService.getUserAchievements(this.user.user.username).subscribe(
               achieves => {
