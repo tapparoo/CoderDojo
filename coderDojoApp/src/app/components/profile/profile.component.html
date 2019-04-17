@@ -1,146 +1,218 @@
+
+
 <div class="container">
-    <div class="row">
-      <div class="col">
-        <div *ngIf="!editUser && user">
+
+<div class= "form-card">
+    <h1 class="mainheader">Account Details </h1>
+    <div class= "form-card">
+        <h3 class="">Username/Password :  </h3>
+        <div *ngIf="!editUserPass && currentAuth" >
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
             <form>
-              <label>ID: {{user.id}}</label>
-              <br>
-              <label>First Name
-              <input type="text" name="firstName" disabled [ngModel]="user.firstName">
-              </label><br>
-              <label>Last Name
-              <input type="text" name="lastName" disabled [ngModel]="user.lastName">
-              </label><br>
-              <label>Email
-              <input type="text" name="email" disabled [ngModel]="user.email">
-              </label><br>
-              <label>Gender
-              <input type="text" name="gender" disabled [ngModel]="user.gender">
-              </label><br>
-              <label>Date of Birth
-              <input type="date" name="dob" disabled [ngModel]="user.dob">
-              </label><br>
-              <label>Image URL
-              <input type="text" name="userImageUrl" disabled [ngModel]="user.userImageUrl">
-              </label><br>
-              <label>Phone Number
-              <input type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
-              </label><br>
-              <div *ngIf="user.address">
-                <label>Street
-                <input type="text" name="street"  disabled [ngModel]="user.address.street">
-                </label><br>
-                <label>Street2
-                <input type="text" name="street2"   disabled [ngModel]="user.address.street2">
-                </label><br>
-                <label>City
-                <input type="text" name="city"   disabled [ngModel]="user.address.city">
-                </label><br>
-                <label>State
-                <input type="text" name="state"   disabled [ngModel]="user.address.state">
-                </label><br>
-                <label>Zipcode
-                <input type="text" name="zip"   disabled [ngModel]="user.address.zip">
-                </label><br>
-                <label>Country
-                <input type="text" name="country"   disabled [ngModel]="user.address.country">
-                </label><br>
-              </div>
-              <label>Location
-              <input type="text" name="location" disabled [ngModel]="user.location.name">
-              </label><br>
-              <label>Parents
-              <input type="text" name="parents" disabled [ngModel]="user.parents">
-              </label><br>
-              <label>Children
-              <input type="text" name="children" disabled [ngModel]="user.children">
-              </label><br>
-            </form>
-          <button (click)="editUser = true;">Edit</button>
-        </div>
-
-        <div *ngIf="editUser && user">
-            <form #EditUserForm="ngForm">
-                <label>ID:
-                  <input type="text" name="id" disabled [ngModel]="user.id">
-                </label><br>
-              <label>First Name
-              <input type="text" name="firstName" [ngModel]="user.firstName">
-              </label><br>
-              <label>Last Name
-              <input type="text" name="lastName" [ngModel]="user.lastName">
-              </label><br>
-              <label>Email
-              <input type="text" name="email" [ngModel]="user.email">
-              </label><br>
-              <label>Gender
-              <input type="text" name="gender" [ngModel]="user.gender">
-              </label><br>
-              <label>Date of Birth
-              <input type="date" name="dob" [ngModel]="user.dob">
-              </label><br>
-              <label>Image URL
-              <input type="text" name="userImageUrl" [ngModel]="user.userImageUrl">
-              </label><br>
-              <label>Phone Number
-              <input type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
-              </label><br>
-              <label>Street
-                  <input type="text" name="street" [ngModel]="user.address.street">
-                  </label><br>
-                  <label>Street2
-                  <input type="text" name="street2" [ngModel]="user.address.street2">
-                  </label><br>
-                  <label>City
-                  <input type="text" name="city" [ngModel]="user.address.city">
-                  </label><br>
-                  <label>State
-                  <input type="text" name="state" [ngModel]="user.address.state">
-                  </label><br>
-                  <label>Zipcode
-                  <input type="text" name="zip" [ngModel]="user.address.zip">
-                  </label><br>
-                  <label>Country
-                  <input type="text" name="country" [ngModel]="user.address.country">
-                  </label><br>
-              <label>Location
-              <input type="text" name="location" disabled [ngModel]="user.location">
-              </label><br>
-              <label>Parents
-              <input type="text" name="parents" disabled [ngModel]="user.parents">
-              </label><br>
-              <label>Children
-              <input type="text" name="children" disabled [ngModel]="user.children">
-              </label><br>
+              <label>Username
+              <input type="text" class="view" name="username" disabled [ngModel]="currentAuth.username">
+              </label>
               </form>
-            <button (click)="editUser = false;">Cancel</button>
-            <button (click)="updateUserDetails(EditUserForm)">Save</button>
+              </div>
+              <div class="col-md-1 mt-3">
+                  <button mat-icon-button class="remove-btn-border" (click)="editUserPass = true;">
+                      <mat-icon color="primary" class="mat-18">edit</mat-icon>
+                  </button>
+                </div>
+                </div>
         </div>
-      </div>
-          <div *ngIf="!editUserPass && currentAuth" class="col">
-              <form>
-                <label>Username
-                <input type="text" name="username" disabled [ngModel]="currentAuth.username">
-                </label><br>
+        <div *ngIf="editUserPass && currentAuth" class="col">
+            <form #EditUserPassForm="ngForm">
+              <label>Username
+              <input class="view" type="text" name="username" [ngModel]="currentAuth.username">
+              </label><br>
+              <label>Current Password
+              <input class="view" type="password" name="currentPass" value = '' ngModel>
+              </label><br>
+              <label>New Password
+              <input class="view" type="password" name="newPass" value = '' ngModel>
+              </label><br>
 
-                </form>
-              <button class="btn btn-sm btn-secondary" (click)="editUserPass = true;">Edit Username/Password</button>
-          </div>
-          <div *ngIf="editUserPass && currentAuth" class="col">
-              <form #EditUserPassForm="ngForm">
-                <label>Username
-                <input type="text" name="username" [ngModel]="currentAuth.username">
-                </label><br>
-                <label>Current Password
-                <input type="password" name="currentPass" value = '' ngModel>
-                </label><br>
-                <label>New Password
-                <input type="password" name="newPass" value = '' ngModel>
-                </label><br>
+              </form>
+            <button class="mat-secondary mat-raised-button mr-5 "  (click)="editUserPass = false;">Cancel</button>
+            <button class="mat-primary mat-raised-button "  (click)="updateUsernamePassword(EditUserPassForm)">Save</button>
+        </div>
 
-                </form>
-              <button class="btn btn-sm btn-secondary"  (click)="editUserPass = false;">Cancel</button>
-              <button class="btn btn-sm btn-primary"  (click)="updateUsernamePassword(EditUserPassForm)">Save</button>
-          </div>
     </div>
-  </div>
+
+
+    <div  *ngIf="!editUser && user">
+        <form class="profileViewForm" >
+            <div class= "form-card">
+              <h3>User information: </h3>
+              <div class="row">
+                  <div class="col-md-6 col-xs-12">
+                       <label>First Name
+                      <input class="view" type="text" name="firstName" disabled [ngModel]="user.firstName">
+                      </label><br>
+                      <label>Last Name
+                      <input class="view" type="text" name="lastName" disabled [ngModel]="user.lastName">
+                      </label><br>
+                      <div>
+                      <label class="mr-3">Gender
+                          </label>
+                              <input [attr.disabled]="false" type="radio" name="gender" value='m'  [(ngModel)]='user.gender'>Male
+                              <input [attr.disabled]="false" type="radio" name='gender' value='f' [(ngModel)]='user.gender'>Female
+                              <input  [attr.disabled]="false" type="radio" name='gender' value='o' [(ngModel)]='user.gender'>Others
+                          </div>
+
+                      <label>Location
+                          <input class="view" type="text" name="location" disabled [ngModel]="user.location.name">
+                          </label><br>
+                        </div>
+                  <div class="col-md-6 col-xs-12">
+                    <label>Email
+                        <input class="view" type="text" name="email" disabled [ngModel]="user.email">
+                        </label><br>
+                        <label>Phone Number
+                        <input class="view" type="text" name="phoneNumber" disabled [ngModel]="user.phoneNumber">
+                        </label><br>
+                        <label>Date of Birth
+                            <input class="view" type="date" name="dob" disabled [ngModel]="user.dob">
+                            </label><br>
+                        <label>Image URL
+                          <input class="view" type="text" name="userImageUrl" disabled [ngModel]="user.userImageUrl">
+                        </label><br>
+                  </div>
+              </div>
+            </div>
+        <div *ngIf="user.address">
+            <div class= "form-card">
+                <h3>Address: </h3>
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                        <label>Street
+                            <input class="view" type="text" name="street"  disabled [ngModel]="user.address.street">
+                          </label><br>
+                          <label>State
+                              <input class="view" type="text" name="state"   disabled [ngModel]="user.address.state">
+                              </label><br>
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <label>Street2
+                                <input class="view" type="text" name="street2"   disabled [ngModel]="user.address.street2">
+                                </label><br>
+                                <label>Zipcode
+                                    <input class="view" type="text" name="zip"   disabled [ngModel]="user.address.zip">
+                                    </label><br>
+
+                          </div>
+                        <div class="col-md-4 col-xs-12">
+                            <label>City
+                                <input class="view" type="text" name="city"   disabled [ngModel]="user.address.city">
+                                </label><br>
+                                <label>Country
+                                    <input class="view" type="text" name="country"   disabled [ngModel]="user.address.country">
+                                    </label><br>
+                          </div>
+                        </div>
+
+                </div>
+
+            </div>
+            <div class= "form-card">
+                <h3>Parents/Children: </h3>
+                <label>Parents
+                    <input class="view" type="text" name="parents" disabled [ngModel]="user.parents">
+                    </label><br>
+                    <label>Children</label>
+                    <ul *ngFor="let child of user.children">
+                        <li type="text" name="children"  >
+                          {{child.user.username}}
+                        </li>
+                    </ul>
+              </div>
+              <div class="content-center" >
+                  <button class="mat-primary mat-raised-button " (click)="editUser = true;">Update</button>
+              </div>
+        </form>
+
+    </div>
+
+    <div *ngIf="editUser && user">
+        <div class= "form-card">
+            <h3>Update User Details: </h3>
+        <form  #EditUserForm="ngForm">
+            <!-- <label>ID:
+              <input type="text" name="id" disabled [ngModel]="user.id">
+            </label><br> -->
+          <label>First Name
+          <input class="view" type="text" name="firstName" [ngModel]="user.firstName">
+          </label><br>
+          <label>Last Name
+          <input class="view" type="text" name="lastName" [ngModel]="user.lastName">
+          </label><br>
+          <label>Email
+          <input class="view" type="text" name="email" [ngModel]="user.email">
+          </label><br>
+          <label>Gender
+          <input color="primary" type="radio" name="gender" [(ngModel)]="user.gender" value="f">
+          Female
+          <input type="radio" name="gender" [(ngModel)]="user.gender" value="m">
+          Male
+          <input type="radio" name="gender" [(ngModel)]="user.gender" value="o">
+          Other
+          </label><br>
+          <label>Date of Birth
+          <input class="view" type="date" name="dob" [ngModel]="user.dob">
+          </label><br>
+          <label>Image URL
+          <input class="view" type="text" name="userImageUrl" [ngModel]="user.userImageUrl">
+          </label><br>
+          <label>Phone Number
+          <input class="view" type="text" name="phoneNumber" [ngModel]="user.phoneNumber">
+          </label><br>
+          <label>Street
+              <input class="view" type="text" name="street" [ngModel]="user.address.street">
+              </label><br>
+              <label>Street2
+              <input class="view" type="text" name="street2" [ngModel]="user.address.street2">
+              </label><br>
+              <label>City
+              <input class="view" type="text" name="city" [ngModel]="user.address.city">
+              </label><br>
+              <label>State
+              <input class="view" type="text" name="state" [ngModel]="user.address.state">
+              </label><br>
+              <label>Zipcode
+              <input class="view" type="text" name="zip" [ngModel]="user.address.zip">
+              </label><br>
+              <label>Country
+              <input class="view"type="text" name="country" [ngModel]="user.address.country">
+              </label><br>
+          <!-- <label>Location
+          <input type="text" name="location" disabled [ngModel]="user.location">
+          </label><br> -->
+          <br>
+          <label>Select location</label>
+          <select class="view" disableOptionCentering (change)="selectUserLocation($event.target.value)" [(ngModel)]="user.location.id" name="locationName">
+            <option *ngFor="let location of locations" [value]="location.id">
+              {{location.name}}
+            </option>
+          </select>
+          <br>
+          <label>Parents
+          <input class="view" type="text" name="parents" disabled [ngModel]="user.parents">
+          </label>
+          <br>
+
+          <div *ngFor="let child of user.children">
+            <label>Children
+            <input class="view" type="text" name="children" disabled [ngModel]="child.user.username">
+          </label><br>
+        </div>
+          <div class="content-center" >
+              <button class="mat-secondary mat-raised-button  mr-5 " (click)="editUser = false;">Cancel</button>
+              <button class="mat-primary mat-raised-button " (click)="updateUserDetails(EditUserForm)">Save</button>
+          </div>
+          </form>
+      </div>
+    </div>
+    </div>
+</div>
