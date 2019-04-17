@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.OPTIONS, "/api/**", "/**").permitAll()
 		.antMatchers("/resources/**", "/register", "/authenticate").permitAll()
 		.antMatchers("/").permitAll()
+		.antMatchers("/api/meetings/locations/**").permitAll()
 		.antMatchers("/api/meetings").hasAuthority("ADMIN")
 		.antMatchers("/api/locations").permitAll()
 		.antMatchers("/api/schedule").permitAll()

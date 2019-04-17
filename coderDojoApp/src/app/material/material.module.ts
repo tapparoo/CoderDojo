@@ -13,6 +13,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSelectModule} from '@angular/material/select';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 @NgModule({
   declarations: [],
@@ -33,7 +35,8 @@ import {MatCardModule} from '@angular/material/card';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatToolbarModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
 
     ],
   exports: [
@@ -53,7 +56,7 @@ import {MatCardModule} from '@angular/material/card';
     MatSelectModule,
     MatToolbarModule,
     MatCardModule,
-
+    MatRadioModule
 
   ]
 })

@@ -38,14 +38,14 @@
                     <input type="text" class="form-control" id="dropdownFormPhone" name="phoneNumber" ngModel>
                   </div>
                   <div class="form-group">
-                  <mat-form-field>
-                      <mat-label>Select location</mat-label>
-                      <mat-select disableOptionCentering (selectionChange)="selectUserLocation($event)" [(ngModel)]="selectedLocationValue" name="locationName">
-                        <mat-option *ngFor="let location of locations" [value]="location.id">
+
+                      <label>Select location</label>
+                      <select disableOptionCentering (selectionChange)="selectUserLocation($event)" [(ngModel)]="selectedLocationValue" name="locationName">
+                        <option *ngFor="let location of locations" [value]="location.id">
                           {{location.name}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                        </option>
+                      </select>
+
                     </div>
                   <div class="dropdown-divider"></div>
                   <button  class="primaryColorBG saveBtn btn mr-5"  (click)="register(LoginForm);">Save/Register</button>
