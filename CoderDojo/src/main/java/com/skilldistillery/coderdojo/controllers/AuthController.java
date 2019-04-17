@@ -51,7 +51,6 @@ public class AuthController {
         return newUser;
     }
 
-    // TODO: remove model/jsp stuff
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
         return "welcome";

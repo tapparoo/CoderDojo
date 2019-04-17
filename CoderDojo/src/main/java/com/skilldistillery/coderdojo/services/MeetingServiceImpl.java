@@ -62,7 +62,6 @@ public class MeetingServiceImpl implements MeetingService {
         if (opt.isPresent()) {
             if (u!= null) {
                 m = opt.get();
-                System.out.println(m + "&&&&&&&&&&&&&&&&&&&&&&");
             }
         }
         return m;
@@ -118,19 +117,4 @@ public class MeetingServiceImpl implements MeetingService {
 
 		return null;
 	}
-	
-//    @Override
-//    public List <UserDetail> showMeetingUsers(Integer mid) {
-//    	UserDetail m = null;
-////    	User u = repoUser.findByUsername(username);
-//        List<UserDetail> opt =  repo.findBymeetingAttendees_userDetail(mid);
-////        if (opt.isPresent()) {
-////            if (u!= null) {
-////                m = opt.get();
-//                System.out.println(m + "&&&&&&&&&&&&&&&&&&&&&&");
-////            }
-////        }
-//        return opt;
-//    }
-
 }

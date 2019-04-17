@@ -3,7 +3,7 @@ import { MeetingService } from './services/meeting.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserAchievementComponent } from './components/user-achievement/user-achievement.component';
 import { StudentAchievementComponent } from './components/student-achievement/student-achievement.component';
 import { DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     NgbModule.forRoot(),
     MaterialModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ],
   providers: [AuthService, MeetingService, DatePipe ],
   bootstrap: [AppComponent]

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -75,7 +75,7 @@ public class UserDetail {
 	private Set<UserDetail> parents;
 
 	@JsonIgnore
-	@ManyToMany
+	@OneToMany
 	@JoinTable(name = "meeting_attendance", 
 		joinColumns = @JoinColumn(name = "user_id"), 
 		inverseJoinColumns = @JoinColumn(name = "meeting_id"))
@@ -126,12 +126,29 @@ public class UserDetail {
 		achievement.getUsers().remove(this);
 	}
 	
-	public Set<Meeting> getMeetingsAttended() {
+	public Set<Meeting> getMeetings() {
 		return meetingsAttended;
 	}
 
 	public void setMeetingsAttended(Set<Meeting> meetingsAttended) {
 		this.meetingsAttended = meetingsAttended;
+	}
+	
+	
+	public void addMeeting(Meeting m) {
+		if (m == null)
+			return;
+		if (meetingsAttended == null)
+			meetingsAttended = new HashSet<>();
+		
+		meetingsAttended.add(m);
+	}
+	
+	public void removeMeetingAttended(Meeting m) {
+		if (m == null)
+			return;
+		
+		meetingsAttended.remove(m);
 	}
 
 	public long getId() {

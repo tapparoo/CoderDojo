@@ -1,8 +1,8 @@
-import { Meeting } from './../models/meeting';
-import { environment } from './../../environments/environment';
+import { Meeting } from '../models/meeting';
+import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
 })
 export class MeetingService {
 
-  private baseUrl = environment.baseUrl;
+  private url = environment.baseUrl + 'api/meetings';
+  private urlSchedule = environment.baseUrl  + 'api/schedule';
 
-  private url = this.baseUrl + 'api/meetings';
-  private urlSchedule = this.baseUrl + 'api/schedule';
   constructor(
     private http: HttpClient,
     private auth: AuthService,
@@ -111,7 +110,7 @@ export class MeetingService {
     return this.http.delete<any>(this.url + '/' + id, httpOptions);
   }
 
-  public update(meeting: Meeting) {
+  update(meeting: Meeting) {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -129,7 +128,7 @@ export class MeetingService {
   }
 
 
-  public updateMeetingAttendeeStatus(meetId, meetingAttendent, status) {
+  updateMeetingAttendeeStatus(meetId, meetingAttendent, status) {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
       headers: new HttpHeaders({
@@ -146,4 +145,26 @@ export class MeetingService {
       })
     );
   }
+
+  registerUserForMeeting(meetingId, user) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    console.log(httpOptions);
+
+    return this.http.put<any>(this.url + `/${meetingId}/register/${user}`, user, httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 if (err.status === 401) {
+                  console.log('Not authorized');
+
+                 }
+                 return throwError('Error in MeetingService.register()');
+               })
+          );
+  }
+
 }

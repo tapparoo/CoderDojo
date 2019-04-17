@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.MeetingAttendee;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.repositories.MeetingAttendeeRepository;
 import com.skilldistillery.coderdojo.repositories.MeetingRepository;
+import com.skilldistillery.coderdojo.repositories.UserDetailRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 @Service
 public class MeetingAttendeeServiceImpl implements MeetingAttendeeService {
@@ -19,21 +21,20 @@ public class MeetingAttendeeServiceImpl implements MeetingAttendeeService {
 	
 	@Autowired
 	private MeetingRepository repoMeeting;
-	
-	
+	@Autowired
+	private UserDetailRepository repoUserDetail;
     @Autowired
     private UserRepository repoUser;
     
 	@Override
-	public MeetingAttendee showMAById(String username, Integer mid) {
-    	Optional<MeetingAttendee> opt = repo.findById(mid);
-    	User u = repoUser.findByUsername(username);
+	public MeetingAttendee showMAById(Integer mid, Long uid) {
+    	Optional<Meeting> meeting = repoMeeting.findById(mid);
+    	Optional<UserDetail> user = repoUserDetail.findById(uid);
+    	
     	MeetingAttendee m = null;
-        if (opt.isPresent()) {
-            if (u!= null) {
-                m = opt.get();
-                System.out.println(m + "&&&&&&&&&&&&&&&&&&&&&&");
-            }
+    	
+        if (meeting.isPresent() && user.isPresent()) {
+            m = repo.findByMeetingIdAndUserDetailId(mid, uid);
         }
         return m;
 	}
@@ -49,13 +50,32 @@ public class MeetingAttendeeServiceImpl implements MeetingAttendeeService {
 	        	 if (meeOpt.isPresent()) {
 	            if (u!= null) {
 	                managed.setAttended(ma.isAttended());
-//	                managed.setMeeting(ma.getMeeting());
 	                repo.saveAndFlush(managed);
 	                return managed;
 	            }
 	            }
 	        }
 	        return null;
+	}
+	
+	@Override
+	public MeetingAttendee register(Integer mid, Long uid) {
+		Optional<UserDetail> userOpt = repoUserDetail.findById(uid);
+		Optional<Meeting> meetingOpt = repoMeeting.findById(mid);
+		MeetingAttendee ma = null;
+		
+		if (userOpt.isPresent() && meetingOpt.isPresent()){
+			UserDetail user = userOpt.get();
+			Meeting meeting = meetingOpt.get();
+			
+			ma = new MeetingAttendee();
+			ma.setAttended(false);
+			ma.setMeeting(meeting);
+			ma.setUserDetail(user);
+			repo.saveAndFlush(ma);
+			ma = showMAById(mid, uid);
+		}
+		return ma;
 	}
 
 }

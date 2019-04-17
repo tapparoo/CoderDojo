@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.Meeting;
+import com.skilldistillery.coderdojo.entities.MeetingAttendee;
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserDetail;
@@ -73,7 +74,6 @@ public class UserController {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
 
-		System.out.println(requestingUser);
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile
 			if (requestingUser.isAdmin()
@@ -113,7 +113,7 @@ public class UserController {
 			Principal principal) {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
-		Set<Meeting> meetings = requestedUser.getMeetingsAttended();
+		Set<Meeting> meetings = requestedUser.getMeetings();
 		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile

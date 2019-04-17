@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -38,7 +39,22 @@ public class Meeting {
 	public void setMeetingAttendees(List<MeetingAttendee> meetingAttendees) {
 		this.meetingAttendees = meetingAttendees;
 	}
-
+	
+	public void addMeetingAttendees(MeetingAttendee ma) {
+		if (ma == null)
+			return;
+		if (meetingAttendees == null)
+			meetingAttendees = new ArrayList<>();
+		
+		meetingAttendees.add(ma);
+	}
+	
+	public void removeMeetingAttendees(MeetingAttendee ma) {
+		if (ma == null)
+			return;
+		meetingAttendees.remove(ma);
+	}
+	
 	public int getId() {
 		return id;
 	}

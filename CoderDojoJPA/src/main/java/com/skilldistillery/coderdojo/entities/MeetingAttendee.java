@@ -17,14 +17,14 @@ public class MeetingAttendee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private boolean attended;
+	private boolean attended = false;
 	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="meeting_id")
 	private Meeting meeting;
 	
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private UserDetail userDetail;
@@ -67,10 +67,7 @@ public class MeetingAttendee {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (attended ? 1231 : 1237);
 		result = prime * result + id;
-		result = prime * result + ((meeting == null) ? 0 : meeting.hashCode());
-		result = prime * result + ((userDetail == null) ? 0 : userDetail.hashCode());
 		return result;
 	}
 
@@ -83,19 +80,7 @@ public class MeetingAttendee {
 		if (getClass() != obj.getClass())
 			return false;
 		MeetingAttendee other = (MeetingAttendee) obj;
-		if (attended != other.attended)
-			return false;
 		if (id != other.id)
-			return false;
-		if (meeting == null) {
-			if (other.meeting != null)
-				return false;
-		} else if (!meeting.equals(other.meeting))
-			return false;
-		if (userDetail == null) {
-			if (other.userDetail != null)
-				return false;
-		} else if (!userDetail.equals(other.userDetail))
 			return false;
 		return true;
 	}
@@ -116,10 +101,4 @@ public class MeetingAttendee {
 	public MeetingAttendee() {
 		super();
 	}
-
-	
-	
-	
-	
-	
 }

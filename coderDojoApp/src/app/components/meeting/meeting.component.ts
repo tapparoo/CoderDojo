@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { Location } from './../../models/location';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Router } from '@angular/router';
@@ -35,6 +36,7 @@ export class MeetingComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private locationService: LocationService,
+    private userService: UserService
   ) {}
   createMeeting = false;
 
@@ -103,7 +105,8 @@ export class MeetingComponent implements OnInit {
         this.displayedColumns = [
           'name',
           'location.name',
-          'scheduledTime'
+          'scheduledTime',
+          'register'
         ];
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
@@ -178,18 +181,11 @@ export class MeetingComponent implements OnInit {
     this.newMeeting = new Meeting();
   }
 
-  addPerson(createForm){
-    console.log(createForm);
-    // this.newMeeting = {
-    //   name: createForm.value.name,
-    //   scheduledTime: createForm.value.scheduledTime,
-    //   location: {
-    //     id: createForm.value.locationId}
-    // }
-    this.meetingService.create(createForm.value).subscribe(
+  registerUserForMeeting(meetingId: number) {
+    this.meetingService.registerUserForMeeting(meetingId, this.auth.getLoggedInUsername()).subscribe(
       data => {
         console.log(data);
-        this.reloadAdmin();
+        this.reload();
       },
       err => {
         console.error(err);
