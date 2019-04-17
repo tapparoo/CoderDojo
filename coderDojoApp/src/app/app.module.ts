@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserAchievementComponent } from './components/user-achievement/user-achievement.component';
 import { StudentAchievementComponent } from './components/student-achievement/student-achievement.component';
 import { DatePipe } from '@angular/common';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DatePipe } from '@angular/common';
     HttpClientModule,
     NgbModule.forRoot(),
     MaterialModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [AuthService, MeetingService, DatePipe ],
   bootstrap: [AppComponent]

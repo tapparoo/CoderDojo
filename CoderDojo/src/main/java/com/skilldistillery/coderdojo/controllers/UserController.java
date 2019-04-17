@@ -23,11 +23,13 @@ import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserAchievement;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.AchievementService;
 import com.skilldistillery.coderdojo.services.AddressService;
 import com.skilldistillery.coderdojo.services.RoleService;
 import com.skilldistillery.coderdojo.services.SecurityService;
+import com.skilldistillery.coderdojo.services.UserAchievementService;
 import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
 import com.skilldistillery.coderdojo.services.UserService;
 
@@ -47,6 +49,8 @@ public class UserController {
 	private AchievementService achieveServ;
 	@Autowired
 	private RoleService roleServ;
+	@Autowired
+	private UserAchievementService userServ;
 
 	// admin
 	@GetMapping
@@ -105,6 +109,25 @@ public class UserController {
 			}
 		}
 
+		return achievements;
+	}
+	
+	@GetMapping("{username}/userachievements/completed")
+	public List<UserAchievement> getCompletedAchievements(@PathVariable("username") String username, HttpServletResponse res,
+			Principal principal) {
+		UserDetail requestedUser = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
+		List<UserAchievement> achievements = userServ.findAllUserAchievementByUserId(requestedUser);
+		
+		if (requestedUser != null) {
+			// Only the owning user or an admin can see a user's profile
+			if (requestingUser.isAdmin()
+					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
+				
+				res.setStatus(200);
+			}
+		}
+		
 		return achievements;
 	}
 	

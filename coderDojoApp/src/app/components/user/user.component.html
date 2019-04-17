@@ -1,14 +1,25 @@
 <div *ngIf="user && user.user.student">
+<<<<<<< HEAD
   <table class="table table-striped">
+=======
+  <!-- <table class="table table-striped">
+>>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
     <thead>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Image URL</th>
     </thead>
+<<<<<<< HEAD
     <tr *ngFor="let achieve of achievements" (click)="selected = achieve">
       <td>{{ achieve.name }}</td>
       <td>{{ achieve.description }}</td>
       <td>{{ achieve.imageUrl }}</td>
+=======
+    <tr *ngFor="let achieve of achievements" (click)="selected = achieve;">
+      <td>{{achieve.name}}</td>
+      <td>{{achieve.description}} </td>
+      <td>{{achieve.imageUrl}}</td>
+>>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
     </tr>
   </table>
 
@@ -20,24 +31,121 @@
       <th scope="col">Date/Time</th>
     </thead>
     <tr *ngFor="let meeting of user.meetings">
+<<<<<<< HEAD
       <td>{{ meeting.name }}</td>
       <td>{{ meeting.location.name }}</td>
       <td>{{ meeting.scheduledTime }}</td>
+=======
+      <td>{{meeting.name}}</td>
+      <td>{{meeting.location.name}} </td>
+      <td>{{meeting.scheduledTime}}</td>
+>>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
     </tr>
-  </table>
+  </table> -->
+  
+  <div *ngIf="user && user.user.student" class="border border-dark rounded-lg">
+    
+    <h3>Your Next Achievement:</h3>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+      
+      <ng-container *ngFor="let userAchievement of pendingUserAchievements">
+        <div class='card' fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%"  (click)='flipCard(userAchievement.id)' >
+          
+          <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}> 
+          <div><strong>{{userAchievement.achievement.name}}</strong></div>
+          
+          <div class="card-body" *ngIf="checkFlipped(userAchievement.id)">
+            <p>
+              {{userAchievement.achievement.description}}
+            </p>
+          </div>
+          <div class="card-body" *ngIf="!checkFlipped(userAchievement.id)">
+            <ul>
+              <li *ngFor="let userGoal of userAchievement.userGoals">
+                <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
+                <br>
+                Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still needs work</span>
+              </li>
+            </ul>
+            
+          </div>
+          
+          
+        </div>
+      </ng-container>
+    </div>
+    
+    <br>
+      <hr />
+      <br>
+      
+      <h3>Your Completed Achievements:</h3>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+        
+        <ng-container *ngFor="let userAchievement of completedUserAchievements">
+          <div class='card' fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%"  (click)='flipCard(userAchievement.id)' >
+            
+            <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}> 
+            <div><strong>{{userAchievement.achievement.name}}</strong></div>
+            
+            <div class="card-body" *ngIf="checkFlipped(userAchievement.id)">
+              <p>
+                {{userAchievement.achievement.description}}
+              </p>
+            </div>
+            <div class="card-body" *ngIf="!checkFlipped(userAchievement.id)">
+              <ul>
+                <li *ngFor="let userGoal of userAchievement.userGoals">
+                  <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
+                  <br>
+                  Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still needs work</span>
+                </li>
+              </ul>
+              
+            </div>
+            
+            
+          </div>
+        </ng-container>
+      </div>
+    </div>
+<br><br>
+<div class="border border-dark rounded-lg" >
+  
+  
+  <h3>Your Upcoming Classes:</h3>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <ng-container *ngFor="let meeting of user.meetings">
+      <div class='card' fxFlex="0 1 calc(20% - 32px)" fxFlex.lt-md="0 1 calc(33% - 32px)" fxFlex.lt-sm="100%" >
+        <div class="card-body">
+          <strong>{{meeting.name}} at {{meeting.location.name}}.</strong> {{meeting.scheduledTime}}
+        </div>
+        
+      </div>
+    </ng-container>
+  </div>
+  <a [routerLink]="['/schedule']" routerLinkActive="router-link-active" ><button class="btn btn-success pull-right"> Register for a Class </button></a>
+</div>
 </div>
 
 <div *ngIf="user && user.user.parent">
+<<<<<<< HEAD
 
   <br /><br />
   <div ngbDropdown class="d-inline-block" autoClose="outside">
     <button class="btn btn-outline-primary" ngbDropdownToggle>
       Register New Child
     </button>
+=======
+  <br><br>
+  <div ngbDropdown class="d-inline-block" autoClose="outside">
+    <button class="btn btn-outline-primary" ngbDropdownToggle>Register New Child</button>
+>>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
     <div id="registerNewChildDropdown" ngbDropdownMenu>
       <form #NewChild="ngForm" class="px-4 py-3">
         <div class="form-group">
           <label for="firstName">First Name</label>
+<<<<<<< HEAD
           <input
             type="firstName"
             class="form-control"
@@ -149,3 +257,43 @@
   </div>
 
 </div>
+=======
+          <input type="firstName" class="form-control" id="firstName" name="firstName" ngModel>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="lastName" class="form-control" id="lastName" name="lastName" ngModel>
+        </div>
+        <div class="form-group">
+          <label for="nickname">Nickname</label>
+          <input type="nickname" class="form-control" id="nickname" name="nickname" ngModel>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" ngModel>
+        </div>
+        <button class="btn btn-primary btn-sm" (click)="addChild(NewChild);">Save/Register</button>
+        <button class="btn btn-secondary btn-sm" (click)="newChild = false;">Cancel</button>
+        <br><br>
+      </form>
+    </div>
+  </div>
+  <br><br>
+  <table class="table table-striped">
+    <thead>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Nickname</th>
+      <th scope="col">Date of Birth</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let kid of children" (click)="selected = kid;">
+        <td>{{kid.firstName}}</td>
+        <td>{{kid.lastName}} </td>
+        <td>{{kid.nickname}}</td>
+        <td>{{kid.dob}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+>>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
