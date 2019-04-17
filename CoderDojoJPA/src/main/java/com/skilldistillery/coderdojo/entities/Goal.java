@@ -1,11 +1,15 @@
 package com.skilldistillery.coderdojo.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +26,20 @@ public class Goal {
 	@ManyToOne
 	@JoinColumn(name="standard_achievement_id")
 	private Achievement achievement;
+	
+	@OneToMany(mappedBy = "goal", cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<UserGoal> userGoals;
+
+	
+	
+	public List<UserGoal> getUserGoals() {
+		return userGoals;
+	}
+
+	public void setUserGoals(List<UserGoal> userGoals) {
+		this.userGoals = userGoals;
+	}
 
 	public int getId() {
 		return id;

@@ -2,6 +2,7 @@ package com.skilldistillery.coderdojo.controllers;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +24,12 @@ import com.skilldistillery.coderdojo.services.UserService;
 @RequestMapping("api/roles")
 @CrossOrigin({ "*", "http://localhost:4202" })
 public class RoleController {
-	
+
 	@Autowired
 	RoleService serv;
 	@Autowired
 	UserService userServ;
+
 	
 	@GetMapping
 	public List<Role> getRoles(HttpServletResponse res, Principal principal){
@@ -43,11 +45,11 @@ public class RoleController {
 	}
 	
 	@GetMapping("{role}/users")
-	public List<UserDetail> getUsersByRoleName(@PathVariable("role") String role, HttpServletResponse res,
+	public Set<UserDetail> getUsersByRoleName(@PathVariable("role") String role, HttpServletResponse res,
 			HttpServletRequest req, Principal principal) {
 
 		User requestingUser = userServ.findByUsername(principal.getName());
-		List<UserDetail> results = serv.findUsersByRole(role);
+		Set<UserDetail> results = serv.findUsersByRole(role);
 
 		if (results != null) {
 			if (requestingUser.isAdmin()) {
@@ -57,7 +59,6 @@ public class RoleController {
 		}
 
 		return results;
-
 	}
 
 }

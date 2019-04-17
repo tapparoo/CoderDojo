@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,13 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<UserDetail> findUsersByRole(String role){
+	public Set<UserDetail> findUsersByRole(String role){
 		
-		List<UserDetail> results = deetsRepo.findUsersByRole(role);
+		Set<UserDetail> results = deetsRepo.findUsersByRole(role);
+//		for (UserDetail userDetail : results) {
+//			System.out.println(userDetail.getFirstName());
+//		}
+		System.out.println();
 		return results;
 		
 	}

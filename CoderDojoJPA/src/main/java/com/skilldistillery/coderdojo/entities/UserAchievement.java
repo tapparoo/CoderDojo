@@ -3,6 +3,7 @@ package com.skilldistillery.coderdojo.entities;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "user_achievement")
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+	
+
+@Entity	
+@Table(name="user_achievement")
+
 public class UserAchievement {
 
 	@Id
@@ -25,7 +32,8 @@ public class UserAchievement {
 
 	@Column(name = "achieved_date")
 	private Date achievedDate;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_detail_id")
 	private UserDetail userDetail;
@@ -34,7 +42,7 @@ public class UserAchievement {
 	@JoinColumn(name = "achievement_id")
 	private Achievement achievement;
 
-	@OneToMany(mappedBy = "userAchievement")
+	@OneToMany(mappedBy = "userAchievement", cascade=CascadeType.REMOVE)
 	private Set<UserGoal> userGoals;
 
 	public Achievement getAchievement() {
@@ -61,7 +69,8 @@ public class UserAchievement {
 		this.id = id;
 	}
 
-	public boolean isAchieved() {
+	public boolean getAchieved() {
+
 		return achieved;
 	}
 

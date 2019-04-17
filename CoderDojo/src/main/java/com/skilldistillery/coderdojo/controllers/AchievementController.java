@@ -89,20 +89,14 @@ public class AchievementController {
 				response.setStatus(404);
 				return false;
 			} else {
-				if (service.findAchievementById(id).getGoals().size() > 0) {
-					System.out.println("made it into the goal delete if statement.");
-					Achievement ach = service.findAchievementById(id);
-					Set<Goal> goals = ach.getGoals();
-					for (Goal goal : goals) {
-						goalService.delete(goal.getId());
-					}
-//					Goal[] goals = (Goal[]) ach.getGoals().toArray();
-//					for (int i = goals.length - 1; i <= 0; i--) {
-//						System.out.println("made it into the goal delete loop.");
-//						goalService.delete(goals[i].getId());
+//				if (service.findAchievementById(id).getGoals().size() > 0) {
+//					System.out.println("made it into the goal delete if statement.");
+//					Achievement ach = service.findAchievementById(id);
+//					Set<Goal> goals = ach.getGoals();
+//					for (Goal goal : goals) {
+//						goalService.delete(goal.getId());
 //					}
-
-				}
+//				}
 				service.delete(id);
 				response.setStatus(204);
 				return true;

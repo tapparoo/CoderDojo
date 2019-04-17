@@ -174,7 +174,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_goal` ;
 
 CREATE TABLE IF NOT EXISTS `user_goal` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `completed` TINYINT NULL,
   `completed_date` DATE NULL,
   `user_achievement_id` INT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `user_goal` (
   CONSTRAINT `user_goals_belong_to_a_user_achievement`
     FOREIGN KEY (`user_achievement_id`)
     REFERENCES `user_achievement` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `user_goals_to_parent_goal`
     FOREIGN KEY (`goal_id`)
@@ -389,7 +389,6 @@ INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (2, 1, '2019-04-11', 2, 2);
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (3, 0, NULL, 2, 3);
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (4, 0, NULL, 2, 4);
-INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (5, 0, NULL, 2, 5);
 
 COMMIT;
 
@@ -422,12 +421,10 @@ INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (2, 1, '2019-04-10', 2, 2);
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (3, 1, NULL, 3, 3);
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (4, 0, NULL, 4, 4);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (5, 0, NULL, 5, 5);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (6, 1, '2019-04-01', 1, 6);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (7, 1, '2019-04-10', 2, 7);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (8, 0, NULL, 3, 8);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (9, 0, NULL, 4, 9);
-INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (10, 0, NULL, 5, 10);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (5, 1, '2019-04-01', 1, 6);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (6, 1, '2019-04-10', 2, 7);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (7, 0, NULL, 3, 8);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (8, 0, NULL, 4, 9);
 
 COMMIT;
 

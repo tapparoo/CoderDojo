@@ -1,3 +1,5 @@
+import { Location } from './../../models/location';
+import { LocationService } from 'src/app/services/location.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserDetail } from 'src/app/models/user-detail';
@@ -5,6 +7,7 @@ import { Address } from 'src/app/models/address';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +19,25 @@ export class ProfileComponent implements OnInit {
   currentAuth = null;
   editUser = false;
   editUserPass = false;
+  selectedLocationValue=null;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  locations: Location[] = [];
 
+  selectUserLocation(e){
+    this.selectedLocationValue = e;
+  }
+
+  loadLocations() {
+    this.locationService.showAllLocations().subscribe(
+      data => {
+        this.locations = data;
+        console.log(data);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
   updateUsernamePassword(form: NgForm) {
     let currentPasswordMatch;
     const creds = [form.value.username, atob(this.auth.getCredentials()).split(':')[1]];
@@ -49,6 +70,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserDetails(form: NgForm) {
+    console.log(form);
+    let userLocation = {
+      id : this.selectedLocationValue
+    }
+    if (userLocation.id !== null && this.selectedLocationValue !=null){
+      this.user.location = userLocation;
+    }
     this.user.nickname = form.value.nickname;
     this.user.firstName = form.value.firstName;
     this.user.lastName = form.value.lastName;
@@ -82,15 +110,14 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  reload() {
-
-  }
+  reload() {}
 
   constructor(
     private auth: AuthService,
     private currentRoute: ActivatedRoute,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private locationService: LocationService
     ) { }
 
   ngOnInit() {
@@ -104,6 +131,8 @@ export class ProfileComponent implements OnInit {
         this.userService.getUser(this.currentRoute.snapshot.paramMap.get('username')).subscribe(
           data => {
             this.user = data;
+            console.log(this.user);
+
             this.currentAuth = this.user.user;
 
             this.userService.getUserAchievements(this.user.user.username).subscribe(
@@ -119,6 +148,7 @@ export class ProfileComponent implements OnInit {
           }
         );
       }
+      this.loadLocations()
     }
   }
 

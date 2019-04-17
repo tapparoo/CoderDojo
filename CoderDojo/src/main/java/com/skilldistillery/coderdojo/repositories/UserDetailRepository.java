@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.repositories;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,6 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
 	
 	@Query("Select ud from UserDetail ud JOIN FETCH ud.user u JOIN FETCH u.roles r WHERE r.name = :role")
 //	@Query("Select ud from UserDetail ud join User u on u.id = ud.user_id join userRole ur on ur.user_id = u.id join Role r on r.id = ur.role_id where r.name = :role")
-	List<UserDetail> findUsersByRole(@Param("role")String role);
+	Set<UserDetail> findUsersByRole(@Param("role")String role);
 	
 }
