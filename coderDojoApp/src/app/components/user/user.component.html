@@ -81,22 +81,6 @@
     </div>
   </div>
   <br /><br />
-  <table class="table table-striped">
-    <thead>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Nickname</th>
-      <th scope="col">Date of Birth</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let kid of children" (click)="selected = kid">
-        <td>{{ kid.firstName }}</td>
-        <td>{{ kid.lastName }}</td>
-        <td>{{ kid.nickname }}</td>
-        <td>{{ kid.dob }}</td>
-      </tr>
-    </tbody>
-  </table>
 
   <h1 class="ml-3 mt-5">See Progress of:</h1>
   <div class="row">
@@ -113,7 +97,7 @@
 
           <div class="card__content card__padding">
             <div class="card__share">
-              <a id="share" class="share-icon" href="#">
+              <a id="share" class="share-icon" (click)="navigateToUserProfile(child.user.username, user.user.username)">
                 <button mat-icon-button class="remove-btn-border mt-2">
                   <mat-icon color="primary" class="mat-18">edit</mat-icon>
                 </button></a

@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminDasboardComponent },
   { path: 'user/:username', component: UserComponent },
   { path: 'user/:username/profile', component: ProfileComponent },
+  { path: 'user/:username/profile/parent', component: ProfileComponent },
   { path: 'all-achievements', component: AllAchievementsComponent },
   { path: 'student-achievements', component: StudentAchievementComponent },
 

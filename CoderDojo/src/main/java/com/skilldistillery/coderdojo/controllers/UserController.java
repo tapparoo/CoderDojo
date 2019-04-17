@@ -74,9 +74,14 @@ public class UserController {
 		User requestingUser = serv.findByUsername(principal.getName());
 
 		System.out.println(requestingUser);
+		// check if parent requesting
+	
+
+		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile
 			if (requestingUser.isAdmin()
+					||  deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
 				res.setStatus(200);
 			} else {
@@ -99,6 +104,7 @@ public class UserController {
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile
 			if (requestingUser.isAdmin()
+					||  deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUser().getUsername())) {
 
 				res.setStatus(200);
@@ -201,10 +207,12 @@ public class UserController {
 	public User updateUser(@PathVariable("id") Integer uid, @RequestBody User usr, Principal principal, HttpServletResponse res) {
 		User requestedUser = serv.findById(uid);
 		User requestingUser = serv.findByUsername(principal.getName());
+		UserDetail requestedUserDetail = deets.findUserDetailByUsername(requestedUser.getUsername());
 		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can update a user's profile
 			if (requestingUser.isAdmin()
+					||  deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUserDetail)
 					|| requestingUser.getUsername().equalsIgnoreCase(requestedUser.getUsername())) {
 				
 				serv.updateUser(usr);
@@ -227,6 +235,7 @@ public class UserController {
 		}
 		UserDetail requestedUser = deets.findUserDetailByUsername(usr.getUser().getUsername());
 		User requestingUser = serv.findByUsername(principal.getName());
+		
 		if (requestedUser != null) {
 			// Only the owning user, the parent, or an admin can update a user's profile
 			if (requestingUser.isAdmin() || deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(requestedUser)

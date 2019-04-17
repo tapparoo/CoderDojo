@@ -18,6 +18,11 @@ export class UserComponent implements OnInit {
   children = [];
   newChild = false;
 
+
+  navigateToUserProfile(username, parentname){
+    this.router.navigateByUrl('user/'+username+ '/profile/parent');
+  }
+
   addChild(form: NgForm){
     const user = new User(form.value.nickname, 'password', true);
     // Add User
