@@ -9,11 +9,7 @@ export class UserDetail {
   email: string;
   nickname: string;
   phoneNumber: string;
-<<<<<<< HEAD
   dob : Date;
-=======
-  dob:Date;
->>>>>>> 1676a6aa1d1f12f6a37a1b1ce423c32fee71c75b
   gender: string;
   userImageUrl: string;
   user: User;
