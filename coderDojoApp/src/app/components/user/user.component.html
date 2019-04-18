@@ -113,10 +113,11 @@
 
 
 <div *ngIf="user && user.user.parent">
-    <div class= "form-card_parent">
-  <br /><br />
-
   <div class= "form-card_parent">
+    <div class="mb-3">
+      <h1 color="secondary">Hello, {{user.firstName}}  {{user.lastName}}</h1>
+    </div>
+  <div class= "form-card_parent_add_child">
       <button class="mat-primary mat-raised-button "  (click)="openCreateChild()">+ Add Child</button>
 
       <div *ngIf="createChild" class="col">
@@ -156,13 +157,13 @@
                 <input type="date" class="view " id="dob" name="dob" ngModel />
               </div>
             </form>
-          <button class="mat-secondary mat-raised-button mr-5 "  (click)="createChild = false;">Cancel</button>
-          <button class="mat-primary mat-raised-button "  (click)="addChild(NewChild)">Save</button>
+          <button class="mat-secondary mat-raised-button mr-5 addchildCancel "  (click)="createChild = false;">Cancel</button>
+          <button class="mat-primary mat-raised-button addchildSave "  (click)="addChild(NewChild)">Save</button>
       </div>
 
   </div>
 
-  <h1 class="ml-3 mt-5">See Progress of:</h1>
+  <h2 color="secondary" class="ml-3 mt-5">See Progress of:</h2>
   <div class="row">
     <div *ngFor="let child of user.children" class="col-md-4">
       <div class="wrapper">
