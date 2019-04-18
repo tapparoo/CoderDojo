@@ -11,8 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserGoalService {
-  // private baseUrl = 'http://localhost:8090/';
-  private url = environment.baseUrl  + 'api/usergoals';
+  private url = environment.baseUrl + 'api/usergoals';
 
 
   public index() {

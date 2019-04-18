@@ -20,7 +20,7 @@ public interface MeetingService {
 	
 	Meeting show(String username, Integer mid);
 	
-	List<Meeting> findAllByLocationId(String username, Integer mid);
+	List<Meeting> findAllByLocationId(Integer mid);
 
 //	List<UserDetail> showMeetingUsers(Integer mid);
 

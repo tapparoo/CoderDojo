@@ -1,25 +1,25 @@
-import { UserService } from 'src/app/services/user.service';
-import { Location } from './../../models/location';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { MeetingService } from './../../services/meeting.service';
-import { Meeting } from './../../models/meeting';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import { LocationService } from 'src/app/services/location.service';
+import { UserService } from "src/app/services/user.service";
+import { Location } from "./../../models/location";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { MeetingService } from "./../../services/meeting.service";
+import { Meeting } from "./../../models/meeting";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { LocationService } from "src/app/services/location.service";
 
 @Component({
-  selector: 'app-meeting',
-  templateUrl: './meeting.component.html',
-  styleUrls: ['./meeting.component.css']
+  selector: "app-meeting",
+  templateUrl: "./meeting.component.html",
+  styleUrls: ["./meeting.component.css"]
 })
 export class MeetingComponent implements OnInit {
   meetings: Meeting[] = [];
-  meeting;
-  newMeeting;
+  meeting = new Meeting();
+  newMeeting = new Meeting();
   isAuthorized = false;
   editMeeting = false;
   selected = null;
@@ -29,7 +29,6 @@ export class MeetingComponent implements OnInit {
 
   selectedLocationValue: Location;
   locations: Location[] = [];
-
 
   constructor(
     private meetingService: MeetingService,
@@ -41,23 +40,25 @@ export class MeetingComponent implements OnInit {
   createMeeting = false;
 
   listData: MatTableDataSource<any>;
-  displayedColumns = [  ];
+  displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     this.loadLocations();
-    if (this.router.url === '/schedule') {
+    console.log(this.router.url);
+    if (this.router.url === "/schedule") {
+      this.isAuthorized = false;
       this.reload();
-    } else if (this.router.url === '/admin') {
+    } else if (this.router.url === "/admin") {
       this.reloadAdmin();
     }
   }
 
   loadMeetingsByLocation(event) {
-    if (typeof event.value === 'number') {
-    this.reloadAdminByLocation(event.value);
-  } else {
+    if (typeof event.value === "number") {
+      this.reloadAdminByLocation(event.value);
+    } else {
       this.reload();
     }
   }
@@ -83,14 +84,14 @@ export class MeetingComponent implements OnInit {
         this.listData.paginator = this.paginator;
 
         this.displayedColumns = [
-          'name',
-          'location.name',
-          'scheduledTime',
-          'Attendees',
-          'Actions'
+          "name",
+          "location.name",
+          "scheduledTime",
+          "Attendees",
+          "Actions"
         ];
         this.meetings = data;
-        this.isAuthorized = true;
+        // this.isAuthorized = true;
       },
       err => {
         console.error(err);
@@ -102,15 +103,15 @@ export class MeetingComponent implements OnInit {
     this.meetingService.showSchedule().subscribe(
       data => {
         this.displayedColumns = [
-          'name',
-          'location.name',
-          'scheduledTime',
-          'register'
+          "name",
+          "location.name",
+          "scheduledTime",
+          "register"
         ];
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
-        console.log(this.meetings + 'this.meetings');
+        console.log(this.meetings + "this.meetings");
         this.isAuthorized = false;
       },
       err => {
@@ -129,11 +130,11 @@ export class MeetingComponent implements OnInit {
         this.listData.paginator = this.paginator;
 
         this.displayedColumns = [
-          'name',
-          'location.name',
-          'scheduledTime',
-          'Attendees',
-          'Actions'
+          "name",
+          "location.name",
+          "scheduledTime",
+          "Attendees",
+          "Actions"
         ];
         this.meetings = data;
         this.isAuthorized = true;
@@ -152,14 +153,14 @@ export class MeetingComponent implements OnInit {
     this.editMeeting = true;
     this.meeting = meeting;
   }
-  cancelCreate(){
+  cancelCreate() {
     this.createMeeting = false;
   }
-  openCreate(){
+  openCreate() {
     this.createMeeting = !this.createMeeting;
   }
 
-  closeDisplayAttend(){
+  closeDisplayAttend() {
     this.displayAttendees = false;
   }
   addMeeting() {
@@ -172,21 +173,21 @@ export class MeetingComponent implements OnInit {
         console.error(err);
       }
     );
-    this.newMeeting = null;
+    this.newMeeting = new Meeting();
   }
 
   registerUserForMeeting(meetingId: number) {
-    this.meetingService.registerUserForMeeting(meetingId, this.auth.getLoggedInUsername()).subscribe(
-      data => {
-        this.reload();
-      },
-      err => {
-        console.error(err);
-      }
-    );
-
+    this.meetingService
+      .registerUserForMeeting(meetingId, this.auth.getLoggedInUsername())
+      .subscribe(
+        data => {
+          this.reload();
+        },
+        err => {
+          console.error(err);
+        }
+      );
   }
-
 
   deleteMeeting(id) {
     this.meetingService.destroy(id).subscribe(
@@ -206,7 +207,7 @@ export class MeetingComponent implements OnInit {
       },
       err => {
         console.error(err);
-        console.log('Error in update');
+        console.log("Error in update");
       }
     );
   }
@@ -219,24 +220,23 @@ export class MeetingComponent implements OnInit {
   openCreateForm() {
     this.isCreateMeeting = !this.isCreateMeeting;
   }
-  closeCreateForm(){
-    this.isCreateMeeting =false;
+  closeCreateForm() {
+    this.isCreateMeeting = false;
   }
-  changeStatus(meetId:number, meetingAttendent, e){
-      this.meetingService.updateMeetingAttendeeStatus(meetId, meetingAttendent, e.target.checked ).subscribe(
+  changeStatus(meetId: number, meetingAttendent, e) {
+    this.meetingService
+      .updateMeetingAttendeeStatus(meetId, meetingAttendent, e.target.checked)
+      .subscribe(
         data => {
           this.reloadAdmin();
           this.editMeeting = false;
         },
         err => {
-            console.error(err);
-            console.log('Error in update');
+          console.error(err);
+          console.log("Error in update");
         }
       );
-
   }
-
-
 }
 
 // export class MeetingComponent implements OnInit {

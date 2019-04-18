@@ -6,8 +6,8 @@ export class Meeting {
   // public meetingAttendees: [];
   public location: Location;
   constructor(
-    name: string = '',
-    scheduledTime: Date,
+    name?: string ,
+    scheduledTime?: Date,
     id?: number,
     // meetingAttendees?: [],
     location?: {
