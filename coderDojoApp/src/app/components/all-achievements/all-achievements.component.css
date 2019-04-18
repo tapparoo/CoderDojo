@@ -1,3 +1,9 @@
 img {
-    width: 100%;
+    max-width: 50px;
+}
+
+.form-card {
+  margin: 6%;
+  border: solid 1px #ededed;
+  padding: 20px;
 }

@@ -1,5 +1,6 @@
 package com.skilldistillery.coderdojo.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,5 +30,16 @@ public class LocationServiceImpl implements LocationService {
 		return repo.findUserDetailsByLocationId(lid);
 	}
 	
-	
+	@Override
+	public List<UserDetail> findStudentsByLocation(int lid){
+		List<UserDetail> allUsersAtLocation = repo.findUserDetailsByLocationId(lid);
+		List<UserDetail> filteredByStudentRole = new ArrayList<UserDetail>();
+		
+		for (UserDetail user : allUsersAtLocation) {
+			if (user.getUser().isStudent()) {
+				filteredByStudentRole.add(user);
+			}
+		}
+		return filteredByStudentRole;
+	}
 }

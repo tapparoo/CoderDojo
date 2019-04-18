@@ -9,11 +9,10 @@ import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
-
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: "app-user",
+  templateUrl: "./user.component.html",
+  styleUrls: ["./user.component.css"]
 })
 export class UserComponent implements OnInit {
   user = null;
@@ -21,6 +20,8 @@ export class UserComponent implements OnInit {
   achievements = [];
   children = [];
   newChild = false;
+  childrenAchivments = [];
+  createChild=false;
 
   // for the UserAchievement objects
   pendingUserAchievements: UserAchievement[] = [];
@@ -31,42 +32,69 @@ export class UserComponent implements OnInit {
   // for card flexbox display
   colCounter: number = 0;
 
+  // constructor(
+  //   private auth: AuthService,
+  //   private router: Router,
+  //   private currentRoute: ActivatedRoute,
+  //   private userService: UserService,
+  //   private userAchievementService: UserAchievementService
+  // ) {}
+
+  navigateToUserProfile(username, parentname) {
+    this.router.navigateByUrl('user/' + username + "/profile/parent");
+  }
+  openCreateChild(){
+    this.createChild=true;
+  }
+
   addChild(form: NgForm) {
-    const user = new User(form.value.nickname, 'password', true);
+    const user = new User(form.value.nickname, "password", true);
     // Add User
-    this.auth.registerChild(user).subscribe(
-      data => {
-        this.userService.addChild(this.user.user.username, data).subscribe(
-          child => {
-            // Add UserDetail
-            child.nickname = form.value.nickname;
-            child.firstName = form.value.firstName;
-            child.lastName = form.value.lastName;
-            child.dob = form.value.dob;
-            this.userService.updateUserDetail(child).subscribe(
-              deets => {
-                console.log(deets);
-                // Reload parent's children array
-                this.reloadChildren();
-              }
-            );
-          }
-        );
-      }
-    );
+    this.auth.registerChild(user).subscribe(data => {
+      this.userService
+        .addChild(this.user.user.username, data)
+        .subscribe(child => {
+          // Add UserDetail
+          child.nickname = form.value.nickname;
+          child.firstName = form.value.firstName;
+          child.lastName = form.value.lastName;
+          child.dob = form.value.dob;
+          this.userService.updateUserDetail(child).subscribe(deets => {
+            console.log(deets);
+            // Reload parent's children array
+            this.reloadChildren();
+            this.createChild=false;
+          });
+        });
+    });
   }
 
   // Reload parent's children array
   reloadChildren() {
-    this.userService.getChildren(this.user.user.username).subscribe(
-      data => this.children = data
-    );
+    this.userService.getChildren(this.user.user.username).subscribe(data => {
+      this.user.children = data;
+      for (const child of this.user.children) {
+        console.log(child);
+        this.userAchievementService.getUserAchievementsByUserDetail(child).subscribe(
+          achieves => {
+            console.log(achieves);
+            if (achieves) {
+              child.achievments = achieves;
+            }
+          },
+          err => {
+            console.error('reloadChildren: Error');
+            console.error(err);
+          }
+        );
+      }
+    });
   }
 
   reloadMeetings() {
-    this.userService.getUserMeetings(this.user.user.username).subscribe(
-      data => this.user.meetings = data
-    );
+    this.userService
+      .getUserMeetings(this.user.user.username)
+      .subscribe(data => (this.user.meetings = data));
   }
 
   getUserAchievements() {
@@ -124,7 +152,6 @@ export class UserComponent implements OnInit {
             this.reloadMeetings();
             this.reloadChildren();
             this.getUserAchievements();
-            console.log(this.user);
 
 
           },
@@ -133,10 +160,8 @@ export class UserComponent implements OnInit {
             console.error('Observer got an error: ' + err);
           }
         );
+        }
       }
     }
-
-  }
-
 
 }

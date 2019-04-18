@@ -40,6 +40,7 @@ export class LocationService {
     );
   }
 
+  // admin top-right panel
   getUsersByLocation(loc: number) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -49,6 +50,24 @@ export class LocationService {
     };
 
     return this.http.get<UserDetail[]>((this.url + '/' + loc + '/users'),  httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getUserDetailByRole error');
+               })
+          );
+  }
+
+  // admin bottom-right panel
+  getStudentsByLocation(loc: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<UserDetail[]>((this.url + '/' + loc + '/users/students'),  httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);

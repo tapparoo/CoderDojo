@@ -42,4 +42,12 @@ public class LocationController {
 			Principal principal) {
 		return service.findUsersByLocation(lid);
 	}
+	
+	@GetMapping("locations/{lid}/users/students")
+	public List<UserDetail> findStudentsByLocation(HttpServletResponse res,
+			@PathVariable("lid") Integer lid,
+			Principal principal) {
+		return service.findStudentsByLocation(lid);
+	}
+	
 }

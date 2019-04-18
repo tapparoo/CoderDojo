@@ -14,7 +14,7 @@ export class UserAchievementService {
 
   private baseUrl = 'http://localhost:8090/';
   private url = this.baseUrl + 'api/userachievements';
- 
+
 
   public index() {
     const credentials = this.auth.getCredentials();
@@ -41,7 +41,7 @@ export class UserAchievementService {
         'Authorization': `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
-    };    
+    };
     return this.http.post<UserAchievement>(`${this.url}/${username}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievementService.create(): Error');
@@ -94,7 +94,7 @@ export class UserAchievementService {
       })
     };
 
-    return this.http.get<UserAchievement[]>(this.url+"/user/"+userDetail.user.username, httpOptions).pipe(
+    return this.http.get<UserAchievement[]>(this.url + '/user/' + userDetail.user.username, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievementService: Error');
         console.error(err);
@@ -102,8 +102,8 @@ export class UserAchievementService {
       })
     );
   }
-  
- 
+
+
 
   constructor(private http: HttpClient,
     private auth: AuthService) { }
