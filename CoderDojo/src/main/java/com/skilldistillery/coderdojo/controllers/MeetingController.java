@@ -21,26 +21,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.MeetingAttendee;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.services.MeetingAttendeeService;
 import com.skilldistillery.coderdojo.services.MeetingService;
+import com.skilldistillery.coderdojo.services.SecurityService;
+import com.skilldistillery.coderdojo.services.UserDetailsServiceImpl;
 import com.skilldistillery.coderdojo.services.UserService;
 
 @RestController
 @CrossOrigin({ "*", "http://localhost:4202" })
 @RequestMapping("api")
 public class MeetingController {
-	
+
 	@Autowired
 	private MeetingService service;
-	
+	@Autowired
+	private SecurityService securityService;
 	@Autowired
 	private MeetingAttendeeService maservice;
-	
-	
+	@Autowired
+	private UserDetailsServiceImpl udservice;
+
 	@Autowired
 	private UserService uservice;
 
-	//  GET Meetings
+//  GET Meetings
 	@GetMapping("meetings")
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res,
 			Principal principal) {
@@ -64,11 +69,10 @@ public class MeetingController {
 	}
 
 	@GetMapping("meetings/{mid}")
-	public Meeting show(HttpServletRequest req, HttpServletResponse res,
-			@PathVariable("mid") Integer mid,
+	public Meeting show(HttpServletRequest req, HttpServletResponse res, @PathVariable("mid") Integer mid,
 			Principal principal) {
 		try {
-			Meeting meeting = service.show(principal.getName(),mid);
+			Meeting meeting = service.show(principal.getName(), mid);
 			if (meeting == null) {
 				res.setStatus(404);
 			} else {
@@ -88,11 +92,10 @@ public class MeetingController {
 	}
 
 	@PostMapping("meetings")
-	public Meeting create(HttpServletRequest req, HttpServletResponse res, 
-			@RequestBody Meeting meeting,
+	public Meeting create(HttpServletRequest req, HttpServletResponse res, @RequestBody Meeting meeting,
 			Principal principal) {
 		try {
-			service.create(principal.getName(),meeting);
+			service.create(principal.getName(), meeting);
 			StringBuffer url = req.getRequestURL();
 			System.out.println("PostController" + url.toString());
 			url.append("/");
@@ -107,26 +110,19 @@ public class MeetingController {
 		}
 	}
 
-	@PutMapping("meetings/{mid}") 
-	public Meeting update(
-			HttpServletRequest req, 
-			HttpServletResponse res,
-			@PathVariable("mid") Integer mid,
-			@RequestBody Meeting meeting,
-			Principal principal) {
-			meeting = service.update(principal.getName(),mid, meeting);
-	        if (meeting == null) {
-	            res.setStatus(404);
-	        }
-	        return meeting;
-		
+	@PutMapping("meetings/{mid}")
+	public Meeting update(HttpServletRequest req, HttpServletResponse res, @PathVariable("mid") Integer mid,
+			@RequestBody Meeting meeting, Principal principal) {
+		meeting = service.update(principal.getName(), mid, meeting);
+		if (meeting == null) {
+			res.setStatus(404);
+		}
+		return meeting;
+
 	}
 
 	@DeleteMapping("meetings/{mid}")
-	public Boolean destroy(
-			HttpServletRequest req,
-			HttpServletResponse res, 
-			@PathVariable("mid") Integer mid,
+	public Boolean destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("mid") Integer mid,
 			Principal principal) {
 		System.out.println(mid);
 		try {
@@ -143,10 +139,10 @@ public class MeetingController {
 			res.setStatus(409);
 			return false;
 		}
-		
+
 	}
 
-	//  GET Meetings
+	// GET Meetings
 //	@GetMapping("meetings/attendance/{mid}")
 //	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
 //			@PathVariable("mid") Integer mid,
@@ -171,29 +167,47 @@ public class MeetingController {
 //		}
 //	}
 
-	
-	
-	@PutMapping("meetings/{mid}/attendee/{aid}") 
-	public MeetingAttendee updateAttendee(
-			HttpServletRequest req, 
-			HttpServletResponse res,
-			@PathVariable("mid") Integer mid,
-			@PathVariable("aid") Integer aid,
-			@RequestBody MeetingAttendee ma,
+	@PutMapping("meetings/{mid}/attendee/{aid}")
+	public MeetingAttendee updateAttendee(HttpServletRequest req, HttpServletResponse res,
+			@PathVariable("mid") Integer mid, @PathVariable("aid") Long aid, @RequestBody MeetingAttendee ma,
 			Principal principal) {
-			MeetingAttendee meetingAttendee = maservice.showMAById(principal.getName(),aid);
-			User user = uservice.findByUsername(principal.getName());
-			Meeting meeting = service.show(principal.getName(), mid);
-			if(meeting != null && user !=null) {
-				meetingAttendee = maservice.update(principal.getName(), meeting, ma);
-			}
-			
-	        if (meeting == null) {
-	            res.setStatus(404);
-	        }
-	        return meetingAttendee;
-		
+		MeetingAttendee meetingAttendee = maservice.showMAById(mid, aid);
+		User user = uservice.findByUsername(principal.getName());
+		Meeting meeting = service.show(principal.getName(), mid);
+		if (meeting != null && user != null) {
+			meetingAttendee = maservice.update(principal.getName(), meeting, ma);
+		}
+
+		if (meeting == null) {
+			res.setStatus(404);
+		}
+		return meetingAttendee;
+
 	}
 
-
+	@PutMapping("meetings/{mid}/register/{username}") 
+	public boolean registerAttendee(@PathVariable("mid") Integer mid, @PathVariable("username") String username, HttpServletResponse res, Principal principal) {
+		System.out.println(principal);
+		UserDetail user = udservice.findUserDetailByUsername(principal.getName());
+		MeetingAttendee meetingAttendee = null;
+		if (user != null) {
+			meetingAttendee = maservice.showMAById(mid, user.getId());
+		}
+		
+//		Will use this principal for authorization
+//			User user = uservice.findByUsername(principal.getName());
+		
+		if(meetingAttendee == null) {
+			meetingAttendee = maservice.register(mid, user.getId());
+			if (meetingAttendee != null) {
+				res.setStatus(200);
+			} else {
+				res.setStatus(400);
+			}
+		} else {
+			// already registered
+			res.setStatus(409);
+		}
+		return meetingAttendee != null;
+	}
 }

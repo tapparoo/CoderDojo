@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -132,6 +131,23 @@ public class UserDetail {
 
 	public void setMeetingsAttended(Set<Meeting> meetingsAttended) {
 		this.meetingsAttended = meetingsAttended;
+	}
+	
+	
+	public void addMeeting(Meeting m) {
+		if (m == null)
+			return;
+		if (meetingsAttended == null)
+			meetingsAttended = new HashSet<>();
+		
+		meetingsAttended.add(m);
+	}
+	
+	public void removeMeetingAttended(MeetingAttendee m) {
+		if (m == null)
+			return;
+		
+		meetingsAttended.remove(m);
 	}
 
 	public long getId() {
@@ -277,6 +293,6 @@ public class UserDetail {
 		return "UserDetail [id=" + id + ", dob=" + dob + ", nickname=" + nickname + ", phoneNumber=" + phoneNumber
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender
 				+ ", userImageUrl=" + userImageUrl + ", user=" + user + ", location=" + location + ", address="
-				+ address + ", meetingsAttended=" + meetingsAttended + "]";
+				+ address + "]";
 	}
 }

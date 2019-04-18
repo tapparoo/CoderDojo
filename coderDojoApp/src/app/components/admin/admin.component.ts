@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
   searchKey: string;
   editUserRolesForm: FormGroup;
 
+  selectedLocationFilter: Location;
   selectedRoleFilter: Role;
   roles: Role[] = [];
 
@@ -40,6 +41,25 @@ export class AdminComponent implements OnInit {
   loadUsersByRole(role: string) {
     if (role.toUpperCase() !== 'all'.toUpperCase()) {
       this.roleService.getUsersByRole(role).subscribe(
+        data => {
+          this.listData = new MatTableDataSource(data);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+          this.addUsernameToUserObjects(data);
+        },
+        err => {
+          console.log(err);
+          console.log('Error loading users from admin page');
+        }
+      );
+    } else {
+      this.displayUsers();
+    }
+  }
+
+  loadUsersByLocation(loc: any) {
+    if (typeof loc === 'number') {
+      this.locationService.getUsersByLocation(loc).subscribe(
         data => {
           this.listData = new MatTableDataSource(data);
           this.listData.sort = this.sort;
@@ -238,6 +258,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.loadRoles();
+    this.loadLocations();
     this.displayUsers();
   }
 }

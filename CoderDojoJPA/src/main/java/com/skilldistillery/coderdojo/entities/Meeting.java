@@ -1,6 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Meeting {
@@ -35,10 +38,25 @@ public class Meeting {
 		return meetingAttendees;
 	}
 
-	public void setMeetingAttendees(List<MeetingAttendee> meetingAttendees) {
-		this.meetingAttendees = meetingAttendees;
+	public void setMeetingAttendees(List<MeetingAttendee> users) {
+		this.meetingAttendees = users;
 	}
-
+	
+	public void addMeetingAttendees(MeetingAttendee user) {
+		if (user == null)
+			return;
+		if (meetingAttendees == null)
+			meetingAttendees = new ArrayList<>();
+		
+		meetingAttendees.add(user);
+	}
+	
+	public void removeMeetingAttendees(MeetingAttendee user) {
+		if (user == null)
+			return;
+		meetingAttendees.remove(user);
+	}
+	
 	public int getId() {
 		return id;
 	}

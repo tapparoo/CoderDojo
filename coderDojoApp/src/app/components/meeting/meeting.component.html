@@ -99,7 +99,13 @@
     <mat-cell *matCellDef="let element">{{
       element.scheduledTime | date: 'MMM d, y, h:mm a'
     }}
-</mat-cell>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="register">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Register</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <button (click)="registerUserForMeeting(element.id)" class="register-button" mat-button color="accent">Register</button>
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Attendees">
@@ -264,6 +270,7 @@
 
 
 <div *ngIf="displayAttendees">
+  <div class="container">
     <div class="row"> <input class=" ml-10 btn btn-outline-success"
       type="submit" value="Back" (click) = "closeDisplayAttend()">
       </div>
@@ -274,7 +281,6 @@
           <th scope="col">Nickname</th>
           <th scope="col">phone#</th>
           <th scope="col">Attend</th>
-          <th scope="col">attend</th>
   </thead>
     <tr *ngFor="let attend of selected.meetingAttendees " >
 
@@ -284,7 +290,7 @@
       <td>{{attend.userDetail.nickname}}  </td>
       <td>{{attend.userDetail.phoneNumber}}</td>
       <input type="checkbox" [checked]="attend.attended" (change)="changeStatus(selected.id,attend,$event)">
-      <td>{{attend.attended}}</td>
   </tr>
     </table>
   </div>
+</div>

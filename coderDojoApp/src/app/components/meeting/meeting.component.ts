@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user.service';
 import { Location } from './../../models/location';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Router } from '@angular/router';
@@ -35,6 +36,7 @@ export class MeetingComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private locationService: LocationService,
+    private userService: UserService
   ) {}
   createMeeting = false;
 
@@ -60,8 +62,6 @@ export class MeetingComponent implements OnInit {
     this.locationService.showAllLocations().subscribe(
       data => {
         this.locations = data;
-        console.log(data);
-
       },
       err => {
         console.error(err);
@@ -85,7 +85,6 @@ export class MeetingComponent implements OnInit {
           'Attendees',
           'Actions'
         ];
-        console.log(data);
         this.meetings = data;
         this.isAuthorized = true;
       },
@@ -98,12 +97,11 @@ export class MeetingComponent implements OnInit {
   reload() {
     this.meetingService.showSchedule().subscribe(
       data => {
-        console.log(data);
-        // this.meetings = data;
         this.displayedColumns = [
           'name',
           'location.name',
-          'scheduledTime'
+          'scheduledTime',
+          'register'
         ];
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
@@ -120,8 +118,8 @@ export class MeetingComponent implements OnInit {
   reloadAdmin() {
     this.meetingService.index().subscribe(
       data => {
-        // this.meetings = data;
         console.log(data);
+
         this.listData = new MatTableDataSource(data);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -133,7 +131,6 @@ export class MeetingComponent implements OnInit {
           'Attendees',
           'Actions'
         ];
-        console.log(data);
         this.meetings = data;
         this.isAuthorized = true;
       },
@@ -149,8 +146,6 @@ export class MeetingComponent implements OnInit {
 
   setEditMeeting(meeting) {
     this.editMeeting = true;
-    console.log(meeting);
-
     this.meeting = meeting;
   }
   cancelCreate(){
@@ -164,10 +159,8 @@ export class MeetingComponent implements OnInit {
     this.displayAttendees = false;
   }
   addMeeting() {
-    console.log(this.newMeeting);
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
-        console.log(data);
         this.isCreateMeeting = !this.createMeeting;
         this.reloadAdmin();
       },
@@ -178,18 +171,10 @@ export class MeetingComponent implements OnInit {
     this.newMeeting = new Meeting();
   }
 
-  addPerson(createForm){
-    console.log(createForm);
-    // this.newMeeting = {
-    //   name: createForm.value.name,
-    //   scheduledTime: createForm.value.scheduledTime,
-    //   location: {
-    //     id: createForm.value.locationId}
-    // }
-    this.meetingService.create(createForm.value).subscribe(
+  registerUserForMeeting(meetingId: number) {
+    this.meetingService.registerUserForMeeting(meetingId, this.auth.getLoggedInUsername()).subscribe(
       data => {
-        console.log(data);
-        this.reloadAdmin();
+        this.reload();
       },
       err => {
         console.error(err);
@@ -200,10 +185,8 @@ export class MeetingComponent implements OnInit {
 
 
   deleteMeeting(id) {
-    console.log(id);
     this.meetingService.destroy(id).subscribe(
       data => {
-        console.log("delete data + " + data);
         this.reloadAdmin();
       },
       err => {
@@ -215,8 +198,6 @@ export class MeetingComponent implements OnInit {
     this.meetingService.update(meeting).subscribe(
       data => {
         this.reloadAdmin();
-        // this.selected = data;
-        console.log(data + 'datadatadata');
         this.editMeeting = false;
       },
       err => {
@@ -229,7 +210,6 @@ export class MeetingComponent implements OnInit {
   displayAttendeesList(meeting) {
     this.selected = meeting;
     this.displayAttendees = true;
-    console.log(this.selected);
   }
 
   openCreateForm() {
@@ -239,13 +219,9 @@ export class MeetingComponent implements OnInit {
     this.isCreateMeeting =false;
   }
   changeStatus(meetId:number, meetingAttendent, e){
-      console.log(meetId);
-      console.log(meetingAttendent);
-      console.log(e.target.checked);
       this.meetingService.updateMeetingAttendeeStatus(meetId, meetingAttendent, e.target.checked ).subscribe(
         data => {
           this.reloadAdmin();
-          console.log(data + "confirm");
           this.editMeeting = false;
         },
         err => {

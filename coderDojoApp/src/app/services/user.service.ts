@@ -20,7 +20,7 @@ export class UserService {
   index() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -36,10 +36,13 @@ export class UserService {
   getUser(username) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
+
+    console.log(httpOptions);
+
     return this.http.get<any>(this.url + `/${username}`, httpOptions)
          .pipe(
                catchError((err: any) => {
@@ -55,7 +58,7 @@ export class UserService {
   getChildren(username){
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -74,7 +77,7 @@ export class UserService {
   getParents(username) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -93,7 +96,7 @@ export class UserService {
   getRoles(username) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -112,13 +115,11 @@ export class UserService {
   updateRoles(user: UserDetail) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
     console.log('from userservice updateRoles()');
-
-    console.log(user);
 
     return this.http.put<Role[]>(this.url + `/${user.user.username}/roles`, user.user.roles, httpOptions)
          .pipe(
@@ -135,7 +136,7 @@ export class UserService {
   addChild(username, child) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -154,7 +155,7 @@ export class UserService {
   getUserAchievements(username){
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -191,7 +192,7 @@ export class UserService {
   getUserMeetings(username) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -210,7 +211,7 @@ export class UserService {
   updateUser(user: User) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
@@ -226,7 +227,7 @@ export class UserService {
   updateUserDetail(user: UserDetail) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Basic ${this.auth.getCredentials()}`,
+        Authorization: `Basic ${this.auth.getCredentials()}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };

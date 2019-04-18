@@ -77,7 +77,6 @@ public class UserController {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
 
-		System.out.println(requestingUser);
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile
 			if (requestingUser.isAdmin()
@@ -130,7 +129,7 @@ public class UserController {
 		
 		return achievements;
 	}
-	
+
 	@GetMapping("{username}/meetings")
 	public Set<Meeting> getUserMeetings(@PathVariable("username") String username, HttpServletResponse res,
 			Principal principal) {

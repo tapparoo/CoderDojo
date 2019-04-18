@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { UserDetail } from '../models/user-detail';
 
 
 @Injectable({
@@ -37,5 +38,22 @@ export class LocationService {
         return throwError('getAll error');
       })
     );
+  }
+
+  getUsersByLocation(loc: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${this.auth.getCredentials()}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+
+    return this.http.get<UserDetail[]>((this.url + '/' + loc + '/users'),  httpOptions)
+         .pipe(
+               catchError((err: any) => {
+                 console.log(err);
+                 return throwError('getUserDetailByRole error');
+               })
+          );
   }
 }
