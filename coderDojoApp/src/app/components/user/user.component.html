@@ -56,7 +56,7 @@
 
       <ng-container *ngFor="let userAchievement of completedUserAchievements">
         <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
-          <div class="flip-card-inner">
+          <div class="flip-card-inner" >
 
 
             <div class='flip-card-front'>
@@ -75,7 +75,7 @@
                 <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
 
                 <img class="card-img-top" src={{userAchievement.achievement.imageUrl}} style="transform: scaleX(-1)">
-                <div class="card-body">
+                <div class="card-body" >
                   <ul>
                     <li *ngFor="let userGoal of userAchievement.userGoals">
                       <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
@@ -99,20 +99,26 @@
   <br><br>
   <div class="border border-dark rounded-lg">
 
-
+    <br>
+    <a [routerLink]="['/schedule']" routerLinkActive="router-link-active"><button
+        class="btn btn-lg border-dark rounded-lg">
+        Register for a Class </button></a>
     <h3>Your Upcoming Classes:</h3>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
       <ng-container *ngFor="let meeting of user.meetings">
         <div class='card' fxFlex="0 1 calc(20% - 32px)" fxFlex.lt-md="0 1 calc(33% - 32px)" fxFlex.lt-sm="100%">
-          <div class="card-body">
+          <div class="card-body calendar-card">
+            <div class="row">
+
+              <mat-icon color="primary" class="mat-18 center-block" style="margin-left: 45%">calendar_today</mat-icon>
+            </div>
+            <br>
             <strong>{{meeting.name}} at {{meeting.location.name}}.</strong> {{meeting.scheduledTime}}
           </div>
 
         </div>
       </ng-container>
     </div>
-    <a [routerLink]="['/schedule']" routerLinkActive="router-link-active"><button class="btn btn-success pull-right">
-        Register for a Class </button></a>
   </div>
 </div>
 
