@@ -211,13 +211,8 @@ h2 {
 
     -webkit-perspective: 500px;
 
-<<<<<<< HEAD
     perspective: 500px; 
     
-=======
-    perspective: 500px;
-
->>>>>>> 5805b85ac1eb311c3dd54eacbe30dc7124400517
     flex: 1
 
 }
@@ -229,11 +224,6 @@ h2 {
 
   .container{
       display: flex;
-<<<<<<< HEAD
-      
-=======
-
->>>>>>> 5805b85ac1eb311c3dd54eacbe30dc7124400517
   }
 .cardList {
     display: flex;
@@ -284,7 +274,6 @@ h2 {
     margin-right: auto;
     width: 40%;
   }
-<<<<<<< HEAD
   .flip-card {
     background-color: transparent;
      width: 300px;
@@ -339,5 +328,3 @@ h2 {
 	}
 
   
-=======
->>>>>>> 5805b85ac1eb311c3dd54eacbe30dc7124400517
