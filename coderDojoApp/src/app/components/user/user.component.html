@@ -31,57 +31,52 @@
 <div *ngIf="user && user.user.parent">
     <div class= "form-card">
   <br /><br />
-  <div ngbDropdown class="d-inline-block" autoClose="outside">
-    <button class="btn btn-outline-primary" ngbDropdownToggle>
-      Register New Child
-    </button>
-    <div id="registerNewChildDropdown" ngbDropdownMenu>
-      <form #NewChild="ngForm" class="px-4 py-3">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input
-            type="firstName"
-            class="form-control"
-            id="firstName"
-            name="firstName"
-            ngModel
-          />
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input
-            type="lastName"
-            class="form-control"
-            id="lastName"
-            name="lastName"
-            ngModel
-          />
-        </div>
-        <div class="form-group">
-          <label for="nickname">Nickname</label>
-          <input
-            type="nickname"
-            class="form-control"
-            id="nickname"
-            name="nickname"
-            ngModel
-          />
-        </div>
-        <div class="form-group">
-          <label for="dob">Date of Birth</label>
-          <input type="date" class="form-control" id="dob" name="dob" ngModel />
-        </div>
-        <button class="btn btn-primary btn-sm" (click)="addChild(NewChild)">
-          Save/Register
-        </button>
-        <button class="btn btn-secondary btn-sm" (click)="newChild = false">
-          Cancel
-        </button>
-        <br /><br />
-      </form>
-    </div>
+
+  <div class= "form-card">
+      <button class="mat-primary mat-raised-button "  (click)="openCreateChild()">+ Add Child</button>
+
+      <div *ngIf="createChild" class="col">
+          <form #NewChild="ngForm" class="px-4 py-3">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input
+                  type="firstName"
+                  class="view "
+                  id="firstName"
+                  name="firstName"
+                  ngModel
+                />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="lastName"
+                  class="view "
+                  id="lastName"
+                  name="lastName"
+                  ngModel
+                />
+              </div>
+              <div class="form-group">
+                <label for="nickname">Nickname</label>
+                <input
+                  type="nickname"
+                  class="view "
+                  id="nickname"
+                  name="nickname"
+                  ngModel
+                />
+              </div>
+              <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="view " id="dob" name="dob" ngModel />
+              </div>
+            </form>
+          <button class="mat-secondary mat-raised-button mr-5 "  (click)="createChild = false;">Cancel</button>
+          <button class="mat-primary mat-raised-button "  (click)="addChild(NewChild)">Save</button>
+      </div>
+
   </div>
-  <br /><br />
 
   <h1 class="ml-3 mt-5">See Progress of:</h1>
   <div class="row">
@@ -116,7 +111,7 @@
                   <p>DOB</p>
                   <p>Gender</p>
                   <p>Location</p>
-                  <p>Achievments</p>
+
                 </div>
                 <div class="col-md-6">
                     <p>{{ child.email }}</p>
@@ -124,13 +119,48 @@
                     <p>{{ child.dob }}</p>
                     <p>{{ child.gender }}</p>
                     <p>{{ child.location.name }}</p>
-
-                    <div *ngIf="child.achievments">
-                        <div>Achivments: {{child.achievments.length}} </div>
-                    </div><ul *ngFor="let item of child.achievments">
-                        <div *ngIf="item.goals" >Goals: {{ item.goals.name }} </div>
-                    </ul>
                 </div>
+              </div>
+              <div *ngIf="child.achievments && child.achievments.length >0">
+              <h5>Achivements: </h5>
+              <div class="row achivmentsSection">
+
+                  <div class="col-sm-3">
+                    <div>Total </div>
+
+
+                  </div>
+                  <div class="col-sm-6">
+                      <div> {{child.achievments.length}} </div>
+
+                  </div>
+                  <div class="col-sm-4">
+                      <h6>Achieved:</h6>
+                  </div>
+                  <div class="col-sm-6">
+                      <ul *ngFor="let item of child.achievments">
+                          <div *ngIf="item.achieved">
+
+                            <p>{{item.achievement.name}}</p>
+                          </div>
+
+                        </ul>
+                  </div>
+                  <div class="col-sm-4">
+                      <h6>In Progress:</h6>
+                  </div>
+                  <div class="col-sm-6">
+                      <ul *ngFor="let item of child.achievments">
+                          <div *ngIf="!item.achieved">
+
+                            <p>{{item.achievement.name}}</p>
+                          </div>
+
+                        </ul>
+                  </div>
+
+              </div>
+
               </div>
             </article>
           </div>

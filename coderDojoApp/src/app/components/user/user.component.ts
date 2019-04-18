@@ -5,6 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { User } from "src/app/models/user";
+import { UserAchievementService } from 'src/app/services/user-achievement.service';
 
 @Component({
   selector: "app-user",
@@ -18,8 +19,21 @@ export class UserComponent implements OnInit {
   children = [];
   newChild = false;
   childrenAchivments = [];
+  createChild=false;
+
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private currentRoute: ActivatedRoute,
+    private userService: UserService,
+    private userAchievementService: UserAchievementService
+  ) {}
+
   navigateToUserProfile(username, parentname) {
     this.router.navigateByUrl("user/" + username + "/profile/parent");
+  }
+  openCreateChild(){
+    this.createChild=true;
   }
 
   addChild(form: NgForm) {
@@ -38,6 +52,7 @@ export class UserComponent implements OnInit {
             console.log(deets);
             // Reload parent's children array
             this.reloadChildren();
+            this.createChild=false;
           });
         });
     });
@@ -48,14 +63,18 @@ export class UserComponent implements OnInit {
     this.userService.getChildren(this.user.user.username).subscribe(data => {
       this.user.children = data;
       for (const key of this.user.children) {
-        this.userService.getUserAchievements(key.user.username).subscribe(
+        console.log(key);
+        this.userAchievementService.getUserAchievementsByUserDetail(key).subscribe(
           achieves => {
             console.log(achieves);
             if (achieves) {
               key.achievments = achieves;
             }
           },
-          err => console.error("Observer got an error: " + err)
+          err => {
+            console.error('reloadChildren: Error');
+            console.error(err);
+          }
         );
       }
     });
@@ -67,12 +86,7 @@ export class UserComponent implements OnInit {
       .subscribe(data => (this.user.meetings = data));
   }
 
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    private currentRoute: ActivatedRoute,
-    private userService: UserService
-  ) {}
+
 
   ngOnInit() {
     if (this.auth.checkLogin()) {

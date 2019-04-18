@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Goal;
+import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserAchievement;
 import com.skilldistillery.coderdojo.entities.UserDetail;
 import com.skilldistillery.coderdojo.entities.UserGoal;
@@ -35,6 +36,9 @@ import com.skilldistillery.coderdojo.services.UserService;
 @RequestMapping("api")
 public class UserAchievementController {
 
+	@Autowired
+	private UserService serv;
+	
 	@Autowired
 	private UserAchievementService service;
 
@@ -153,7 +157,19 @@ public class UserAchievementController {
 	public List<UserAchievement> findAllUserAchievementByUser(@PathVariable("username") String username,
 			HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		UserDetail ud = deets.findUserDetailByUsername(username);
+		User requestingUser = serv.findByUsername(principal.getName());
 		List<UserAchievement> results = service.findAllUserAchievementByUserId(ud);
+
+		if (ud != null) {
+			// Only the owning user or an admin can see a user's profile
+			if (requestingUser.isAdmin()
+					||  deets.findUserDetailByUsername(requestingUser.getUsername()).isParentOf(ud)
+					|| requestingUser.getUsername().equalsIgnoreCase(ud.getUser().getUsername())) {
+
+				res.setStatus(200);
+			}
+		}
+
 		return results;
 	}
 }

@@ -76,7 +76,8 @@ h2 {
 
 .card {
 	background-color: #fff;
-	margin-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+
 }
 
 .card__padding {
@@ -210,3 +211,21 @@ h2 {
     padding: 40px;
     margin: 50px auto;
   }
+  img.border-tlr-radius {
+    height: 150px;
+}
+article.card__article {
+  height: 250px;
+}
+.achivmentsSection{
+  overflow-x: auto;
+}
+input.view {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #ededed solid 0.5px;
+  margin-left: 5px;
+}
+input.view:focus {
+  border-color: #cdcdcd solid 0.5px;
+}
