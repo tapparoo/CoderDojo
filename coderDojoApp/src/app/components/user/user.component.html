@@ -1,13 +1,14 @@
 <div *ngIf="user && user.user.student">
 
   <div *ngIf="user && user.user.student" class="border border-dark rounded-lg">
-
+<br>
     <h3>Your Next Achievement:</h3>
+    <br>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
       <ng-container *ngFor="let userAchievement of pendingUserAchievements">
         <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
-          <div class="flip-card-inner">
+          <div class="flip-card-inner" >
 
 
             <div class='flip-card-front'>
@@ -21,7 +22,7 @@
 
             </div>
 
-            <div class="flip-card-back">
+            <div class="flip-card-back" >
               <div class='card' (click)='flipCard(userAchievement.id)'>
                 <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
 
@@ -52,6 +53,7 @@
     <br>
 
     <h3>Your Completed Achievements:</h3>
+    <br>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
       <ng-container *ngFor="let userAchievement of completedUserAchievements">
@@ -118,8 +120,10 @@
 
         </div>
       </ng-container>
+      <br>
     </div>
   </div>
+  <br><br>
 </div>
 
 

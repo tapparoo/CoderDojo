@@ -5,13 +5,14 @@ import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGoalService {
   private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/usergoals';
+  private url = environment.baseUrl + 'api/usergoals';
  
 
   public index() {

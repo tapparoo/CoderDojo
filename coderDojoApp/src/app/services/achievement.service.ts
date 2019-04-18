@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AchievementService {
   private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/achievements';
+  private url = environment.baseUrl + 'api/achievements';
 
 
 
