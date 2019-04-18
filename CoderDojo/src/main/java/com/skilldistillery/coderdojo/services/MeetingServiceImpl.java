@@ -8,10 +8,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.coderdojo.entities.Location;
 import com.skilldistillery.coderdojo.entities.Meeting;
 import com.skilldistillery.coderdojo.entities.MeetingAttendee;
 import com.skilldistillery.coderdojo.entities.User;
+import com.skilldistillery.coderdojo.repositories.MeetingAttendeeRepository;
 import com.skilldistillery.coderdojo.repositories.MeetingRepository;
 import com.skilldistillery.coderdojo.repositories.UserRepository;
 
@@ -20,7 +20,8 @@ public class MeetingServiceImpl implements MeetingService {
 
 	@Autowired
 	private MeetingRepository repo;
-	
+	@Autowired
+	private MeetingAttendeeRepository maRepo;
     @Autowired
     private UserRepository repoUser;
     
@@ -88,19 +89,17 @@ public class MeetingServiceImpl implements MeetingService {
         Optional<Meeting> opt = repo.findById(mid);
         if (opt.isPresent()) {
         	Meeting meet = opt.get();
-        	Location loc = new Location();
-        	meet.setLocation(loc);
-        	meet.getMeetingAttendees();
-    
-        	for (MeetingAttendee ma : meet.getMeetingAttendees()) {
-        		ma.setMeeting(null);
-        	}
-
-        	User u = repoUser.findByUsername(username);
-            if (u!= null) {
-                repo.deleteById(mid);
-                return true;
-            }
+        	maRepo.deleteByMeetingId(meet.getId());
+        	
+//        	for (MeetingAttendee ma : meet.getMeetingAttendees()) {
+//        		ma.setMeeting(null);
+//        	}
+//
+//        	User u = repoUser.findByUsername(username);
+//            if (u!= null) {
+//                repo.deleteById(mid);
+//                return true;
+//            }
         }
         return false;
 	}

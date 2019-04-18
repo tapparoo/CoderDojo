@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Meeting {
 	@Id
@@ -36,23 +38,23 @@ public class Meeting {
 		return meetingAttendees;
 	}
 
-	public void setMeetingAttendees(List<MeetingAttendee> meetingAttendees) {
-		this.meetingAttendees = meetingAttendees;
+	public void setMeetingAttendees(List<MeetingAttendee> users) {
+		this.meetingAttendees = users;
 	}
 	
-	public void addMeetingAttendees(MeetingAttendee ma) {
-		if (ma == null)
+	public void addMeetingAttendees(MeetingAttendee user) {
+		if (user == null)
 			return;
 		if (meetingAttendees == null)
 			meetingAttendees = new ArrayList<>();
 		
-		meetingAttendees.add(ma);
+		meetingAttendees.add(user);
 	}
 	
-	public void removeMeetingAttendees(MeetingAttendee ma) {
-		if (ma == null)
+	public void removeMeetingAttendees(MeetingAttendee user) {
+		if (user == null)
 			return;
-		meetingAttendees.remove(ma);
+		meetingAttendees.remove(user);
 	}
 	
 	public int getId() {

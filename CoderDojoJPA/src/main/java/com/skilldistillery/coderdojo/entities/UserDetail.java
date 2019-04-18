@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -144,7 +143,7 @@ public class UserDetail {
 		meetingsAttended.add(m);
 	}
 	
-	public void removeMeetingAttended(Meeting m) {
+	public void removeMeetingAttended(MeetingAttendee m) {
 		if (m == null)
 			return;
 		
@@ -294,6 +293,6 @@ public class UserDetail {
 		return "UserDetail [id=" + id + ", dob=" + dob + ", nickname=" + nickname + ", phoneNumber=" + phoneNumber
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender
 				+ ", userImageUrl=" + userImageUrl + ", user=" + user + ", location=" + location + ", address="
-				+ address + ", meetingsAttended=" + meetingsAttended + "]";
+				+ address + "]";
 	}
 }

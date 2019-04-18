@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.coderdojo.entities.Achievement;
 import com.skilldistillery.coderdojo.entities.Meeting;
-import com.skilldistillery.coderdojo.entities.MeetingAttendee;
 import com.skilldistillery.coderdojo.entities.Role;
 import com.skilldistillery.coderdojo.entities.User;
 import com.skilldistillery.coderdojo.entities.UserAchievement;
@@ -130,6 +129,7 @@ public class UserController {
 		
 		return achievements;
 	}
+
 	@GetMapping("{username}/meetings")
 	public Set<Meeting> getUserMeetings(@PathVariable("username") String username, HttpServletResponse res,
 			Principal principal) {
