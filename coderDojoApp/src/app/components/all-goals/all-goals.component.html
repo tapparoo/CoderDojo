@@ -1,0 +1,43 @@
+<!-- <div>
+
+  <div *ngIf="mode===index">
+    <h3>All Goals:</h3>
+    <table>
+      <tr>
+        <thead>
+          <th>Name</th>
+          <th>Achievement</th>
+        </thead>
+      </tr>
+      <tr *ngFor="let goal of goals">
+        <td (click)="goalDetailView(goal)"> {{goal.name}}</td>
+        <td> {{goal.achievement.name}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="mode==='goalDetail'">
+    <h2>{{selectedGoal.name}}</h2>
+    <h3>description:</h3>
+    <br>
+    <p>{{selectedGoal.description}}</p>
+    <button (click)="goBack()">Go Back</button>
+
+  </div>
+</div>
+
+
+<div *ngIf="mode === 'list'">
+  <h3> List </h3>
+  <table>
+    <tr>
+      <th> Task </th>
+      <th> Mark </th>
+      <th> Completed </th>
+    </tr>
+    <tr *ngFor="let todo of todos | incomplete:showAllTodos" [ngClass]="formatCompletedTodo(todo)" >
+      <td (click)="setSelected(todo)"> {{todo.task}} </td>
+      <td> <input type="checkbox" name="completed" [(ngModel)]="todo.completed" /> </td>
+      <td (click)="setSelected(todo)"> {{todo.completed}} </td>
+    </tr>
+  </table> --> 

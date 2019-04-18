@@ -28,9 +28,11 @@ export class LocationService {
   showAllLocations() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
       })
     };
+    
 
     return this.http.get<Location[]>(this.url, httpOptions).pipe(
       catchError((err: any) => {

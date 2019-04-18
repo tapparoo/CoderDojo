@@ -2,13 +2,13 @@ import { Location } from './location';
 export class Meeting {
   public id: number;
   public name: string;
-  public scheduledTime: string;
+  public scheduledTime: Date;
   // public meetingAttendees: [];
   public location: Location;
   constructor(
+    name?: string ,
+    scheduledTime?: Date,
     id?: number,
-    name: string = '',
-    scheduledTime: string = '',
     // meetingAttendees?: [],
     location?: {
       id?: number;

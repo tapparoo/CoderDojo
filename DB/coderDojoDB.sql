@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `user_goal` (
   CONSTRAINT `user_goals_belong_to_a_user_achievement`
     FOREIGN KEY (`user_achievement_id`)
     REFERENCES `user_achievement` (`id`)
-    ON DELETE CASCADE
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `user_goals_to_parent_goal`
     FOREIGN KEY (`goal_id`)
@@ -371,11 +371,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt', 'You are just starting. this is exciting!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/7/76/White_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'You have some computing basics under your belt', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a4/Yellow_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Blue Belt', 'You know enough to be your family\'s tech support!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a3/Blue_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115230243');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Red Belt', 'You see design everywhere you go.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e3/Red_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013917');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Black Belt', 'You are a master. We bow to your skills and dedication.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/b/b2/Black_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013918');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt ', 'Attend the Dojo at least 5 times, and complete the online CoderDojo Scratch Tutorials at the Beginner, Intermediate, and Advanced levels\n', 'https://vignette.wikia.nocookie.net/clubpenguin/images/7/76/White_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'Build at least three small projects on a Raspberry Pi or Arduino kit; one of them must be something new you build into an existing lesson. ', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a4/Yellow_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Green Belt ', 'Come up with a new project of your own and build it!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/1/10/Green_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115223047');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Orange Belt', 'Build a new project with another student.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/9/92/Orange_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013917');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Blue Belt', 'Work on a new project with several other students.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a3/Blue_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115230243');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (6, 'Red Belt', 'Attend the Dojo at least 5 times, and complete the online CoderDojo Scratch Tutorials at the Beginner, Intermediate, and Advanced levels\n', 'https://vignette.wikia.nocookie.net/clubpenguin/images/e/e3/Red_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013917');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (7, 'Black Belt', 'Attend the Dojo at least 10 times. Build something new into the Advanced Scratch tutorial lesson.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/b/b2/Black_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013918');
 
 COMMIT;
 
@@ -398,16 +400,18 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (1, 'turn computer on....', 'Turning the computer on is serious bisiness', 1);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (2, 'install all dev tools', 'install eclipse, and MAMP', 2);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (3, 'build simple html website', 'build catlist.com, a list of cats', 3);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (4, 'get good at bootstrap', 'bootsrap - the fastest way to make your website look good. ', 4);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (5, '... profit?', 'get a job i guess', 5);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (6, 'login to code dojo', 'not sure how you are seeing this without logging on.', 1);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (7, 'discover stack overflow', 'all hail the supreme source of knowledge', 2);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (8, 'learn some css', 'css lets you make things pretty... or atleast less ugly. ', 3);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (9, 'learn angular', 'you are a big kid now - you are ready for the complicated stuff', 4);
-INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (10, 'learn databases', 'the most rewarding job of all time. ', 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (1, 'Attendance', 'Attend the Dojo at least 5 times.', 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (2, 'CoderDojo Scratch Tutorials', 'CoderDojo Scratch Tutorials at the Beginner, Intermediate, and Advanced levels', 1);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (3, 'Attendance', 'Attend the Dojo atleast 10 times.', 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (4, 'Builder', 'Build something new into the Advanced Scratch tutorial lesson.', 2);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (5, 'HTML Web Site book', 'Work through the HTML Web Site book.', 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (6, 'JavaScript Game Book', 'Work through the JavaScript game book.', 3);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (7, 'Build 1', 'Build a small project on a Raspberry Pi or Arduino kit.', 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (8, 'Build 2', 'Build a small project on a Raspberry Pi or Arduino kit.', 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (9, 'Build 3', 'Build a small project on a Raspberry Pi or Arduino kit. It must be something new you build into an existing lesson.', 4);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (10, 'Independent Build', 'Come up with a new project of your own and build it!', 5);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (11, 'Pair Build', 'Build a new project with another student.', 6);
+INSERT INTO `goal` (`id`, `name`, `description`, `standard_achievement_id`) VALUES (12, 'Group Build', 'Work on a new project with several other students.', 7);
 
 COMMIT;
 

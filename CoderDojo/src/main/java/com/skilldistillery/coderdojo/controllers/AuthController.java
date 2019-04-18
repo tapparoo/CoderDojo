@@ -50,7 +50,7 @@ public class AuthController {
         }
         return newUser;
     }
-    
+
 	@GetMapping("/authenticate")
 	public Principal authenticate(Principal principal) {
 		return principal;

@@ -56,9 +56,9 @@ public class MeetingController {
 	@GetMapping("meetings/locations/{lid}")
 	public List<Meeting> getMeetingsByLocation(HttpServletRequest req,
 			HttpServletResponse res,
-			@PathVariable("lid") Integer lid,
-			Principal principal) {
-		return service.findAllByLocationId(principal.getName(),lid);
+			@PathVariable("lid") Integer lid
+			) {
+		return service.findAllByLocationId(lid);
 	}
 		
 	//  GET Meetings

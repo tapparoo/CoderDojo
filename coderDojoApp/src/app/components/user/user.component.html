@@ -1,114 +1,129 @@
 <div *ngIf="user && user.user.student">
-  <!-- <table class="table table-striped">
-    <thead>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Image URL</th>
-    </thead>
-    <tr *ngFor="let achieve of achievements" (click)="selected = achieve;">
-      <td>{{achieve.name}}</td>
-      <td>{{achieve.description}} </td>
-      <td>{{achieve.imageUrl}}</td>
-    </tr>
-  </table>
-
-  <h3>Meeting Registrations:</h3>
-  <table class="table table-striped">
-    <thead>
-      <th scope="col">Name</th>
-      <th scope="col">Location</th>
-      <th scope="col">Date/Time</th>
-    </thead>
-    <tr *ngFor="let meeting of user.meetings">
-      <td>{{meeting.name}}</td>
-      <td>{{meeting.location.name}} </td>
-      <td>{{meeting.scheduledTime}}</td>
-    </tr>
-  </table> -->
 
   <div *ngIf="user && user.user.student" class="border border-dark rounded-lg">
-
+<br>
     <h3>Your Next Achievement:</h3>
+    <br>
     <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
       <ng-container *ngFor="let userAchievement of pendingUserAchievements">
-        <div class='card' fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%"  (click)='flipCard(userAchievement.id)' >
+        <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+          <div class="flip-card-inner" >
 
-          <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}>
-          <div><strong>{{userAchievement.achievement.name}}</strong></div>
 
-          <div class="card-body" *ngIf="checkFlipped(userAchievement.id)">
-            <p>
-              {{userAchievement.achievement.description}}
-            </p>
+            <div class='flip-card-front'>
+
+              <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
+              <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}>
+
+              <p>
+                {{userAchievement.achievement.description}}
+              </p>
+
+            </div>
+
+            <div class="flip-card-back" >
+              <div class='card' (click)='flipCard(userAchievement.id)'>
+                <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
+
+                <img class="card-img-top" src={{userAchievement.achievement.imageUrl}} style="transform: scaleX(-1)">
+                <div class="card-body">
+                  <ul>
+                    <li *ngFor="let userGoal of userAchievement.userGoals">
+                      <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
+                      <br>
+                      Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still
+                        needs
+                        work</span>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="card-body" *ngIf="!checkFlipped(userAchievement.id)">
-            <ul>
-              <li *ngFor="let userGoal of userAchievement.goals">
-                <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
-                <br>
-                Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still needs work</span>
-              </li>
-            </ul>
-
-          </div>
-
 
         </div>
       </ng-container>
     </div>
 
     <br>
-      <hr />
-      <br>
+    <hr />
+    <br>
 
-      <h3>Your Completed Achievements:</h3>
-      <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <h3>Your Completed Achievements:</h3>
+    <br>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
-        <ng-container *ngFor="let userAchievement of completedUserAchievements">
-          <div class='card' fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%"  (click)='flipCard(userAchievement.id)' >
+      <ng-container *ngFor="let userAchievement of completedUserAchievements">
+        <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+          <div class="flip-card-inner" >
 
-            <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}>
-            <div><strong>{{userAchievement.achievement.name}}</strong></div>
 
-            <div class="card-body" *ngIf="checkFlipped(userAchievement.id)">
+            <div class='flip-card-front'>
+
+              <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
+              <img class="card-img-top" src={{userAchievement.achievement.imageUrl}}>
+
               <p>
                 {{userAchievement.achievement.description}}
               </p>
-            </div>
-            <div class="card-body" *ngIf="!checkFlipped(userAchievement.id)">
-              <ul>
-                <li *ngFor="let userGoal of userAchievement.goals">
-                  <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
-                  <br>
-                  Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still needs work</span>
-                </li>
-              </ul>
 
             </div>
 
+            <div class="flip-card-back">
+              <div class='card' (click)='flipCard(userAchievement.id)'>
+                <div class='flip-card-title'><strong>{{userAchievement.achievement.name}}</strong></div>
+
+                <img class="card-img-top" src={{userAchievement.achievement.imageUrl}} style="transform: scaleX(-1)">
+                <div class="card-body" >
+                  <ul>
+                    <li *ngFor="let userGoal of userAchievement.userGoals">
+                      <strong>{{userGoal.goal.name}}: </strong> {{userGoal.goal.description}}
+                      <br>
+                      Status: <span *ngIf="userGoal.completed">Done!</span> <span *ngIf="!userGoal.completed">Still
+                        needs
+                        work</span>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
 
           </div>
-        </ng-container>
-      </div>
-    </div>
-<br><br>
-<div class="border border-dark rounded-lg" >
 
-
-  <h3>Your Upcoming Classes:</h3>
-  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
-    <ng-container *ngFor="let meeting of user.meetings">
-      <div class='card' fxFlex="0 1 calc(20% - 32px)" fxFlex.lt-md="0 1 calc(33% - 32px)" fxFlex.lt-sm="100%" >
-        <div class="card-body">
-          <strong>{{meeting.name}} at {{meeting.location.name}}.</strong> {{meeting.scheduledTime}}
         </div>
-
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
-  <a [routerLink]="['/schedule']" routerLinkActive="router-link-active" ><button class="btn btn-success pull-right"> Register for a Class </button></a>
-</div>
+  <br><br>
+  <div class="border border-dark rounded-lg">
+
+    <br>
+    <a [routerLink]="['/schedule']" routerLinkActive="router-link-active"><button
+        class="btn btn-lg border-dark rounded-lg">
+        Register for a Class </button></a>
+    <h3>Your Upcoming Classes:</h3>
+    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+      <ng-container *ngFor="let meeting of user.meetings">
+        <div class='card' fxFlex="0 1 calc(20% - 32px)" fxFlex.lt-md="0 1 calc(33% - 32px)" fxFlex.lt-sm="100%">
+          <div class="card-body calendar-card" style="font-size: 1.25vw">
+            <div class="row">
+
+              <mat-icon color="primary" class="mat-18 center-block" style="margin-left: 45%">calendar_today</mat-icon>
+            </div>
+            <br>
+            <strong>{{meeting.name}} at {{meeting.location.name}}.</strong> {{meeting.scheduledTime}}
+          </div>
+
+        </div>
+      </ng-container>
+      <br>
+    </div>
+  </div>
+  <br><br>
 </div>
 
 

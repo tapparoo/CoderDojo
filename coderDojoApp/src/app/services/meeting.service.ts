@@ -26,7 +26,8 @@ export class MeetingService {
   showSchedule() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json'
+        'Content-Type':  'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
       })
     };
 
@@ -45,12 +46,12 @@ export class MeetingService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Basic ${credentials}`,
+        // Authorization: `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-
-    return this.http.get<Meeting[]>(this.url + '/locations/' + locationid, httpOptions)
+console.log(httpOptions);
+    return this.http.get<any>(this.url + '/locations/' + locationid, httpOptions)
          .pipe(
                catchError((err: any) => {
                  console.log(err);
