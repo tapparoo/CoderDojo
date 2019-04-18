@@ -1,5 +1,5 @@
-<div>
-  <div *ngIf="mode==='index'" class="container">
+<div class="containerAchievements" *ngIf="mode === 'index'">
+  <div class= "form-card">
     <div class="row mb-3">
       <div class="col">
         <h4> Name </h4>
@@ -59,7 +59,9 @@
 
     <button (click)="addAchievementForm()">Add Achievement</button>
   </div>
-  <div *ngIf="mode==='achievementEditForm'" class="container">
+</div>
+<div class="containerAchievements" *ngIf="mode === 'achievementEditForm'">
+  <div class= "form-card">
     <h1>{{selectedAchievement.name}}</h1>
     <h3>Goals:</h3>
     <ul>
@@ -131,10 +133,11 @@
         </div>
       </div>
     </div>
-
-
   </div>
-  <div *ngIf="mode==='editGoalForm'">
+</div>
+
+<div class="containerAchievements" *ngIf="mode === 'editGoalForm'">
+  <div class= "form-card">
     <form action="">
       <h4>Goal Name:</h4>
       <input type="text" name="goalName" [(ngModel)]="selectedGoal.name">
@@ -143,9 +146,10 @@
     </form>
   </div>
   <button (click)="goBack()"> Go Back </button>
+</div>
 
-
-  <div *ngIf="mode==='addAchievementForm'">
+<div class="containerAchievements" *ngIf="mode === 'addAchievementForm'">
+  <div class= "form-card">
     <form action="">
       <h4>Achievement Name:</h4>
       <input type="text" name="newAchievementName" [(ngModel)]="selectedAchievement.name">
@@ -156,12 +160,5 @@
     </form>
     <button (click)="goBack()"> Go Back </button>
     <button (click)="addNewAchievement()"> Add This Achievement </button>
-
   </div>
-
-  <!-- <mat-tab-group>
-      <mat-tab label="First"> Content 1 </mat-tab>
-      <mat-tab label="Second"> Content 2 </mat-tab>
-      <mat-tab label="Third"> Content 3 </mat-tab>
-    </mat-tab-group> -->
 </div>
