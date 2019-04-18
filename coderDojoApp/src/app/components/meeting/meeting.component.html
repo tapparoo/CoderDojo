@@ -5,6 +5,9 @@
         <mat-form-field>
           <mat-label>Select location</mat-label>
           <mat-select (selectionChange)="loadMeetingsByLocation($event)" [(ngModel)]="selectedLocationValue" name="locationName">
+              <mat-option value="all">
+                  All Locations
+                </mat-option>
             <mat-option *ngFor="let location of locations" [value]="location.id">
               {{location.name}}
             </mat-option>
