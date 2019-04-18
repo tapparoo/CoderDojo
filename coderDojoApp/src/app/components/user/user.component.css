@@ -201,3 +201,12 @@ h2 {
 
 
   article.card__article {text-align: center;}
+  .form-card {
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.56s cubic-bezier(0.25, 0.8, 0.25, 1);
+    max-width: 800px;
+    padding: 40px;
+    margin: 50px auto;
+  }

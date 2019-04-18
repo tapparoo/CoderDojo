@@ -27,8 +27,9 @@
   </table>
 </div>
 
-<div *ngIf="user && user.user.parent">
 
+<div *ngIf="user && user.user.parent">
+    <div class= "form-card">
   <br /><br />
   <div ngbDropdown class="d-inline-block" autoClose="outside">
     <button class="btn btn-outline-primary" ngbDropdownToggle>
@@ -115,6 +116,7 @@
                   <p>DOB</p>
                   <p>Gender</p>
                   <p>Location</p>
+                  <p>Achievments</p>
                 </div>
                 <div class="col-md-6">
                     <p>{{ child.email }}</p>
@@ -122,6 +124,12 @@
                     <p>{{ child.dob }}</p>
                     <p>{{ child.gender }}</p>
                     <p>{{ child.location.name }}</p>
+
+                    <div *ngIf="child.achievments">
+                        <div>Achivments: {{child.achievments.length}} </div>
+                    </div><ul *ngFor="let item of child.achievments">
+                        <div *ngIf="item.goals" >Goals: {{ item.goals.name }} </div>
+                    </ul>
                 </div>
               </div>
             </article>
@@ -131,4 +139,5 @@
     </div>
   </div>
 
+</div>
 </div>
