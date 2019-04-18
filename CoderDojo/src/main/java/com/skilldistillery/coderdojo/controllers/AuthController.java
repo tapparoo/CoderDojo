@@ -50,11 +50,6 @@ public class AuthController {
         }
         return newUser;
     }
-
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
-    }
     
 	@GetMapping("/authenticate")
 	public Principal authenticate(Principal principal) {
