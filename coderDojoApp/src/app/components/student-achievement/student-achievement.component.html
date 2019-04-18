@@ -1,31 +1,95 @@
-<div>
-  <div *ngIf="mode==='studentList'">
-    <div class="row">
-      <div class="col">
-        <h4> Image </h4>
-      </div>
-      <div class="col">
-        <h4> Name </h4>
-      </div>
-      <div class="col">
-        <h4> Prefered Name </h4>
+<div class="containerUsers" *ngIf="mode === 'studentList'">
+  <div class= "form-card">
+    <div  class="location-div row">
+      <div class="col-md-8">
+        <form>
+            <mat-form-field>
+              <mat-label>Select Location</mat-label>
+              <mat-select (selectionChange)="loadStudentsByLocation($event.value)" [(ngModel)]="selectedLocationFilter" name="locationFilterDropdown">
+                <mat-option value="all">
+                  All Locations
+                </mat-option>
+                <mat-option *ngFor="let loc of locations" [value]="loc.id">
+                  {{loc.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </form>
       </div>
     </div>
-    <div class="row" *ngFor="let student of students" (click)="studentAchievementDetailView(student)">
-      <div class="col">
-        <img src="{{student.userImageUrl}}">
+    <div class="search-div row">
+      <div class="col-md-8">
+        <mat-form-field class="search-form-field" floatLabel="never">
+          <input
+            matInput
+            [(ngModel)]="searchKey"
+            placeholder="Search"
+            autocomplete="off"
+            (keyup)="applyFilter()"
+            [(ngModel)]="value"
+          />
+        </mat-form-field>
       </div>
-      <div class="col">
-        {{student.lastName}}, {{student.firstName}}
-      </div>
-      <div class="col">
-        {{student.nickname}}
-      </div>
-
-
     </div>
+    <mat-table [dataSource]="listData" matSort>
+      <ng-container matColumnDef="profileImage">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Profile Image</mat-header-cell>
+          <mat-cell *matCellDef="let user" (click)="studentAchievementDetailView(user);"><img src="{{ user.userImageUrl }}"></mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let user" (click)="studentAchievementDetailView(user);">{{ user.firstName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell
+          *matHeaderCellDef
+          className="mat-sort-header-button"
+          mat-sort-header>
+          Last Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user" (click)="studentAchievementDetailView(user);">{{ user.lastName }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nickname">
+        <mat-header-cell
+          *matHeaderCellDef
+          className="mat-sort-header-button"
+          mat-sort-header>
+          Preferred Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let user" (click)="studentAchievementDetailView(user);">{{ user.nickname }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+            <mat-spinner color="primary"></mat-spinner>Loading data...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No data.
+        </mat-footer-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      <mat-footer-row
+        *matFooterRowDef="['loading']"
+        [ngClass]="{ hide: listData != null }"
+      ></mat-footer-row>
+      <mat-footer-row
+        *matFooterRowDef="['noData']"
+        [ngClass]="{ hide: !(listData != null && listData.data.length == 0) }"
+      ></mat-footer-row>
+    </mat-table>
+    <mat-paginator
+      [pageSizeOptions]="[1, 10, 25, 100]"
+      [pageSize]="5"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
-  <div *ngIf="mode==='studentAchievementDetailView'">
+</div>
+
+<div class="containerUsers" *ngIf="mode === 'studentAchievementDetailView'">
+  <div class= "form-card">
     <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} ) </h4>
     <h5>Assigned Achievements: </h5>
     <div class="row">
@@ -39,11 +103,7 @@
       </div>
       <div class="col">
       </div>
-      <!-- <div class="col">
-        Completion Date
-      </div> -->
     </div>
-    <!-- <div class="row" *ngFor="let achievement of selectedStudent.achievements"> -->
     <div class="row" *ngFor="let userAchievement of selectedStudentAchievements">
       <div class="col">
         <img src="{{userAchievement.achievement.imageUrl}}">
@@ -51,33 +111,28 @@
       <div class="col">
         {{userAchievement.achievement.name}}
       </div>
-      <!-- <div class="col">
-        {{userAchievement.achievement.description}}
-      </div> -->
       <div class="col">
         <input type="checkbox" [checked]="userAchievement.achieved" (click)='achievedCheckBox(userAchievement)'>
       </div>
       <div class="col">
         <button (click)="achievementDetailView(userAchievement)"> Detail View </button>
       </div>
-      <!-- <div class="col">
-        {{userAchievement.achievedDate}}
-      </div> -->
     </div>
     <strong>Add Achievement: </strong>
     <br>
     <select id="addAchievementDropdown" [(ngModel)]="selectedAchievement">
       <option *ngFor="let achievement of avaliableAchievements"  value={{achievement.id}}>{{achievement.name}}</option>
     </select>
-    
+
     <button (click)='addAchievementToUser()'> Add </button>
     <br>
-    
+
     <button (click)="goBack()"> Go Back </button>
   </div>
+</div>
 
-
-  <div *ngIf="mode==='userAchievementDetail'">
+<div class="containerUsers" *ngIf="mode === 'userAchievementDetail'">
+  <div class= "form-card">
     <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}}: {{selectedUserAchievement.achievement.name}}</h4>
     Has this student completed all goals for this achievement?
     <input type="checkbox" [checked]="selectedUserAchievement.achieved"
@@ -105,13 +160,10 @@
       <div class="col">
         <input type="checkbox" [checked]="userGoal.completed" (click)='goalAchieved(userGoal)'>
       </div>
-
     </div>
 
     <button (click)='deleteUserAchievement()'> Unassign this Achievement  </button>
     <br>
     <button (click)='goBack()'> Go Back </button>
-
   </div>
-
 </div>

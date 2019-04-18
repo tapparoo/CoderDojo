@@ -9,4 +9,5 @@ import com.skilldistillery.coderdojo.entities.UserDetail;
 public interface LocationService {
 	Set<Location> findAllLocation();
 	List<UserDetail> findUsersByLocation(int lid);
+	List<UserDetail> findStudentsByLocation(int lid);
 }
