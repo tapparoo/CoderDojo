@@ -12,9 +12,8 @@ import { environment } from 'src/environments/environment';
 })
 export class UserAchievementService {
 
-
-  // private baseUrl = 'http://localhost:8090/';
-  private url = environment.baseUrl  + 'api/userachievements';
+  private baseUrl = 'http://localhost:8090/';
+  private url = this.baseUrl + 'api/userachievements';
 
 
   public index() {
