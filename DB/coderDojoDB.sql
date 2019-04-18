@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `user_detail` (
   `last_name` VARCHAR(100) NULL,
   `email` VARCHAR(100) NULL,
   `gender` VARCHAR(20) NULL,
-  `user_image_url` VARCHAR(100) NULL,
+  `user_image_url` VARCHAR(500) NULL,
   `user_id` INT NULL,
   `location_id` INT NULL,
   `address_id` INT NULL,
@@ -341,12 +341,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'ADMIN', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'STUDENT', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'PARENT', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'MENTOR', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'TODD', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'JOHN', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 0);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'Anna', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'Steve', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'Adam', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'Mark', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'Todd', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'John', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (7, 'Young', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (8, 'Eric', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (9, 'Jesse', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (10, 'Greg', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
 
 COMMIT;
 
@@ -356,12 +360,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'marky-mark', '123-456-7890', 'Mark', 'Mahowald', 'mark_mahowald@test.com', 'm', 'https://i.imgur.com/2QU4PZW.png', 1, 1, 1);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'a-tappy', '098-765-4321', 'Adam', 'Tappy', 'a_tappy@myspace.com', 'm', 'https://i.imgur.com/Vjzj0tz.jpg', 2, 1, 2);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (3, '1995-01-01', 'A.J.', '567-567-5678', 'Anna', 'Jimenez', 'anna_j_@cryptokitties.org', 'f', 'https://pbs.twimg.com/media/DXv-IhcU8AAe74p.jpg:large', 3, 2, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'SD Steve', '543-543-5432', 'Steve', 'Thompson', 'sdsteve@sd.com', 'm', 'https://i.imgur.com/S0qwuJF.png', 4, 2, 4);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (5, '2000-01-01', 'Todd', '123-123-1234', 'Todd', 'Trobridge', 'airtrafficcontrollguy@yahoo.com', 'o', 'https://i.imgur.com/Uyyml8R.jpg', 5, 1, 1);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (6, '1900-03-05', 'Johnny', '456-456-4567', 'John', 'Overberg', 'mightyrabbit@aol.com', 'm', 'https://i.imgur.com/rCV8rzO.jpg', 6, 2, 2);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'A.J.', '123-456-7890', 'Anna', 'Jimenez', 'anna_j_@cryptokitties.org', 'f', 'https://images.pexels.com/photos/1054251/pexels-photo-1054251.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 1, 1, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'SD Steve', '098-765-4321', 'Steve', 'Thompson', 'sdsteve@sd.com', 'm', 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 2, 1, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (3, '1995-01-01', 'a-tappy', '567-567-5678', 'Adam', 'Tappy', 'a_tappy@myspace.com', 'm', 'https://images.pexels.com/photos/555790/pexels-photo-555790.png?auto=compress&cs=tinysrgb&dpr=2&w=500', 3, 2, 5);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'Marky-mark', '543-543-5432', 'Mark', 'Mahowald', 'mark_mahowald@test.com', 'o', 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 4, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (5, '2000-01-01', 'John', '123-123-1234', 'John', 'Overberg', 'airtrafficcontrollguy@yahoo.com', 'm', 'https://images.pexels.com/photos/1435517/pexels-photo-1435517.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 5, 1, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (6, '1900-03-05', 'Todd', '456-456-4567', 'Todd', 'Trobridge', 'mightyrabbit@aol.com', 'm', 'https://images.pexels.com/photos/634021/pexels-photo-634021.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 6, 2, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (7, '2000-04-05', 'Young', '720-409-1234', 'Young', 'Chen', 'cool_guy87@test.com', 'o', 'https://images.pexels.com/photos/633432/pexels-photo-633432.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 7, 1, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (8, '2007-08-09', 'Eric', '303-488-1234', 'Eric', 'Vasquez', 'ev@usmc.mil', 'm', 'https://images.pexels.com/photos/34534/people-peoples-homeless-male.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500', 8, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (9, '2003-11-28', 'Jesse', '720-902-1234', 'Jesse', 'Mena', 'jmena@yahoo.com', 'm', 'https://images.pexels.com/photos/47366/mongoose-meerkat-wildlife-nature-47366.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 9, 1, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (10, '1959-10-31', 'Greg', '303-555-1234', 'Greg', 'Kraehenbuehl', 'greg@google.com', 'm', 'https://images.pexels.com/photos/733767/pexels-photo-733767.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 10, 2, 5);
 
 COMMIT;
 
@@ -438,8 +446,31 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (1, 'Meetup at Turing', 1, '2019-01-01 12:01');
-INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (2, 'Learn at Alternate Site', 2, '2019-02-05 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (1, 'Weekly Meetup at Turing', 1, '2019-01-01 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (2, 'Weekly Meetup at Alternate Site', 2, '2019-01-03 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (3, 'Evening Meeting for beginners', 1, '2019-01-05 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (4, 'Special Tutoring for Advanced Topics', 2, '2019-01-07 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (5, 'Weekly Meetup at Turing', 1, '2019-01-08 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (6, 'Weekly Meetup at Alternate Site', 2, '2019-01-10 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (7, 'Evening Meeting for beginners', 1, '2019-01-12 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (8, 'Special Tutoring for Advanced Topics', 2, '2019-01-14 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (9, 'Weekly Meetup at Turing', 1, '2019-01-15 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (10, 'Weekly Meetup at Alternate Site', 2, '2019-01-17 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (11, 'Evening Meeting for beginners', 1, '2019-01-19 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (12, 'Special Tutoring for Advanced Topics', 2, '2019-01-21 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (13, 'Weekly Meetup at Turing', 1, '2019-01-22 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (14, 'Weekly Meetup at Alternate Site', 2, '2019-01-24 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (15, 'Evening Meeting for beginners', 1, '2019-01-26 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (16, 'Special Tutoring for Advanced Topics', 2, '2019-01-28 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (17, 'Weekly Meetup at Turing', 1, '2019-01-29 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (18, 'Weekly Meetup at Alternate Site', 2, '2019-01-31 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (19, 'Evening Meeting for beginners', 1, '2019-02-02 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (20, 'Special Tutoring for Advanced Topics', 2, '2019-02-04 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (21, 'Weekly Meetup at Turing', 1, '2019-02-05 12:01');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (22, 'Weekly Meetup at Alternate Site', 2, '2019-02-07 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (23, 'Evening Meeting for beginners', 1, '2019-02-09 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (24, 'Special Tutoring for Advanced Topics', 2, '2019-02-11 14:00');
+INSERT INTO `meeting` (`id`, `name`, `location_id`, `date_time`) VALUES (25, 'Weekly Meetup at Turing', 1, '2019-02-12 12:01');
 
 COMMIT;
 
@@ -449,11 +480,81 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (1, 1, 1, 3);
-INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (2, 1, 1, 2);
-INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (3, 0, 2, 2);
-INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (4, 0, 2, 1);
-INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (5, 1, 1, 3);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (1, 1, 1, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (2, 1, 1, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (3, 0, 1, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (4, 0, 2, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (5, 1, 2, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (6, 0, 2, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (7, 1, 3, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (8, 0, 3, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (9, 1, 3, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (10, 1, 4, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (11, 0, 4, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (12, 0, 4, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (13, 1, 5, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (14, 1, 5, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (15, 1, 5, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (16, 1, 6, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (17, 1, 6, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (18, 0, 6, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (19, 1, 7, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (20, 1, 7, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (21, 0, 7, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (22, 0, 8, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (23, 0, 8, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (24, 1, 8, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (25, 1, 9, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (26, 1, 9, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (27, 1, 9, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (28, 0, 10, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (29, 0, 10, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (30, 1, 10, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (31, 1, 11, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (32, 1, 11, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (33, 1, 11, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (34, 1, 12, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (35, 0, 12, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (36, 0, 12, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (37, 0, 13, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (38, 1, 13, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (39, 1, 13, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (40, 1, 14, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (41, 1, 14, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (42, 1, 14, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (43, 0, 15, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (44, 1, 15, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (45, 1, 15, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (46, 1, 16, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (47, 1, 16, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (48, 1, 16, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (49, 1, 17, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (50, 0, 17, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (51, 0, 17, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (52, 0, 18, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (53, 1, 18, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (54, 0, 18, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (55, 1, 19, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (56, 1, 19, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (57, 1, 19, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (58, 0, 20, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (59, 0, 20, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (60, 1, 20, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (61, 1, 21, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (62, 0, 21, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (63, 0, 21, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (64, 1, 22, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (65, 1, 22, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (66, 1, 22, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (67, 1, 23, 5);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (68, 1, 23, 6);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (69, 1, 23, 7);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (70, 1, 24, 8);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (71, 1, 24, 9);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (72, 1, 24, 10);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (73, 1, 25, 2);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (74, 1, 25, 4);
+INSERT INTO `meeting_attendance` (`id`, `attended`, `meeting_id`, `user_id`) VALUES (75, 1, 25, 5);
 
 COMMIT;
 
@@ -465,6 +566,12 @@ START TRANSACTION;
 USE `codedojodb`;
 INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (1, 3, 2);
 INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (2, 1, 2);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (3, 3, 4);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (4, 1, 4);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (5, 3, 5);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (6, 1, 5);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (7, 3, 6);
+INSERT INTO `parent_child_relationship` (`id`, `parent_id`, `child_id`) VALUES (8, 1, 6);
 
 COMMIT;
 
@@ -490,9 +597,15 @@ USE `codedojodb`;
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 1);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 3);
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (4, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (7, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (8, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (9, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (10, 4);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 3);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 1);
 
 COMMIT;
 

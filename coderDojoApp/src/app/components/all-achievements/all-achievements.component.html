@@ -1,5 +1,5 @@
 <div class="containerAchievements" *ngIf="mode === 'index'">
-  <div class= "form-card">
+  <div class="form-card">
     <div class="row mb-3">
       <div class="col">
         <h4> Name </h4>
@@ -61,7 +61,7 @@
   </div>
 </div>
 <div class="containerAchievements" *ngIf="mode === 'achievementEditForm'">
-  <div class= "form-card">
+  <div class="form-card">
     <h1>{{selectedAchievement.name}}</h1>
     <h3>Goals:</h3>
     <ul>
@@ -71,7 +71,89 @@
       </li>
     </ul>
 
-    <!-- these buttons will expand and contract the new Goal, or add existing Goal menues -->
+    <!-- material tabset -->
+    <div>
+
+      <mat-tab-group>
+        <mat-tab label="Edit Achievement"> 
+          <form action="">
+            <h4>Achievement Name: </h4>
+            <input type="text" name="achievementName" [(ngModel)]="selectedAchievement.name">
+            <h4>Achievement Name: </h4>
+            <input type="text" name="achievementDescription" [(ngModel)]="selectedAchievement.description">
+            <h4>Achievement Image URL: </h4>
+            <input type="text" name="achievementImageUrl" [(ngModel)]="selectedAchievement.imageUrl">
+            <br>
+            <button (click)="saveAchievement()"> Save Changes </button>
+            </form>
+          </mat-tab>
+          <mat-tab label="Add a Goal"> 
+            <form action="">
+              <h4>Goal Name:</h4>
+              <input type="text" name="goalName" [(ngModel)]="newGoal.name">
+              <h4>Goal Description:</h4>
+              <input type="text" name="goalDescription" [(ngModel)]="newGoal.description">
+            </form>
+            <button (click)="addGoalToAchievement()">Add Goal to this Achievement</button>
+          </mat-tab>
+          <mat-tab label="Delete Achievement">   
+           
+              <form action="">
+                <h4>Delete this Goal: Are you sure?</h4>
+                <button (click)="deleteAchievement(selectedAchievement)"> Yes - Delete this whole Achievement</button>
+              </form> 
+            </mat-tab>
+          </mat-tab-group>
+          <button (click)="goBack()"> Cancel </button>
+        </div>
+          
+          <!-- bootstrap tabset -->
+    <!-- <ngb-tabset>
+      <ngb-tab title="New Goal">
+        <ng-template ngbTabContent>
+
+          <form action="">
+            <h4>Goal Name:</h4>
+            <input type="text" name="goalName" [(ngModel)]="newGoal.name">
+            <h4>Goal Description:</h4>
+            <input type="text" name="goalDescription" [(ngModel)]="newGoal.description">
+          </form>
+          <button (click)="addGoalToAchievement()">Add Goal to this Achievement</button>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Edit this Achievement">
+        <ng-template ngbTabContent>
+          <form action="">
+            <h4>Achievement Name: </h4>
+            <input type="text" name="achievementName" [(ngModel)]="selectedAchievement.name">
+            <h4>Achievement Name: </h4>
+            <input type="text" name="achievementDescription" [(ngModel)]="selectedAchievement.description">
+            <h4>Achievement Image URL: </h4>
+            <input type="text" name="achievementImageUrl" [(ngModel)]="selectedAchievement.imageUrl">
+            <br>
+            <button (click)="saveAchievement()"> Save Changes </button>
+
+          </form>
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Delete this Achievement">
+        <ng-template ngbTabContent>
+          <form action="">
+            <h4>Delete this Goal: Are you sure?</h4>
+            <button (click)="deleteAchievement(selectedAchievement)"> Yes - Delete this whole Achievement</button>
+
+          </form>
+        </ng-template>
+      </ngb-tab>
+
+    </ngb-tabset> -->
+
+
+
+<!-- 
+     these buttons will expand and contract the new Goal, or add existing Goal menues 
     <button type="button" class="btn btn-outline-primary" (click)="isNewGoal = !isNewGoal"
       [attr.aria-expanded]="!isNewGoal" aria-controls="newGoalForm">
       New Goal
@@ -132,12 +214,12 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
 <div class="containerAchievements" *ngIf="mode === 'editGoalForm'">
-  <div class= "form-card">
+  <div class="form-card">
     <form action="">
       <h4>Goal Name:</h4>
       <input type="text" name="goalName" [(ngModel)]="selectedGoal.name">
@@ -149,7 +231,7 @@
 </div>
 
 <div class="containerAchievements" *ngIf="mode === 'addAchievementForm'">
-  <div class= "form-card">
+  <div class="form-card">
     <form action="">
       <h4>Achievement Name:</h4>
       <input type="text" name="newAchievementName" [(ngModel)]="selectedAchievement.name">
