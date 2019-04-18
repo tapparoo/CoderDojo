@@ -1,7 +1,7 @@
 <div class="containerUsers" *ngIf="mode === 'studentList'">
   <div class= "form-card">
     <div  class="location-div row">
-      <div class="col-md-8">
+      <div class="col">
         <form>
             <mat-form-field>
               <mat-label>Select Location</mat-label>
@@ -16,9 +16,7 @@
             </mat-form-field>
         </form>
       </div>
-    </div>
-    <div class="search-div row">
-      <div class="col-md-8">
+      <div class="col">
         <mat-form-field class="search-form-field" floatLabel="never">
           <input
             matInput
@@ -30,7 +28,10 @@
           />
         </mat-form-field>
       </div>
+      <div class="col"></div>
     </div>
+    <hr>
+
     <mat-table [dataSource]="listData" matSort>
       <ng-container matColumnDef="profileImage">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Profile Image</mat-header-cell>

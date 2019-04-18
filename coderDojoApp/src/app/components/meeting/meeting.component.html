@@ -1,7 +1,7 @@
 
   <div class="containerMeeting" *ngIf="!editMeeting && !displayAttendees">
   <div  class="location-div row">
-    <form>
+    <div class="col">
         <mat-form-field>
           <mat-label>Select location</mat-label>
           <mat-select (selectionChange)="loadMeetingsByLocation($event)" [(ngModel)]="selectedLocationValue" name="locationName">
@@ -10,27 +10,29 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-    </form>
-  </div>
-  <div class="search-div row">
-    <div class="col-md-8">
-      <mat-form-field class="search-form-field" floatLabel="never">
-        <input
-          matInput
-          [(ngModel)]="searchKey"
-          placeholder="Search"
-          autocomplete="off"
-          (keyup)="applyFilter()"
-        />
-      </mat-form-field>
     </div>
-    <span *ngIf="isAuthorized" class="search-div  row">
-        <button (click)="openCreateForm()" class="create-btn btn-reate-row" mat-button>
-          Create
-          <i class="fas fa-2x fa-plus-circle"></i>
-        </button>
-      </span>
+    <div class="col">
+        <mat-form-field class="search-form-field" floatLabel="never">
+          <input
+            matInput
+            [(ngModel)]="searchKey"
+            placeholder="Search"
+            autocomplete="off"
+            (keyup)="applyFilter()"
+          />
+        </mat-form-field>
+      </div>
+    <div class="col">
+        <span *ngIf="isAuthorized" class="search-div  row">
+            <button (click)="openCreateForm()" class="create-btn btn-reate-row" mat-button>
+              Create
+              <i class="fas fa-2x fa-plus-circle"></i>
+            </button>
+        </span>
+    </div>
   </div>
+  <hr>
+
 <!-- Create form -->
       <form   *ngIf="isAuthorized && isCreateMeeting" class="form-inline">
           <div class="form-group mb-2">
