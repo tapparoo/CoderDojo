@@ -5,15 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAchievementService {
-
-
-  private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/userachievements';
+  private url = environment.baseUrl + 'api/userachievements';
 
 
   public index() {
@@ -76,7 +74,7 @@ export class UserAchievementService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<UserAchievement>(`${this.baseUrl}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
+    return this.http.put<UserAchievement>(`${this.url}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievement.update(): Error');
         // console.error(err);

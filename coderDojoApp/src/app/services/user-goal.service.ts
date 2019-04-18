@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { UserAchievement } from './../models/user-achievement';
 import { UserGoal } from './../models/user-goal';
 import { Injectable } from '@angular/core';
@@ -10,9 +11,8 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserGoalService {
-  private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/usergoals';
- 
+  private url = environment.baseUrl + 'api/usergoals';
+
 
   public index() {
     const credentials = this.auth.getCredentials();
@@ -39,8 +39,8 @@ export class UserGoalService {
         'Authorization': `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
-    };    
-    
+    };
+
     return this.http.post<UserGoal>(this.url, userGoal, httpOptions).pipe(
       catchError((err: any) => {
         console.error('GoalService.create(): Error');
@@ -101,7 +101,7 @@ export class UserGoalService {
       })
     );
   }
-  
+
 
 
   constructor(private http: HttpClient,
