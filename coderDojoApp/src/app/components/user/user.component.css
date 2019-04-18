@@ -235,6 +235,7 @@ h3 {
   .container{
       display: flex;
       padding-top: 20px;
+      justify-content: center;
   }
 .cardList {
     display: flex;
