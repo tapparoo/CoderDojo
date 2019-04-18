@@ -3,7 +3,7 @@ img {
 }
 
 .form-card {
-  margin: 6%;
-  border: solid 1px #ededed;
+  margin: 4%;
+  border-top: solid 1px #ededed;
   padding: 20px;
 }
