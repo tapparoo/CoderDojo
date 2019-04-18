@@ -188,3 +188,13 @@ mat-form-field {
 app-meeting.ng-star-inserted{
   background-image: url("https://img.freepik.com/free-vector/minimal-diagonal-zigzag-pattern-design_1017-15351.jpg?size=338&ext=jpg")
 }
+
+input.view {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #ededed solid 0.5px;
+  margin-left: 5px;
+}
+input.view:focus {
+  border-color: #cdcdcd solid 0.5px;
+}

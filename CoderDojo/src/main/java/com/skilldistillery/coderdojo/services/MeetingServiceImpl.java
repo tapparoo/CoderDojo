@@ -105,15 +105,10 @@ public class MeetingServiceImpl implements MeetingService {
 	}
 
 	@Override
-	public List<Meeting> findAllByLocationId(String username, Integer lid) {
+	public List<Meeting> findAllByLocationId(Integer lid) {
 		List<Meeting> meetings= null;
-		User u = repoUser.findByUsername(username);
-		if(u != null) {
-			
 			meetings = repo.findAllByLocationId(lid);
 			return meetings;
-		}
 
-		return null;
 	}
 }

@@ -140,7 +140,6 @@ export class AdminComponent implements OnInit {
     this.user.email = form.value.email;
     this.user.dob = form.value.dob;
 
-
     this.userService.updateUserDetail(this.user).subscribe(
       data => {
         this.user = data;
