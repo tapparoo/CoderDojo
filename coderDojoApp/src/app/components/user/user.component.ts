@@ -51,6 +51,7 @@ export class UserComponent implements OnInit {
           child.firstName = form.value.firstName;
           child.lastName = form.value.lastName;
           child.dob = form.value.dob;
+          child.userImageUrl = 'assets/default_profile_image.png';
           this.userService.updateUserDetail(child).subscribe(deets => {
             console.log(deets);
             // Reload parent's children array
