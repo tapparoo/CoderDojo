@@ -12,10 +12,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GoalService {
-  private baseUrl = 'http://localhost:8090/';
-  private url = environment.baseUrl + 'api/goals';
- 
- 
+  private url = environment.baseUrl  + 'api/goals';
+
+
   public index() {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
@@ -41,10 +40,10 @@ export class GoalService {
         'Authorization': `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
-    };    
+    };
       let goalDTO: GoalDTO = new GoalDTO(goal.id, goal.name, goal.description, goal.achievement.id);
       console.log(goalDTO.achievementId)
-    
+
     return this.http.post<GoalDTO>(this.url, goalDTO, httpOptions).pipe(
       catchError((err: any) => {
         console.error('GoalService.create(): Error');
@@ -88,7 +87,7 @@ export class GoalService {
     );
   }
 
-  
+
 
 
 

@@ -8,6 +8,7 @@ war {
   enabled = true
   archiveName = "${baseName}.war"     // Our app name, as defined in settings.gradle
   destinationDir = file("../")      // project directory
+
 }
 
 

@@ -11,9 +11,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserGoalService {
-  private baseUrl = 'http://localhost:8090/';
   private url = environment.baseUrl + 'api/usergoals';
- 
+
 
   public index() {
     const credentials = this.auth.getCredentials();
@@ -40,8 +39,8 @@ export class UserGoalService {
         'Authorization': `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
-    };    
-    
+    };
+
     return this.http.post<UserGoal>(this.url, userGoal, httpOptions).pipe(
       catchError((err: any) => {
         console.error('GoalService.create(): Error');
@@ -102,7 +101,7 @@ export class UserGoalService {
       })
     );
   }
-  
+
 
 
   constructor(private http: HttpClient,

@@ -55,7 +55,11 @@ export class MeetingComponent implements OnInit {
   }
 
   loadMeetingsByLocation(event) {
+    if (typeof event.value === 'number') {
     this.reloadAdminByLocation(event.value);
+  } else {
+      this.reloadAdmin();
+    }
   }
 
   loadLocations() {

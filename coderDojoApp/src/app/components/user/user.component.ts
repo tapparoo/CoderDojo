@@ -32,14 +32,6 @@ export class UserComponent implements OnInit {
   // for card flexbox display
   colCounter: number = 0;
 
-  // constructor(
-  //   private auth: AuthService,
-  //   private router: Router,
-  //   private currentRoute: ActivatedRoute,
-  //   private userService: UserService,
-  //   private userAchievementService: UserAchievementService
-  // ) {}
-
   navigateToUserProfile(username, parentname) {
     this.router.navigateByUrl('user/' + username + "/profile/parent");
   }

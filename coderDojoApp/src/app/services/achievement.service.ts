@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AchievementService {
-  private baseUrl = 'http://localhost:8090/';
   private url = environment.baseUrl + 'api/achievements';
 
 

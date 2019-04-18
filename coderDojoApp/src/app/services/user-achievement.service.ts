@@ -11,9 +11,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserAchievementService {
-
-
-  private baseUrl = 'http://localhost:8090/';
   private url = environment.baseUrl + 'api/userachievements';
 
 
@@ -77,7 +74,7 @@ export class UserAchievementService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<UserAchievement>(`${this.baseUrl}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
+    return this.http.put<UserAchievement>(`${this.url}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievement.update(): Error');
         // console.error(err);
