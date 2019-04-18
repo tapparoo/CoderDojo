@@ -1,10 +1,11 @@
+<div class="container">
 <div *ngIf="user && user.user.student">
 
-  <div *ngIf="user && user.user.student" class="border border-dark rounded-lg">
+  <div *ngIf="user && user.user.student" class="white-background border border-dark rounded-lg">
 <br>
     <h3>Your Next Achievement:</h3>
     <br>
-    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <div class="card-padding" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
       <ng-container *ngFor="let userAchievement of pendingUserAchievements">
         <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
@@ -54,7 +55,7 @@
 
     <h3>Your Completed Achievements:</h3>
     <br>
-    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <div class="card-padding" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
 
       <ng-container *ngFor="let userAchievement of completedUserAchievements">
         <div class="flip-card" fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
@@ -99,14 +100,17 @@
     </div>
   </div>
   <br><br>
-  <div class="border border-dark rounded-lg">
+  <div class="border border-dark rounded-lg white-background">
 
     <br>
-    <a [routerLink]="['/schedule']" routerLinkActive="router-link-active"><button
-        class="btn btn-lg border-dark rounded-lg">
-        Register for a Class </button></a>
-    <h3>Your Upcoming Classes:</h3>
-    <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+    <a [routerLink]="['/schedule']" routerLinkActive="router-link-active">
+      <div class = "center">
+          <button
+        class="mat-primary mat-raised-button ">
+        Register for a Meeting </button>
+      </div></a>
+    <h3>Your Upcoming Meetings:</h3>
+    <div class="card-padding" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="32px" fxLayoutAlign="flex-start">
       <ng-container *ngFor="let meeting of user.meetings">
         <div class='card' fxFlex="0 1 calc(20% - 32px)" fxFlex.lt-md="0 1 calc(33% - 32px)" fxFlex.lt-sm="100%">
           <div class="card-body calendar-card" style="font-size: 1.25vw">
