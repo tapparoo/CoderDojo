@@ -130,13 +130,12 @@ public class UserController {
 		
 		return achievements;
 	}
-	
 	@GetMapping("{username}/meetings")
 	public Set<Meeting> getUserMeetings(@PathVariable("username") String username, HttpServletResponse res,
 			Principal principal) {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
-		Set<Meeting> meetings = requestedUser.getMeetings();
+		Set<Meeting> meetings = requestedUser.getMeetingsAttended();
 		
 		if (requestedUser != null) {
 			// Only the owning user or an admin can see a user's profile

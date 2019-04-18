@@ -24,7 +24,6 @@ public class MeetingAttendee {
 	@JoinColumn(name="meeting_id")
 	private Meeting meeting;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private UserDetail userDetail;

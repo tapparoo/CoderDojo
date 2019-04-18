@@ -75,7 +75,7 @@ public class UserDetail {
 	private Set<UserDetail> parents;
 
 	@JsonIgnore
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name = "meeting_attendance", 
 		joinColumns = @JoinColumn(name = "user_id"), 
 		inverseJoinColumns = @JoinColumn(name = "meeting_id"))
@@ -126,7 +126,7 @@ public class UserDetail {
 		achievement.getUsers().remove(this);
 	}
 	
-	public Set<Meeting> getMeetings() {
+	public Set<Meeting> getMeetingsAttended() {
 		return meetingsAttended;
 	}
 

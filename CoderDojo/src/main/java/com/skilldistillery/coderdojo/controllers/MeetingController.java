@@ -45,21 +45,23 @@ public class MeetingController {
 	@Autowired
 	private UserService uservice;
 
-	// GET Meetings
+//  GET Meetings
 	@GetMapping("meetings")
-	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
-		System.out.println(principal);
+	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res,
+			Principal principal) {
 		return service.findAllMeetings(principal.getName());
 	}
-
-	// GET Meetings
+	
+	//  GET Meetings
 	@GetMapping("meetings/locations/{lid}")
-	public List<Meeting> getMeetingsByLocation(HttpServletRequest req, HttpServletResponse res,
-			@PathVariable("lid") Integer lid, Principal principal) {
-		return service.findAllByLocationId(principal.getName(), lid);
+	public List<Meeting> getMeetingsByLocation(HttpServletRequest req,
+			HttpServletResponse res,
+			@PathVariable("lid") Integer lid,
+			Principal principal) {
+		return service.findAllByLocationId(principal.getName(),lid);
 	}
-
-	// GET Meetings
+		
+	//  GET Meetings
 	@GetMapping("schedule")
 	public Set<Meeting> index(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println(req);
