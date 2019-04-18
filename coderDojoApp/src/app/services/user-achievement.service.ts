@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ import { throwError } from 'rxjs';
 export class UserAchievementService {
 
 
-  private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/userachievements';
+  // private baseUrl = 'http://localhost:8090/';
+  private url = environment.baseUrl  + 'api/userachievements';
 
 
   public index() {

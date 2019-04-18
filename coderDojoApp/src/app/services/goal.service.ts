@@ -6,15 +6,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoalService {
-  private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/goals';
- 
- 
+  // private baseUrl = 'http://localhost:8090/';
+  private url = environment.baseUrl  + 'api/goals';
+
+
   public index() {
     const credentials = this.auth.getCredentials();
     const httpOptions = {
@@ -40,10 +41,10 @@ export class GoalService {
         'Authorization': `Basic ${credentials}`,
         'X-Requested-With': 'XMLHttpRequest'
       })
-    };    
+    };
       let goalDTO: GoalDTO = new GoalDTO(goal.id, goal.name, goal.description, goal.achievement.id);
       console.log(goalDTO.achievementId)
-    
+
     return this.http.post<GoalDTO>(this.url, goalDTO, httpOptions).pipe(
       catchError((err: any) => {
         console.error('GoalService.create(): Error');
@@ -87,7 +88,7 @@ export class GoalService {
     );
   }
 
-  
+
 
 
 
