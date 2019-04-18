@@ -1,5 +1,6 @@
 
   <div class="containerMeeting" *ngIf="!editMeeting && !displayAttendees">
+
   <div  class="location-div row">
     <div class="col">
         <mat-form-field>
@@ -34,55 +35,60 @@
         </span>
     </div>
   </div>
-  <hr>
-
+  <div *ngIf="isAuthorized && isCreateMeeting" class="row location-div ">
 <!-- Create form -->
-      <form   *ngIf="isAuthorized && isCreateMeeting" class="form-inline">
-          <div class="form-group mb-2">
-            <input
-              class="form-control"
-              type="text"
-              name="task"
-              placeholder="name"
-              [(ngModel)]="newMeeting.name"
-            />
-          </div>
-          <div class="form form-group mx-sm-3 mb-2">
-            <input
-              type="text"
-              name="locationId"
-              placeholder="location"
-              [(ngModel)]="newMeeting.location.id"
-              class="form-check-input"
-            />
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <input
-              class="form-control"
-              type="text"
-              name="task"
-              placeholder="date"
-              [(ngModel)]="newMeeting.scheduledTime"
-            />
-          </div>
-          <button
-            class=" ml-2 btn saveBtn"
-            type="submit"
-            value="Add Item"
-            (click)="addMeeting()"
-          >
-            Save
-          </button>
-          <button
-          class=" ml-2 btn close-btn"
-          type="submit"
-          value="Close Item"
-          (click)="closeCreateForm()"
-        >
-         <i class="fas fa-2x fa-plus-times"></i>
-        </button>
+<form class="row location-div form-inline">
+    <div class="form-group mb-2">
+      <input
+        type="text"
+        name="task"
+        class="view"
+        placeholder="name"
+        [(ngModel)]="newMeeting.name"
+      />
+    </div>
+    <div class="form form-group mx-sm-3 mb-2">
+      <input
+        type="text"
+        class="view"
+        name="locationId"
+        placeholder="location"
+        [(ngModel)]="newMeeting.location.id"
 
-        </form>
+      />
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="date" name="scheduleDate" [ngModel]="newMeeting.scheduledTime">
+      <!-- <input
+        type="text"
+        name="task"
+        placeholder="date"
+        [(ngModel)]="newMeeting.scheduledTime"
+      /> -->
+    </div>
+    <button
+      class=" ml-2 btn saveBtn"
+      type="submit"
+      value="Add Item"
+      (click)="addMeeting()"
+    >
+      Save
+    </button>
+    <button
+    class=" ml-2 btn close-btn"
+    type="submit"
+    value="Close Item"
+    (click)="closeCreateForm()"
+  >
+   <i class="fas fa-2x fa-plus-times"></i>
+  </button>
+
+  </form>
+
+
+
+  </div>
+  <hr>
 
 
 <mat-table [dataSource]="listData" matSort>
@@ -276,7 +282,9 @@
 
 <div *ngIf="displayAttendees">
   <div class="container">
-    <div class="row"> <input class=" ml-10 btn btn-outline-success"
+    <br><br><br>
+    <div class="row">
+      <input class=" ml-10 btn btn-outline-success"
       type="submit" value="Back" (click) = "closeDisplayAttend()">
       </div>
   <table class="table table-striped" >

@@ -18,8 +18,8 @@ import { LocationService } from 'src/app/services/location.service';
 })
 export class MeetingComponent implements OnInit {
   meetings: Meeting[] = [];
-  meeting = new Meeting();
-  newMeeting = new Meeting();
+  meeting;
+  newMeeting;
   isAuthorized = false;
   editMeeting = false;
   selected = null;
@@ -58,7 +58,7 @@ export class MeetingComponent implements OnInit {
     if (typeof event.value === 'number') {
     this.reloadAdminByLocation(event.value);
   } else {
-      this.reloadAdmin();
+      this.reload();
     }
   }
 
@@ -172,7 +172,7 @@ export class MeetingComponent implements OnInit {
         console.error(err);
       }
     );
-    this.newMeeting = new Meeting();
+    this.newMeeting = null;
   }
 
   registerUserForMeeting(meetingId: number) {
