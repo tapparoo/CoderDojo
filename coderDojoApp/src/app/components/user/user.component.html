@@ -29,10 +29,10 @@
 
 
 <div *ngIf="user && user.user.parent">
-    <div class= "form-card">
+    <div class= "form-card_parent">
   <br /><br />
 
-  <div class= "form-card">
+  <div class= "form-card_parent">
       <button class="mat-primary mat-raised-button "  (click)="openCreateChild()">+ Add Child</button>
 
       <div *ngIf="createChild" class="col">
@@ -82,8 +82,8 @@
   <div class="row">
     <div *ngFor="let child of user.children" class="col-md-4">
       <div class="wrapper">
-        <div class="card radius shadowDepth1">
-          <div class="card__image border-tlr-radius">
+        <div class="card_parent radius shadowDepth1">
+          <div class="card_parent__image border-tlr-radius">
             <img
               src={{child.userImageUrl}}
               alt="image"
@@ -91,14 +91,14 @@
             />
           </div>
 
-          <div class="card__content card__padding">
-            <div class="card__share">
+          <div class="card_parent__content card_parent__padding">
+            <div class="card_parent__share">
               <a id="share" class="share-icon" (click)="navigateToUserProfile(child.user.username, user.user.username)">
                 <button mat-icon-button class="remove-btn-border mt-2">
                   <mat-icon color="primary" class="mat-18">edit</mat-icon>
                 </button></a>
             </div>
-            <article class="card__article">
+            <article class="card_parent__article">
               <h2>
                 {{ child.firstName }} {{ child.lastName }}
               </h2>
