@@ -8,13 +8,13 @@ import { Meeting } from "./../../models/meeting";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators, NgForm } from "@angular/forms";
 import { LocationService } from "src/app/services/location.service";
 
 @Component({
   selector: "app-meeting",
   templateUrl: "./meeting.component.html",
-  styleUrls: ["./meeting.component.css"]
+  styleUrls: ["./meeting.component.css"],
 })
 export class MeetingComponent implements OnInit {
   meetings: Meeting[] = [];
@@ -52,6 +52,7 @@ export class MeetingComponent implements OnInit {
       this.reload();
     } else if (this.router.url === "/admin") {
       this.reloadAdmin();
+      this.isAuthorized = true;
     }
   }
 
@@ -163,7 +164,17 @@ export class MeetingComponent implements OnInit {
   closeDisplayAttend() {
     this.displayAttendees = false;
   }
-  addMeeting() {
+  addMeeting(form: NgForm) {
+    if (form.value.date && form.value.time){
+      let temp = form.value.date  + 'T' + form.value.time;
+      console.log(temp);
+      this.newMeeting.scheduledTime = new Date(temp);
+
+    }
+    this.newMeeting.location.id = form.value.locationId;
+    this.newMeeting.name = form.value.name;
+    // this.newMeeting.scheduledTime = form.value.scheduledTime;
+    console.log(this.newMeeting);
     this.meetingService.create(this.newMeeting).subscribe(
       data => {
         this.isCreateMeeting = !this.createMeeting;
