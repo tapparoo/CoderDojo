@@ -1,4 +1,3 @@
-import { environment } from 'src/environments/environment';
 import { UserAchievement } from './../models/user-achievement';
 import { UserGoal } from './../models/user-goal';
 import { Injectable } from '@angular/core';
