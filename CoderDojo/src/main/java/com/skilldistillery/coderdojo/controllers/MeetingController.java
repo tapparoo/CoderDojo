@@ -94,6 +94,7 @@ public class MeetingController {
 	@PostMapping("meetings")
 	public Meeting create(HttpServletRequest req, HttpServletResponse res, @RequestBody Meeting meeting,
 			Principal principal) {
+		System.out.println(meeting);
 		try {
 			service.create(principal.getName(), meeting);
 			StringBuffer url = req.getRequestURL();

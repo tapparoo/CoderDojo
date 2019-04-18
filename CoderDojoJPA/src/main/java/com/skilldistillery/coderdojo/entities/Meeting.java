@@ -1,7 +1,7 @@
 package com.skilldistillery.coderdojo.entities;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Meeting {
@@ -24,6 +24,7 @@ public class Meeting {
 	@Column(name = "name")
 	private String name;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_time")
 	private Date scheduledTime;
 
