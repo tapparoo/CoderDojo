@@ -296,7 +296,7 @@ h2 {
   }
   
   .flip-card:hover .flip-card-inner {
-    transform: rotateY(540deg);
+    transform: rotateY(179.9deg);
   }
   
   .flip-card-front, .flip-card-back {
@@ -309,7 +309,7 @@ h2 {
   .flip-card-front {
     /* background-color: #bbb;
     color: black; */
-		z-index: 2;
+		z-index: 1;
 		
   }
   
@@ -317,7 +317,7 @@ h2 {
     /* background-color: #2980b9;
     color: white;*/
     transform: rotateY(180deg);
-		z-index: 1;
+		z-index: 2;
   }
   /* general styling */
   ul {
