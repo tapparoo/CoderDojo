@@ -94,7 +94,6 @@ public class MeetingController {
 	@PostMapping("meetings")
 	public Meeting create(HttpServletRequest req, HttpServletResponse res, @RequestBody Meeting meeting,
 			Principal principal) {
-		System.out.println(meeting);
 		try {
 			service.create(principal.getName(), meeting);
 			StringBuffer url = req.getRequestURL();
@@ -125,7 +124,6 @@ public class MeetingController {
 	@DeleteMapping("meetings/{mid}")
 	public Boolean destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable("mid") Integer mid,
 			Principal principal) {
-		System.out.println(mid);
 		try {
 			if (service.show(principal.getName(), mid) == null) {
 				res.setStatus(404);
@@ -142,31 +140,6 @@ public class MeetingController {
 		}
 
 	}
-
-	// GET Meetings
-//	@GetMapping("meetings/attendance/{mid}")
-//	public List<UserDetail> showattendance(HttpServletRequest req, HttpServletResponse res,
-//			@PathVariable("mid") Integer mid,
-//			Principal principal) {
-//		try {
-//			List<UserDetail> meeting = service.showMeetingUsers(mid);
-//			if (meeting == null) {
-//				res.setStatus(404);
-//			} else {
-//				StringBuffer url = req.getRequestURL();
-//				url.append("/");
-//				url.append(mid);
-//				res.setHeader("Location", url.toString());
-//
-//				res.setStatus(201);
-//			}
-//
-//			return meeting;
-//		} catch (Exception e) {
-//			res.setStatus(500);
-//			return null;
-//		}
-//	}
 
 	@PutMapping("meetings/{mid}/attendee/{aid}")
 	public MeetingAttendee updateAttendee(HttpServletRequest req, HttpServletResponse res,
