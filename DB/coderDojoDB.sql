@@ -330,7 +330,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `location` (`id`, `name`, `details`, `address_id`) VALUES (1, 'Downtown Dojo at Turing', 'this is our main classroom in the area. ', 3);
+INSERT INTO `location` (`id`, `name`, `details`, `address_id`) VALUES (1, 'Downtown Dojo at Turing', 'this is our main classroom in the area. ', 1);
 INSERT INTO `location` (`id`, `name`, `details`, `address_id`) VALUES (2, 'Remote Classroom', 'SD is our backup room.', 2);
 
 COMMIT;
@@ -341,16 +341,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'Anna', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'Steve', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'Adam', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'Mark', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'Todd', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'John', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (7, 'Young', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (8, 'Eric', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (9, 'Jesse', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (10, 'Greg', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (1, 'anna', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (2, 'steve', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (3, 'adam', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (4, 'mark', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (5, 'todd', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (6, 'john', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (7, 'young', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (8, 'eric', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (9, 'jesse', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`) VALUES (10, 'greg', '$2a$10$H7T2hXZ16ux.5nV/04JM5uSR8CC2lUSll9p2tk8xr/DPyT7JR5Vhi', 1);
 
 COMMIT;
 
@@ -361,15 +361,15 @@ COMMIT;
 START TRANSACTION;
 USE `codedojodb`;
 INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (1, '1988-03-28', 'A.J.', '123-456-7890', 'Anna', 'Jimenez', 'anna_j_@cryptokitties.org', 'f', 'https://images.pexels.com/photos/1054251/pexels-photo-1054251.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 1, 1, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'SD Steve', '098-765-4321', 'Steve', 'Thompson', 'sdsteve@sd.com', 'm', 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 2, 1, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (2, '1975-07-11', 'SD Steve', '098-765-4321', 'Steve', 'Thompson', 'sdsteve@sd.com', 'm', 'https://cdn.pixabay.com/photo/2014/03/12/18/42/boy-286241_1280.jpg', 2, 1, 4);
 INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (3, '1995-01-01', 'a-tappy', '567-567-5678', 'Adam', 'Tappy', 'a_tappy@myspace.com', 'm', 'https://images.pexels.com/photos/555790/pexels-photo-555790.png?auto=compress&cs=tinysrgb&dpr=2&w=500', 3, 2, 5);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'Marky-mark', '543-543-5432', 'Mark', 'Mahowald', 'mark_mahowald@test.com', 'o', 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 4, 2, 4);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (5, '2000-01-01', 'John', '123-123-1234', 'John', 'Overberg', 'airtrafficcontrollguy@yahoo.com', 'm', 'https://images.pexels.com/photos/1435517/pexels-photo-1435517.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 5, 1, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (6, '1900-03-05', 'Todd', '456-456-4567', 'Todd', 'Trobridge', 'mightyrabbit@aol.com', 'm', 'https://images.pexels.com/photos/634021/pexels-photo-634021.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 6, 2, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (7, '2000-04-05', 'Young', '720-409-1234', 'Young', 'Chen', 'cool_guy87@test.com', 'o', 'https://images.pexels.com/photos/633432/pexels-photo-633432.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 7, 1, 3);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (8, '2007-08-09', 'Eric', '303-488-1234', 'Eric', 'Vasquez', 'ev@usmc.mil', 'm', 'https://images.pexels.com/photos/34534/people-peoples-homeless-male.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500', 8, 2, 4);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (9, '2003-11-28', 'Jesse', '720-902-1234', 'Jesse', 'Mena', 'jmena@yahoo.com', 'm', 'https://images.pexels.com/photos/47366/mongoose-meerkat-wildlife-nature-47366.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 9, 1, 4);
-INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (10, '1959-10-31', 'Greg', '303-555-1234', 'Greg', 'Kraehenbuehl', 'greg@google.com', 'm', 'https://images.pexels.com/photos/733767/pexels-photo-733767.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500', 10, 2, 5);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (4, '2000-12-31', 'Marky-mark', '543-543-5432', 'Mark', 'Mahowald', 'mark_mahowald@test.com', 'o', 'https://image.shutterstock.com/image-photo/photo-adorable-teenage-young-happy-450w-1023604108.jpg', 4, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (5, '2000-01-01', 'John', '123-123-1234', 'John', 'Overberg', 'airtrafficcontrollguy@yahoo.com', 'm', 'https://image.shutterstock.com/image-photo/typical-american-teenager-posing-camera-450w-172430795.jpg', 5, 1, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (6, '1900-03-05', 'Todd', '456-456-4567', 'Todd', 'Trobridge', 'mightyrabbit@aol.com', 'm', 'https://image.shutterstock.com/image-photo/teenager-boy-on-computer-his-450w-276730304.jpg', 6, 2, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (7, '2000-04-05', 'Young', '720-409-1234', 'Young', 'Chen', 'cool_guy87@test.com', 'o', 'https://image.shutterstock.com/image-photo/teenage-brothers-beach-castle-background-450w-342673352.jpg', 7, 1, 3);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (8, '2007-08-09', 'Eric', '303-488-1234', 'Eric', 'Vasquez', 'ev@usmc.mil', 'm', 'https://image.shutterstock.com/image-photo/friendship-communication-two-teenage-boys-450w-1110834848.jpg', 8, 2, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (9, '2003-11-28', 'Jesse', '720-902-1234', 'Jesse', 'Mena', 'jmena@yahoo.com', 'm', 'https://image.shutterstock.com/image-photo/teen-boy-glasses-shirt-photo-450w-1288357228.jpg', 9, 1, 4);
+INSERT INTO `user_detail` (`id`, `dob`, `nickname`, `phone_number`, `first_name`, `last_name`, `email`, `gender`, `user_image_url`, `user_id`, `location_id`, `address_id`) VALUES (10, '1959-10-31', 'Greg', '303-555-1234', 'Greg', 'Kraehenbuehl', 'greg@google.com', 'm', 'https://image.shutterstock.com/image-photo/young-teenage-boy-isolated-on-450w-710074273.jpg', 10, 2, 5);
 
 COMMIT;
 
@@ -379,8 +379,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt ', 'Attend the Dojo at least 5 times, and complete the online CoderDojo Scratch Tutorials at the Beginner, Intermediate, and Advanced levels\n', 'https://vignette.wikia.nocookie.net/clubpenguin/images/7/76/White_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
-INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'Build at least three small projects on a Raspberry Pi or Arduino kit; one of them must be something new you build into an existing lesson. ', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a4/Yellow_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (1, 'White Belt ', 'Attend the Dojo at least 5 times, and complete the online CoderDojo Scratch Tutorials (Beginner, Intermediate, and Advanced levels) ', 'https://vignette.wikia.nocookie.net/clubpenguin/images/7/76/White_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
+INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (2, 'Yellow Belt', 'Build at least three small projects on a Raspberry Pi or Arduino kit.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a4/Yellow_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013916');
 INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (3, 'Green Belt ', 'Come up with a new project of your own and build it!', 'https://vignette.wikia.nocookie.net/clubpenguin/images/1/10/Green_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115223047');
 INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (4, 'Orange Belt', 'Build a new project with another student.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/9/92/Orange_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20151012013917');
 INSERT INTO `achievement` (`id`, `name`, `description`, `image_url`) VALUES (5, 'Blue Belt', 'Work on a new project with several other students.', 'https://vignette.wikia.nocookie.net/clubpenguin/images/a/a3/Blue_Ninja_Belt_icon.png/revision/latest/scale-to-width-down/170?cb=20150115230243');
@@ -399,6 +399,11 @@ INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (2, 1, '2019-04-11', 2, 2);
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (3, 0, NULL, 2, 3);
 INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (4, 0, NULL, 2, 4);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (5, 1, '2019-03-28', 4, 1);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (6, 1, '2019-04-15', 4, 2);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (7, 0, NULL, 4, 3);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (8, 0, NULL, 4, 4);
+INSERT INTO `user_achievement` (`id`, `achieved`, `achieved_date`, `user_detail_id`, `achievement_id`) VALUES (9, 0, NULL, 4, 5);
 
 COMMIT;
 
@@ -437,6 +442,15 @@ INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (6, 1, '2019-04-10', 2, 7);
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (7, 0, NULL, 3, 8);
 INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (8, 0, NULL, 4, 9);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (9, 1, '2019-03-10', 5, 1);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (10, 1, '2019-03-28', 5, 2);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (11, 1, '2019-04-01', 6, 3);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (12, 1, '2019-04-01', 6, 4);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (13, 1, '2019-04-01', 7, 5);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (14, 1, '2019-04-01', 7, 6);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (15, 0, '2019-04-09', 8, 7);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (17, 0, NULL, 8, 9);
+INSERT INTO `user_goal` (`id`, `completed`, `completed_date`, `user_achievement_id`, `goal_id`) VALUES (18, 0, NULL, 9, 10);
 
 COMMIT;
 
@@ -594,9 +608,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `codedojodb`;
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 1);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 4);
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 3);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 1);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (4, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 4);
@@ -605,7 +618,6 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (8, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (9, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (10, 4);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (1, 3);
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 1);
 
 COMMIT;
 
