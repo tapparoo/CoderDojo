@@ -1,7 +1,7 @@
 <div class="container">
 <div *ngIf="user && user.user.student">
 
-  <div *ngIf="user && user.user.student" class="white-background border border-dark rounded-lg">
+  <div *ngIf="user && user.user.student" class="student-styles white-background border border-dark rounded-lg">
 <br>
     <h3>Your Next Achievement:</h3>
     <br>
@@ -100,11 +100,11 @@
     </div>
   </div>
   <br><br>
-  <div class="border border-dark rounded-lg white-background">
+  <div class="student-styles border border-dark rounded-lg white-background">
 
     <br>
     <a [routerLink]="['/schedule']" routerLinkActive="router-link-active">
-      <div class = "center">
+      <div class = "container">
           <button
         class="mat-primary mat-raised-button ">
         Register for a Meeting </button>
@@ -184,7 +184,7 @@
 
   <h2 color="secondary" class="ml-3 mt-5">See Progress of:</h2>
   <div class="row">
-    <div *ngFor="let child of user.children" class="col-md-6">
+    <div *ngFor="let child of user.children" class="col-md-4">
       <div class="wrapper">
         <div class="card_parent radius shadowDepth1">
           <div class="card_parent__image border-tlr-radius">
@@ -245,7 +245,7 @@
               <div *ngIf="child.achievments && child.achievments.length >0">
               <h5><mat-icon color="warn"  class="material-icons">
                   verified_user
-                  </mat-icon> Achivements: </h5>
+                  </mat-icon> Achievements: </h5>
               <div class="row achivmentsSection">
 
                   <div class="col-sm-3">
@@ -289,6 +289,4 @@
       </div>
     </div>
   </div>
-
-</div>
 </div>

@@ -18,12 +18,14 @@ export class LoginComponent implements OnInit {
   selectedLocationValue: Location;
   locations: Location[] = [];
 
-  selectUserLocation(){
-    console.log(event);
-    console.log(this.selectedLocationValue);
+  // for navbar dropdown option
+  admin = false;
 
+  // selectUserLocation(){
+  //   console.log(event);
+  //   console.log(this.selectedLocationValue);
+  // }
 
-  }
   constructor(private auth: AuthService, private userService: UserService, private router: Router,
     private locationService: LocationService) { }
 
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.loadLocations();
     this.loggedIn();
   }
+
   loadLocations() {
     this.locationService.showAllLocations().subscribe(
       data => {
@@ -70,6 +73,7 @@ export class LoginComponent implements OnInit {
         }
 
         if (auth.indexOf('ADMIN') > -1 ) {
+          this.admin = true;
           this.router.navigateByUrl('admin');
         } else {
           this.router.navigateByUrl(`user/${this.auth.getLoggedInUsername()}`);
@@ -120,6 +124,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+    this.admin = false;
     this.buttonText = 'Login';
     this.registering = false;
     this.newUser = null;

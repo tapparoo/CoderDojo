@@ -95,6 +95,8 @@ export class UserComponent implements OnInit {
       data => {
         let ua: UserAchievement[] = data;
         for (let index = 0; index < ua.length; index++) {
+          console.log(ua[index]);
+
           if (ua[index].achieved === true) {
             this.completedUserAchievements.push(ua[index])
             this.isFlipped[ua[index].id] = true;

@@ -74,7 +74,7 @@ export class UserAchievementService {
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    return this.http.put<UserAchievement>(`${this.url}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
+    return this.http.put<UserAchievement>(`${environment.baseUrl}api/users/${user.user.username}/userachievements/${userAchievement.id}`, userAchievement, httpOptions).pipe(
       catchError((err: any) => {
         console.error('UserAchievement.update(): Error');
         // console.error(err);
