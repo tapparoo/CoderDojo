@@ -152,21 +152,23 @@
       <!-- edit section -->
       <div class="editMeeting" *ngIf="editMeeting && !displayAttendees">
         <form class="form form-card">
-        <label>Date</label>
+        <label>Name</label>
           <input
-            type="text"
+            type="textarea"
             name="name"
             [(ngModel)]="meeting.name"
-            class="view"
+            class="view2"
           />
           <br />
            <label>Date</label>
-          <input
+          <!-- <input
             type="text"
             name="scheduledTime"
             [(ngModel)]="meeting.scheduledTime"
-            class="view"
-          />
+            class="view2"
+          /> -->
+          <div>{{meeting.scheduledTime | date: 'MMM d, y, h:mm a'}}
+            </div>
           <br />
           <!-- location -->
           <br />
@@ -177,7 +179,7 @@
             class="form-check-input"
           /> -->
           <label>Select location</label>
-          <select  class="view ml-5"
+          <select  class="view2 ml-5"
           disableOptionCentering
           (change)="selectUserLocation($event.target.value)"
           [(ngModel)]="meeting.location.id"

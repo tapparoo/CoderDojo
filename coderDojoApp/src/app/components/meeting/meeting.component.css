@@ -242,3 +242,10 @@ button.ml-10.btn.mat-primary.mat-button {
 	padding: 40px;
 	margin: 50px auto;
 }
+input.view2{
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #ededed solid 0.5px;
+  margin-left: 5px;
+  width:100%;
+}
