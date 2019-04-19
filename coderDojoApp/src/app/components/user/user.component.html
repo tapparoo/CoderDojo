@@ -1,7 +1,7 @@
 <div class="container">
 <div *ngIf="user && user.user.student">
 
-  <div *ngIf="user && user.user.student" class="white-background border border-dark rounded-lg">
+  <div *ngIf="user && user.user.student" class="student-styles white-background border border-dark rounded-lg">
 <br>
     <h3>Your Next Achievement:</h3>
     <br>
@@ -100,7 +100,7 @@
     </div>
   </div>
   <br><br>
-  <div class="border border-dark rounded-lg white-background">
+  <div class="student-styles border border-dark rounded-lg white-background">
 
     <br>
     <a [routerLink]="['/schedule']" routerLinkActive="router-link-active">
@@ -129,7 +129,7 @@
   </div>
   <br><br>
 </div>
-
+</div>
 
 <div *ngIf="user && user.user.parent">
   <div class= "form-card_parent">
@@ -289,6 +289,4 @@
       </div>
     </div>
   </div>
-
-</div>
 </div>

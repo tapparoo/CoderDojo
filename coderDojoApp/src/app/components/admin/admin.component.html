@@ -112,13 +112,11 @@
 </div>
 
 
-<div class= "containerUsers">
+<div *ngIf="user" class= "containerUsers">
   <div class="location-div row">
     <div class="col">
         <div *ngIf="user && !editUser">
             <form>
-              <label>ID: {{user.id}}</label>
-              <br>
               <label>First Name
               <input type="text" name="firstName" disabled [ngModel]="user.firstName">
               </label><br>
@@ -180,8 +178,6 @@
 
         <div *ngIf="editUser">
             <form #EditUserForm="ngForm">
-                <label>ID: {{user.id}}</label>
-                <br>
                 <label>First Name
                 <input type="text" name="firstName" [ngModel]="user.firstName">
                 </label><br>
