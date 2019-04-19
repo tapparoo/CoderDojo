@@ -76,11 +76,6 @@ public class UserController {
 			Principal principal) {
 		UserDetail requestedUser = deets.findUserDetailByUsername(username);
 		User requestingUser = serv.findByUsername(principal.getName());
-		System.out.println("******************");
-		System.out.println("******************");
-		System.out.println("******************");
-		System.out.println("******************");
-		System.out.println(requestingUser);
 		// check if parent requesting
 	
 		if (requestedUser != null) {
