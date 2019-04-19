@@ -271,10 +271,11 @@
 
 
     <div *ngIf="displayAttendees">
-      <div class="container">
-        <div class="row"> <input class=" ml-10 btn btn-outline-success"
-          type="submit" value="Back" (click) = "closeDisplayAttend()">
-          </div>
+      <div class="meetingAttendees">
+          <div class="row"> <button class="btn mat-primary mat-button "
+            type="submit" (click) = "closeDisplayAttend()">
+            &#8592; Back</button>
+            </div>
       <table class="table table-striped" >
           <thead>
               <th scope="col">First Name</th>
@@ -284,8 +285,6 @@
               <th scope="col">Attend</th>
       </thead>
         <tr *ngFor="let attend of selected.meetingAttendees " >
-
-
         <td>{{attend.userDetail.firstName}}</td>
         <td>{{attend.userDetail.lastName}}</td>
           <td>{{attend.userDetail.nickname}}  </td>
@@ -294,4 +293,5 @@
       </tr>
         </table>
       </div>
+
     </div>

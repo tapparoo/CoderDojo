@@ -29,10 +29,10 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
  }
  button.mat-raised-button{
   border-radius: 4px;
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
  }
 @include angular-material-theme($my-app-theme);
 .alternate-theme {
