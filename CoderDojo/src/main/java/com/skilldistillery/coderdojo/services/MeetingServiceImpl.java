@@ -90,17 +90,12 @@ public class MeetingServiceImpl implements MeetingService {
         System.out.println(opt);
         if (opt.isPresent()) {
         	Meeting meet = opt.get();
-        	maRepo.deleteByMeetingId(meet.getId());
         	
-//        	for (MeetingAttendee ma : meet.getMeetingAttendees()) {
-//        		ma.setMeeting(null);
-//        	}
-//
-//        	User u = repoUser.findByUsername(username);
-//            if (u!= null) {
-//                repo.deleteById(mid);
-//                return true;
-//            }
+        	for (MeetingAttendee ma : meet.getMeetingAttendees()) {
+        		maRepo.deleteById(ma.getId());
+        	}
+        	 repo.deleteById(mid);
+        	 return true;
         }
         return false;
 	}
