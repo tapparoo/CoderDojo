@@ -320,6 +320,12 @@ h2 {
     /* background-color: #bbb;
     color: black; */
 		z-index: 1;
+  }
+
+  .card-padding {
+    padding-left: 1%;
+    padding-right: 1%;
+    justify-content: space-evenly !important;
 
   }
 
@@ -331,8 +337,10 @@ h2 {
   }
   /* general styling */
   .student-styles > ul {
-    list-style-type: none;
-	}
+    list-style: none;
+  }
+
+
 
 	.flip-card-title{
 		text-align: center;
@@ -343,6 +351,11 @@ h2 {
 	} */
 
 .flip-card-front > p, .flip-card-back > ul {
+  padding: 15px;
+}
+
+.card-body > ul{
+  list-style: none;
   padding: 15px;
 }
 
