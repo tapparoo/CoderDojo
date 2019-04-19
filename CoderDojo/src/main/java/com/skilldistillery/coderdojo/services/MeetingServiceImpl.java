@@ -87,6 +87,7 @@ public class MeetingServiceImpl implements MeetingService {
 	@Override
 	public boolean destroy(String username, int mid) {
         Optional<Meeting> opt = repo.findById(mid);
+        System.out.println(opt);
         if (opt.isPresent()) {
         	Meeting meet = opt.get();
         	maRepo.deleteByMeetingId(meet.getId());

@@ -90,9 +90,7 @@ console.log(httpOptions);
         'X-Requested-With': 'XMLHttpRequest'
       })
     };
-    console.log(meeting);
-    console.log(httpOptions);
-    console.log(this.url);
+
     return this.http.post<any>(this.url, meeting, httpOptions);
   }
 

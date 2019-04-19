@@ -397,3 +397,7 @@ button.mat-primary.mat-raised-button.addchildSave{
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+.card_parent.radius.shadowDepth1 {
+  overflow-x: hidden;
+}
