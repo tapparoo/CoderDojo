@@ -69,15 +69,6 @@
               >
                 Save
               </button>
-              <!-- <button
-              class="mat-secondary ml-2 btn close-btn"
-              type="submit"
-              value="Close Item"
-              (click)="closeCreateForm()"
-            > Cancel
-             <i class="fas fa-2x fa-plus-times"></i>
-            </button> -->
-
             </form>
 
 
@@ -158,113 +149,50 @@
     ></mat-paginator>
     </div>
 
-
-    <!-- create -->
-    <!-- <div *ngIf="isAuthorized && !displayAttendees && createMeeting">
-      <form>
-        <div class="form-group">
-          <input
-            lass="form-control"
-            type="text"
-            name="task"
-            placeholder="name"
-            [(ngModel)]="newMeeting.name"
-          />
-          <input
-            lass="form-control"
-            type="text"
-            name="task"
-            placeholder="date"
-            [(ngModel)]="newMeeting.scheduledTime"
-          />
-          <input
-            type="text"
-            name="locationId"
-            [(ngModel)]="newMeeting.location.id"
-            class="form-check-input"
-          />
-          <br />
-          <input
-            class=" ml-2 btn btn-outline-success"
-            type="submit"
-            value="Add Meeting"
-            (click)="addMeeting()"
-          />
-          <br /> -->
-          <!-- <input
-            class=" ml-2 btn btn-outline-success"
-            type="submit"
-            value="Close"
-            (click)="cancelCreate()"
-          /> -->
-        <!-- </div>
-      </form>
-    </div> -->
-
-    <!-- <div *ngIf="!displayAttendees"> -->
-
-      <!-- <table  class="table table-striped" >
-      <thead>
-          <th scope="col">Name</th>
-          <th scope="col">Location</th>
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th *ngIf="isAuthorized" scope="col">Attendess</th>
-          <th *ngIf="isAuthorized" scope="col">Edit</th>
-          <th *ngIf="isAuthorized" scope="col">Delete</th>
-        </thead>
-    <tr *ngFor="let meeting of meetings " >
-    <td>{{meeting.name}}</td>
-    <td>{{meeting.location.name}}  </td>
-    <td>{{meeting.scheduledTime}}</td>
-    <td>{{meeting.scheduledTime | date:'h:mm a'}}</td>
-    <td *ngIf="isAuthorized"><a (click)="displayAttendeesList(meeting)">List Attendees</a>  </td>
-    <td *ngIf="isAuthorized"><button (click)="setEditMeeting(meeting)">Edit</button>  </td>
-    <td *ngIf="isAuthorized"><button (click)='deleteMeeting(meeting)'>Delete</button>  </td>
-    </tr>
-    </table> -->
-
       <!-- edit section -->
-      <!-- <div *ngIf='editMeeting'>
-    </table>
-    </div>-->
-      <!-- edit section -->
-      <div *ngIf="editMeeting && !displayAttendees">
-        <form class="form">
-          name
+      <div class="editMeeting" *ngIf="editMeeting && !displayAttendees">
+        <form class="form form-card">
+            <label>Name</label>
           <input
             type="text"
             name="name"
             [(ngModel)]="meeting.name"
-            class="form-control"
+            class="view"
           />
           <br />
-          schedule
+           <label>Date</label>
           <input
             type="text"
             name="scheduledTime"
             [(ngModel)]="meeting.scheduledTime"
-            class="form-control"
+            class="view"
           />
           <br />
-          location
+          <!-- location -->
           <br />
-          <input
+          <!-- <input
             type="text"
             name="locationId"
             [(ngModel)]="meeting.location.id"
             class="form-check-input"
-          />
+          /> -->
+          <label>Select location</label>
+          <select  class="view ml-5"
+          disableOptionCentering
+          (change)="selectUserLocation($event.target.value)"
+          [(ngModel)]="meeting.location.id"
+          name="locationId">
+            <option *ngFor="let location of locations"
+            [value]="location.id">
+              {{location.name}}
+            </option>
+          </select>
           <br />
           <br />
           <br />
-          <div class="row">
-            <button (click)="editMeeting = null" class="btn btn-danger">
-              Cancel
-            </button>
-            <button (click)="updateMeeting(meeting)" class="btn btn-success">
-              Save
-            </button>
+          <div class="content-center" >
+              <button class="mat-secondary mat-raised-button  mr-5 " (click)="editMeeting = null">Cancel</button>
+              <button class="mat-primary mat-raised-button ml-5" (click)="updateMeeting(meeting)">Save</button>
           </div>
         </form>
       </div>
