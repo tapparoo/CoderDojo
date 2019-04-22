@@ -119,7 +119,7 @@
               <mat-icon color="primary" class="mat-18 center-block" style="margin-left: 45%">calendar_today</mat-icon>
             </div>
             <br>
-            <strong>{{meeting.name}} at {{meeting.location.name}}.</strong> {{meeting.scheduledTime}}
+            <strong>{{meeting.name}} at {{meeting.location.name}}.</strong><br>{{meeting.scheduledTime | date: 'MMM d, y, h:mm a'}}
           </div>
 
         </div>
@@ -245,7 +245,7 @@
               <div *ngIf="child.achievments && child.achievments.length >0">
               <h5><mat-icon color="warn"  class="material-icons">
                   verified_user
-                  </mat-icon> Achivements: </h5>
+                  </mat-icon> Achievements: </h5>
               <div class="row achivmentsSection">
 
                   <div class="col-sm-3">

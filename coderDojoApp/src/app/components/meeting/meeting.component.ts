@@ -26,8 +26,7 @@ export class MeetingComponent implements OnInit {
   displayAttendees = false;
   searchKey: string;
   isCreateMeeting = false;
-
-  selectedLocationValue: Location;
+  selectedLocationValue=null;
   locations: Location[] = [];
 
   constructor(
@@ -54,6 +53,10 @@ export class MeetingComponent implements OnInit {
       this.reloadAdmin();
       this.isAuthorized = true;
     }
+  }
+
+  selectUserLocation(e) {
+    this.selectedLocationValue = e;
   }
 
   loadMeetingsByLocation(event) {
@@ -211,6 +214,12 @@ export class MeetingComponent implements OnInit {
     );
   }
   updateMeeting(meeting) {
+    let meetingLocation = {
+      id: this.selectedLocationValue
+    };
+    if (meetingLocation.id !== null && this.selectedLocationValue != null) {
+      meeting.location = meetingLocation;
+    }
     this.meetingService.update(meeting).subscribe(
       data => {
         this.reloadAdmin();

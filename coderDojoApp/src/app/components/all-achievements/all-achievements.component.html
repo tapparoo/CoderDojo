@@ -79,7 +79,7 @@
           <form action="">
             <h4>Achievement Name: </h4>
             <input type="text" name="achievementName" [(ngModel)]="selectedAchievement.name">
-            <h4>Achievement Name: </h4>
+            <h4>Achievement Description: </h4>
             <input type="text" name="achievementDescription" [(ngModel)]="selectedAchievement.description">
             <h4>Achievement Image URL: </h4>
             <input type="text" name="achievementImageUrl" [(ngModel)]="selectedAchievement.imageUrl">
@@ -96,10 +96,11 @@
             </form>
             <button (click)="addGoalToAchievement()">Add Goal to this Achievement</button>
           </mat-tab>
+
           <mat-tab label="Delete Achievement">   
            
               <form action="">
-                <h4>Delete this Goal: Are you sure?</h4>
+                <h4>Delete this Achievement: Are you sure?</h4>
                 <button (click)="deleteAchievement(selectedAchievement)"> Yes - Delete this whole Achievement</button>
               </form> 
             </mat-tab>
