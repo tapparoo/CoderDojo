@@ -232,6 +232,12 @@
     </div>
 
     <div class="col">
+      <div *ngIf="!editUser">
+          <button [routerLink]="'/user/' + user.user.username">Visit {{user.firstName}}'s Profile</button>
+      </div>
+    </div>
+
+    <div class="col">
       <div *ngIf="editUser">
         <h3>Update Roles</h3>
           <form [formGroup]="editUserRolesForm">

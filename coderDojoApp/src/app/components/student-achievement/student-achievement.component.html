@@ -91,7 +91,14 @@
 
 <div class="containerUsers" *ngIf="mode === 'studentAchievementDetailView'">
   <div class= "form-card">
-    <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} ) </h4>
+    <div class="row">
+      <div class="col">
+        <h4>{{selectedStudent.lastName}}, {{selectedStudent.firstName}} ( {{selectedStudent.nickname}} ) </h4>
+      </div>
+      <div class="col">
+          <button [routerLink]="'/user/' + selectedStudent.user.username">Visit {{selectedStudent.firstName}}'s Profile</button>
+      </div>
+    </div>
     <h5>Assigned Achievements: </h5>
     <div class="row">
       <div class="col">
